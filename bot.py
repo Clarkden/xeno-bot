@@ -8,6 +8,7 @@ from discord.ext.commands import (CommandNotFound, CommandOnCooldown)
 
 
 on_cooldown = {}
+on_cooldown2 = {}
 move_cooldown = 14400
 client = commands.Bot(command_prefix = '$')
 
@@ -78,10 +79,10 @@ async def expiration(ctx, *, string):
     author = ctx.author.id
     try:
         # calculate the amount of time since the last (successful) use of the command
-        last_move = datetime.now() - on_cooldown[author]
+        last_move = datetime.now() - on_cooldown2[author]
     except KeyError:
         last_move = None
-        on_cooldown[author] = datetime.now()
+        on_cooldown2[author] = datetime.now()
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})   
         keyword = '\"expiresIn\":\"'
