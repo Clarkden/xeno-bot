@@ -81,8 +81,14 @@ async def expiration(ctx, *, string):
         last_move = None
         on_cooldown[author] = datetime.now()
     if last_move is None or last_move.seconds > move_cooldown:
+        r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})   
+        keyword = '\"expiresIn\":\"'
+        before_keyword, keyword, after_keyword = r.text.partition(keyword)
+        expiration = after_keyword.replace('\"', '')
+        real_expiration = expiration.replace('}', '')
         embed = discord.Embed(description = 'EXPIRATION DATE CHECK', color = discord.Color.green())
         embed.set_author(name=f'{ctx.author.name}')
+        embed.add_field(name = 'Expiration Date', value = f'{real_expiration}')
         embed.set_footer(text = '4 hour cool down before using this command again')
         channel = ctx.message.channel
         messages = []
@@ -90,7 +96,6 @@ async def expiration(ctx, *, string):
                 messages.append(message)
         await channel.delete_messages(messages)
         await ctx.send(embed=embed)
-        requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})   
     else:
         channel = ctx.message.channel
         messages = []
@@ -99,7 +104,8 @@ async def expiration(ctx, *, string):
         await channel.delete_messages(messages)
         embed = discord.Embed(description = 'Error', color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}')
-        embed.set_footer(text = 'You are still on cooldown for ' + (move_cooldown - last_move))
+        cooldown_count = move_cooldown - last_move
+        embed.set_footer(text = f'You are still on cooldown for {cooldown_count}')
         await ctx.send(embed=embed)
 
 client.run(os.environ['DISCORD_TOKEN'])
