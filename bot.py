@@ -105,7 +105,8 @@ async def expiration(ctx, *, string):
         embed = discord.Embed(description = 'Error', color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}')
         cooldown_count = move_cooldown - last_move.seconds
-        embed.set_footer(text = f'You are still on cooldown for {cooldown_count}')
+        real_coold_count = convert(cooldown_count)
+        embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
         await ctx.send(embed=embed)
 
 client.run(os.environ['DISCORD_TOKEN'])
