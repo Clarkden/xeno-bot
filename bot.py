@@ -91,10 +91,10 @@ async def expiration(ctx, *, string):
         before_keyword, keyword, after_keyword = r.text.partition(keyword)
         expiration = after_keyword.replace('\"', '')
         real_expiration = expiration.replace('}', '')
-        embed = discord.Embed(description = 'EXPIRATION DATE CHECK', color = discord.Color.green())
+        embed = discord.Embed(description = 'EXPIRATION CHECK', color = discord.Color.green())
         embed.set_author(name=f'{ctx.author.name}')
-        embed.add_field(name = 'Expiration Date', value = f'{real_expiration}')
-        embed.set_footer(text = '4 hour cool down before using this command again')
+        embed.add_field(name = 'Time left on key', value = f'{real_expiration}')
+        embed.set_footer(text = 60 second cooldown before using this command again')
         channel = ctx.message.channel
         messages = []
         async for message in channel.history(limit=1):
