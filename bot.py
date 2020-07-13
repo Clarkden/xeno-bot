@@ -27,10 +27,10 @@ async def on_ready():
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
-async def clear(ctx, *, amount):
+async def clear(ctx, *, string):
     channel = ctx.message.channel
     messages = []
-    async for message in channel.history(limit=amount):
+    async for message in channel.history(limit=(int)string):
               messages.append(message)
 
     await channel.delete_messages(messages)
@@ -41,7 +41,14 @@ async def clear(ctx, *, amount):
 #@cooldown(1, 14400, BucketType.user)
 async def reset(ctx, *, string):
     author = ctx.author.id
-    if ctx.author.has_role('Dev/Owner'):
+    
+    try:
+        # calculate the amount of time since the last (successful) use of the command
+        last_move = datetime.now() - on_cooldown[author]
+    except KeyError:
+        last_move = None
+        on_cooldown[author] = datetime.now()
+    if last_move is None or last_move.seconds > move_cooldown:
         embed = discord.Embed(description = 'HWID RESET', color = discord.Color.blue())
         embed.set_author(name=f'{ctx.author.name}')
         embed.set_footer(text = '4 hour cool down before using this command again')
@@ -51,43 +58,31 @@ async def reset(ctx, *, string):
                 messages.append(message)
         await channel.delete_messages(messages)
         await ctx.send(embed=embed)
-        requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':os.environ['PRIVATE_KEY'], 'license': f'{string}'})  
+        requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':os.environ['PRIVATE_KEY'], 'license': f'{string}'})   
     else:
-        try:
-            # calculate the amount of time since the last (successful) use of the command
-            last_move = datetime.now() - on_cooldown[author]
-        except KeyError:
-            last_move = None
-            on_cooldown[author] = datetime.now()
-        if last_move is None or last_move.seconds > move_cooldown:
-            embed = discord.Embed(description = 'HWID RESET', color = discord.Color.blue())
-            embed.set_author(name=f'{ctx.author.name}')
-            embed.set_footer(text = '4 hour cool down before using this command again')
-            channel = ctx.message.channel
-            messages = []
-            async for message in channel.history(limit=1):
-                    messages.append(message)
-            await channel.delete_messages(messages)
-            await ctx.send(embed=embed)
-            requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':os.environ['PRIVATE_KEY'], 'license': f'{string}'})   
-        else:
-            channel = ctx.message.channel
-            messages = []
-            async for message in channel.history(limit=1):
-                    messages.append(message)
-            await channel.delete_messages(messages)
-            embed = discord.Embed(description = 'Error', color = discord.Color.red())
-            embed.set_author(name=f'{ctx.author.name}')
-            cooldown_count = move_cooldown - last_move.seconds
-            real_coold_count = convert(cooldown_count)
-            embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
-            await ctx.send(embed=embed)
-    
+        channel = ctx.message.channel
+        messages = []
+        async for message in channel.history(limit=1):
+                messages.append(message)
+        await channel.delete_messages(messages)
+        embed = discord.Embed(description = 'Error', color = discord.Color.red())
+        embed.set_author(name=f'{ctx.author.name}')
+        cooldown_count = move_cooldown - last_move.seconds
+        real_coold_count = convert(cooldown_count)
+        embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
+        await ctx.send(embed=embed)
+ 
 @client.command()
 @commands.has_role('User')
 async def expiration(ctx, *, string):
     author = ctx.author.id
-    if ctx.author.has_role('Dev/Owner'):
+    try:
+        # calculate the amount of time since the last (successful) use of the command
+        last_move = datetime.now() - on_cooldown[author]
+    except KeyError:
+        last_move = None
+        on_cooldown[author] = datetime.now()
+    if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})   
         keyword = '\"expiresIn\":\"'
         before_keyword, keyword, after_keyword = r.text.partition(keyword)
@@ -104,39 +99,16 @@ async def expiration(ctx, *, string):
         await channel.delete_messages(messages)
         await ctx.send(embed=embed)
     else:
-        try:
-            # calculate the amount of time since the last (successful) use of the command
-            last_move = datetime.now() - on_cooldown[author]
-        except KeyError:
-            last_move = None
-            on_cooldown[author] = datetime.now()
-        if last_move is None or last_move.seconds > move_cooldown:
-            r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})   
-            keyword = '\"expiresIn\":\"'
-            before_keyword, keyword, after_keyword = r.text.partition(keyword)
-            expiration = after_keyword.replace('\"', '')
-            real_expiration = expiration.replace('}', '')
-            embed = discord.Embed(description = 'EXPIRATION DATE CHECK', color = discord.Color.green())
-            embed.set_author(name=f'{ctx.author.name}')
-            embed.add_field(name = 'Expiration Date', value = f'{real_expiration}')
-            embed.set_footer(text = '4 hour cool down before using this command again')
-            channel = ctx.message.channel
-            messages = []
-            async for message in channel.history(limit=1):
-                    messages.append(message)
-            await channel.delete_messages(messages)
-            await ctx.send(embed=embed)
-        else:
-            channel = ctx.message.channel
-            messages = []
-            async for message in channel.history(limit=1):
-                    messages.append(message)
-            await channel.delete_messages(messages)
-            embed = discord.Embed(description = 'Error', color = discord.Color.red())
-            embed.set_author(name=f'{ctx.author.name}')
-            cooldown_count = move_cooldown - last_move.seconds
-            real_coold_count = convert(cooldown_count)
-            embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
-            await ctx.send(embed=embed)
+        channel = ctx.message.channel
+        messages = []
+        async for message in channel.history(limit=1):
+                messages.append(message)
+        await channel.delete_messages(messages)
+        embed = discord.Embed(description = 'Error', color = discord.Color.red())
+        embed.set_author(name=f'{ctx.author.name}')
+        cooldown_count = move_cooldown - last_move.seconds
+        real_coold_count = convert(cooldown_count)
+        embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
+        await ctx.send(embed=embed)
 
 client.run(os.environ['DISCORD_TOKEN'])
