@@ -58,7 +58,7 @@ async def reset(ctx, *, string):
                 messages.append(message)
         await channel.delete_messages(messages)
         await ctx.send(embed=embed)
-        requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':'knPkhH2CuVU7qWMtibkvp3jwHtLn1c7MMxUkkyunLC7NWnlmQ0qRePqwH251FHl3', 'license': f'{string}'})   
+        requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':os.environ['PRIVATE_KEY'], 'license': f'{string}'})   
     else:
         channel = ctx.message.channel
         messages = []
@@ -67,9 +67,39 @@ async def reset(ctx, *, string):
         await channel.delete_messages(messages)
         embed = discord.Embed(description = 'Error', color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}')
-        embed.set_footer(text = 'You are still on cooldown')
+        embed.set_footer(text = 'You are still on cooldown for ' + (move_cooldown - last_move))
         await ctx.send(embed=embed)
  
-
+@client.command()
+@commands.has_role('User')
+async def expiration(ctx, *, string):
+    author = ctx.author.id
+    try:
+        # calculate the amount of time since the last (successful) use of the command
+        last_move = datetime.now() - on_cooldown[author]
+    except KeyError:
+        last_move = None
+        on_cooldown[author] = datetime.now()
+    if last_move is None or last_move.seconds > move_cooldown:
+        embed = discord.Embed(description = 'EXPIRATION DATE CHECK', color = discord.Color.green())
+        embed.set_author(name=f'{ctx.author.name}')
+        embed.set_footer(text = '4 hour cool down before using this command again')
+        channel = ctx.message.channel
+        messages = []
+        async for message in channel.history(limit=1):
+                messages.append(message)
+        await channel.delete_messages(messages)
+        await ctx.send(embed=embed)
+        requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})   
+    else:
+        channel = ctx.message.channel
+        messages = []
+        async for message in channel.history(limit=1):
+                messages.append(message)
+        await channel.delete_messages(messages)
+        embed = discord.Embed(description = 'Error', color = discord.Color.red())
+        embed.set_author(name=f'{ctx.author.name}')
+        embed.set_footer(text = 'You are still on cooldown for ' + (move_cooldown - last_move))
+        await ctx.send(embed=embed)
 
 client.run(os.environ['DISCORD_TOKEN'])
