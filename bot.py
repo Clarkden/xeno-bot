@@ -30,7 +30,7 @@ async def on_ready():
 async def clear(ctx, *, string):
     channel = ctx.message.channel
     messages = []
-    async for message in channel.history(limit=(int)string):
+    async for message in channel.history(limit=string):
               messages.append(message)
 
     await channel.delete_messages(messages)
