@@ -28,10 +28,11 @@ async def on_ready():
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
-async def clear(ctx, *, string):
+async def clear(ctx, number):
+    number = int(number)
     channel = ctx.message.channel
     messages = []
-    async for message in channel.history(limit=string):
+    async for message in channel.history(limit=number):
               messages.append(message)
 
     await channel.delete_messages(messages)
