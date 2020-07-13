@@ -94,7 +94,7 @@ async def expiration(ctx, *, string):
         embed = discord.Embed(description = 'EXPIRATION CHECK', color = discord.Color.green())
         embed.set_author(name=f'{ctx.author.name}')
         embed.add_field(name = 'Key Expires in', value = f'{real_expiration}')
-        embed.set_footer(text = 60 second cooldown before using this command again')
+        embed.set_footer(text = '60 second cooldown before using this command again')
         channel = ctx.message.channel
         messages = []
         async for message in channel.history(limit=1):
