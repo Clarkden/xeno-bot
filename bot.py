@@ -27,7 +27,7 @@ async def on_ready():
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
-async def clear(ctx, amount=100):
+async def clear(ctx, *, amount):
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=amount):
