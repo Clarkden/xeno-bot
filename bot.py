@@ -104,7 +104,7 @@ async def expiration(ctx, *, string):
         await channel.delete_messages(messages)
         embed = discord.Embed(description = 'Error', color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}')
-        cooldown_count = move_cooldown - last_move
+        cooldown_count = move_cooldown - last_move.seconds
         embed.set_footer(text = f'You are still on cooldown for {cooldown_count}')
         await ctx.send(embed=embed)
 
