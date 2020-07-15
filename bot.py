@@ -53,9 +53,10 @@ async def reset(ctx, *, string):
         on_cooldown[author] = datetime.now()
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
-        if 'success' in r.text:
-            embed = discord.Embed(description = 'HWID RESET', color = discord.Color.blue())
+        if 'true' in r.text:
+            embed = discord.Embed(description = 'HWID RESET', color = discord.Color.green())
             embed.set_author(name=f'{ctx.author.name}')
+            embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
             channel = ctx.message.channel
             messages = []
@@ -101,9 +102,10 @@ async def premium_reset(ctx, *, string):
         on_cooldown[author] = datetime.now()
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
-        if 'success' in r.text:
-            embed = discord.Embed(description = 'PREMIUM HWID RESET', color = discord.Color.blue())
+        if 'true' in r.text:
+            embed = discord.Embed(description = 'PREMIUM HWID RESET', color = discord.Color.green())
             embed.set_author(name=f'{ctx.author.name}')
+            embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
             channel = ctx.message.channel
             messages = []
