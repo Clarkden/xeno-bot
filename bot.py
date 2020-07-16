@@ -73,7 +73,7 @@ async def reset(ctx, *, string):
             await channel.delete_messages(messages)
             embed = discord.Embed(description = 'Error', color = discord.Color.red())
             embed.set_author(name=f'{ctx.author.name}')
-            embed.set_footer(text = 'HWID does not exist or is expired')
+            embed.set_footer(text = 'Key does not exist or is expired')
             await ctx.send(embed=embed)
     else:
         channel = ctx.message.channel
@@ -122,7 +122,7 @@ async def premium_reset(ctx, *, string):
             await channel.delete_messages(messages)
             embed = discord.Embed(description = 'Error', color = discord.Color.red())
             embed.set_author(name=f'{ctx.author.name}')
-            embed.set_footer(text = 'HWID does not exist or is expired')
+            embed.set_footer(text = 'Key does not exist or is expired')
             await ctx.send(embed=embed)
     else:
         channel = ctx.message.channel
