@@ -177,7 +177,7 @@ async def expiration(ctx, *, string):
         await ctx.send(embed=embed)
 
 @client.command()
-@commands.has_role('Owner/Dev')
+@commands.has_role('Dev/Owner')
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = ctx.author.id
     channel = ctx.message.channel
@@ -189,7 +189,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     await ctx.send(f'{author} has been kicked for {reason} ')
 
 @client.command()
-@commands.has_role('Owner/Dev')
+@commands.has_role('Dev/Owner')
 async def ban(ctx, member : discord.Member, *, reason=None):
     author = ctx.author.id
     channel = ctx.message.channel
