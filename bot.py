@@ -176,5 +176,28 @@ async def expiration(ctx, *, string):
         embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
         await ctx.send(embed=embed)
 
+@client.command()
+@commands.has_role('Owner/Dev')
+async def kick(ctx, member : discord.Member, *, reason=None):
+    author = ctx.author.id
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+            messages.append(message)
+    await channel.delete_messages(messages)
+    await member.kick(reason=reason)
+    await ctx.send(f'{author} has been kicked for {reason} ')
+
+@client.command()
+@commands.has_role('Owner/Dev')
+async def ban(ctx, member : discord.Member, *, reason=None):
+    author = ctx.author.id
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+            messages.append(message)
+    await channel.delete_messages(messages)
+    await member.ban(reason=reason)
+    await ctx.send(f'{author} has been kicked for {reason} ')
 
 client.run(os.environ['DISCORD_TOKEN'])
