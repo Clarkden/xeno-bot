@@ -185,8 +185,8 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     async for message in channel.history(limit=1):
             messages.append(message)
     await channel.delete_messages(messages)
-    await member.kick(reason=reason)
     await ctx.send(f'{author} has been kicked for {reason} ')
+    await member.kick(reason=reason)
 
 @client.command()
 @commands.has_role('Dev/Owner')
@@ -197,7 +197,8 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     async for message in channel.history(limit=1):
             messages.append(message)
     await channel.delete_messages(messages)
+    await ctx.send(f'{author} has been banned for {reason} ')
     await member.ban(reason=reason)
-    await ctx.send(f'{author} has been kicked for {reason} ')
+
 
 client.run(os.environ['DISCORD_TOKEN'])
