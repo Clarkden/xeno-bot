@@ -207,8 +207,7 @@ class Suggestions(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    @commands.guild_only()
+    @client.command()
     @commands.cooldown(5, 30, type=BucketType.user)
     async def suggest(self, ctx, *, sug):
         """
