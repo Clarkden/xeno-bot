@@ -200,40 +200,29 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     await ctx.send(f'{member} has been banned for {reason} ')
     await member.ban(reason=reason)
 
-class Suggestions(commands.Cog):
 
-    """{_*Commands for Suggestions*_}"""
+@client.command()
+@commands.cooldown(5, 30, type=BucketType.user)
+async def suggest(self, ctx, *, sug):
+    await ctx.message.delete()
+    try:
+        embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
+        embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
+        embed.timestamp = datetime.datetime.utcnow()
+        channel = ctx.guild.get_channel(717535356903227413)
+        poo = await channel.send(embed=embed)
+        await poo.add_reaction("☑️")
+        await poo.add_reaction("🚫")
+    except Exception as error:
+        raise(error)
 
-    def __init__(self, bot):
-        self.bot = bot
-
-    @client.command()
-    @commands.cooldown(5, 30, type=BucketType.user)
-    async def suggest(self, ctx, *, sug):
-        """
-        `Leave a suggestion!`
-        """
+@suggest.error
+async def suggest_error(self, ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
         await ctx.message.delete()
-        try:
-            embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
-            embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
-            embed.timestamp = datetime.datetime.utcnow()
-            channel = ctx.guild.get_channel(717535356903227413)
-            poo = await channel.send(embed=embed)
-            await poo.add_reaction("☑️")
-            await poo.add_reaction("🚫")
-        except Exception as error:
-            raise(error)
+        embed = discord.Embed(description='⚠️ You\'re supposed to include the suggestion dummy ⚠️\n```!suggest <suggestion>```', color=discord.Color.dark_red())
+        embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
+        await ctx.channel.send(embed=embed, delete_after=5)
 
-    @suggest.error
-    async def suggest_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.message.delete()
-            embed = discord.Embed(description='⚠️ You\'re supposed to include the suggestion dummy ⚠️\n```!suggest <suggestion>```', color=discord.Color.dark_red())
-            embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
-            await ctx.channel.send(embed=embed, delete_after=5)
 
-def setup(bot):
-    bot.add_cog(Suggestions(bot))
-            
 client.run(os.environ['DISCORD_TOKEN'])
