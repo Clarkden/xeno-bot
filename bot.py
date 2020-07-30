@@ -234,5 +234,7 @@ class Suggestions(commands.Cog):
             embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
             await ctx.channel.send(embed=embed, delete_after=5)
 
-
+def setup(bot):
+    bot.add_cog(Suggestions(bot))
+            
 client.run(os.environ['DISCORD_TOKEN'])
