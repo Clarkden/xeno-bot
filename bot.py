@@ -200,7 +200,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     await ctx.send(f'{member} has been banned for {reason} ')
     await member.ban(reason=reason)
 
-@commands.command()
+@client.command()
 @commands.has_role('User')
 @commands.cooldown(5, 30, type=BucketType.user)
 async def suggest(self, ctx, *, sug):
