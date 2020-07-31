@@ -259,7 +259,7 @@ async def announcement(ctx, *, string):
 
 @client.command()
 async def application(ctx, member: discord.Member = None):
-    application_author = ctx.author
+    application_author = ctx.message.author
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=1):
@@ -335,13 +335,13 @@ async def application(ctx, member: discord.Member = None):
                 async with member.typing():
                     await asyncio.sleep(3)
                 await member.send('Your application was accepted!')
-                role = get(channel.server.roles, name="Intern")
-                await member.add_roles(application_author, role)
-                print(yes)
+                role = discord.utils.get(ctx.guild.roles, name = "Intern") 
+                await ctx.add_roles(role)
+                print('yes')
             else:
                 if str(reaction.emoji) == '❌':
                     await member.send('Your application wasn\'t accepted')
-                    print(no)
+                    print('no')
         else:
             if str(reaction.emoji) == '❌':
                 await member.send('Application won\'t be submitted')
