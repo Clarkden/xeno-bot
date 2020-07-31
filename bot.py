@@ -321,7 +321,7 @@ async def application(ctx, member: discord.Member = None):
             await member.send('Thank you for applying! Your application will be reviewed!')
             await asyncio.sleep(3)
             poopoo = discord.Embed(
-                title='Application Answers', description=f"**1) What\'s your Discord Username?**\n{first}\n**2) Have you use any other scripts previously? If so, describe your experience and name the script.**\n{second}\n**3) Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)**\n{third}\n**4)Why do you want to join Xeno?**\n{fourth}\n**5) If you do join, do you intend on purchasing the script?**\n{fifth}\n**6) Anything else you want to say?**\n{sixth}",color=discord.Color.gold())
+                title='Application Answers', description=f"**1) What\'s your Discord Username?**\n{first}\n**2) Have you used any other scripts previously? If so, describe your experience and name the script.**\n{second}\n**3) Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)**\n{third}\n**4)Why do you want to join Xeno?**\n{fourth}\n**5) If you do join, do you intend on purchasing the script?**\n{fifth}\n**6) Anything else you want to say?**\n{sixth}",color=discord.Color.gold())
             poopoo.set_author(
                 name=f"Application taken by: {member}", icon_url=f"{member.avatar_url}")
             poopoo.set_footer(text=f"{member}")
