@@ -275,7 +275,7 @@ async def accept_application(ctx, member : discord.Member):
 
 @client.command()
 @commands.has_role('Dev/Owner')
-async def decline_application(ctx, member : discord.Member, reason=Declined):
+async def decline_application(ctx, member : discord.Member, reason="Denied"):
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=1):
