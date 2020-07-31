@@ -185,7 +185,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     async for message in channel.history(limit=1):
             messages.append(message)
     await channel.delete_messages(messages)
-    embed = discord.Embed(description=f":white_check_mark | {member} has been kicked for {reason}", color=discord.Color.blue())
+    embed = discord.Embed(description=f":white_check_mark: | {member} has been kicked for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.kick(reason=reason)
 
@@ -198,7 +198,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     async for message in channel.history(limit=1):
             messages.append(message)
     await channel.delete_messages(messages)
-    embed = discord.Embed(description=f":white_check_mark | {member} has been banned for {reason}", color=discord.Color.blue())
+    embed = discord.Embed(description=f":white_check_mark: | {member} has been banned for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.ban(reason=reason)
 
