@@ -43,11 +43,12 @@ async def on_reaction_add(reaction, user):
 async def clear(ctx, number):
     number = int(number)
     number = number + 1
+    realnumber = number
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=number):
               messages.append(message)
-    embed = discord.Embed(description=f":white_check_mark: | {number} messages were deleted", color=discord.Color.green())
+    embed = discord.Embed(description=f":white_check_mark: | {realnumber} messages were deleted", color=discord.Color.green())
     await channel.delete_messages(messages)
     await ctx.send(embed=embed)
 
