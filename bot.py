@@ -28,23 +28,13 @@ async def on_ready():
     print('Bot is ready.')
     
 @client.event
-async def on_raw_reaction_add(payload):
-    message_id = payload.message_id
-    if message_id == 738614423660396575:
-        guild_id = payload.guild_id 
-        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
-        if payload.emoji.name == 'white_check_mark': 
-            role = discord.utils.get(guild.roles, name='Intern')
-        else:
-            role = discord.utils.get(guild.roles, name='none')
-        if role is not None:
-            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
-            if member is not None:
-                await member.add_roles(role)
-            else:
-                print("Member not found")
-        else:
-            print("Role not found")
+async def on_reaction_add(ctx, reaction, user):
+    author = ctx.message.author
+    if reaction.user == client.user:
+        return
+    if reaction.message == None and reaction.emoji == "white_check_mark":
+        verified = discord.utils.get(user.server.roles, name="Intern")
+        await author.add_roles(user, verified)
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
