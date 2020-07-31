@@ -218,6 +218,7 @@ async def suggest(ctx, *, sug):
     await poo.add_reaction("☑️")
     await poo.add_reaction("🚫")
 
+@client.command()
 @commands.has_role('Dev/Owner')
 async def embed(ctx, string):
     channel = ctx.message.channel
