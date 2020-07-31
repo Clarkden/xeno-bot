@@ -35,9 +35,9 @@ async def clear(ctx, number):
     messages = []
     async for message in channel.history(limit=number):
               messages.append(message)
-
+    embed = discord.Embed(description=f":white_check_mark: | {number} messages were deleted", color=discord.Color.green())
     await channel.delete_messages(messages)
-    await ctx.send('Messages deleted.')
+    await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_role('User')
