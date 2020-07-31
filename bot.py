@@ -305,7 +305,7 @@ async def application(ctx, member: discord.Member = None):
         return user.id == member.id and str(reaction.emoji) in ['✅', '❌']
     try:
         doodoo = discord.Embed(title="Application will start soon...",
-                                description="Remember to be honest and provide good answers!\nThe Questions will be sent shortly...", color=discord.Color.dark_orange())
+                                description="You will be granted or denied access based on your answers", color=discord.Color.gold())
         await member.send(embed=doodoo)
         async with member.typing():
             await asyncio.sleep(5)
@@ -349,7 +349,8 @@ async def application(ctx, member: discord.Member = None):
         if str(reaction.emoji) == '✅':
             async with member.typing():
                 await asyncio.sleep(3)
-            await member.send('Thank you for applying! Your application will be reviewed!')
+            embed = discord.Embed(description=f"{member} | Thank you for applying! Your application will be reviewed!", color=discord.Color.green())
+            await member.send(embed=embed)
             await asyncio.sleep(3)
             poopoo = discord.Embed(
                 title='Application Answers', description=f"**1) What\'s your Discord Username?**\n{first}\n**2) Have you used any other scripts previously? If so, describe your experience and name the script.**\n{second}\n**3) Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)**\n{third}\n**4)Why do you want to join Xeno?**\n{fourth}\n**5) If you do join, do you intend on purchasing the script?**\n{fifth}\n**6) Anything else you want to say?**\n{sixth}",color=discord.Color.gold())
@@ -360,6 +361,7 @@ async def application(ctx, member: discord.Member = None):
             await channel.send(embed=poopoo)
         else:
             if str(reaction.emoji) == '❌':
-                await member.send('Application won\'t be submitted')
+                embed = discord.Embed(description=f"{member} | Your application won't be submitted", color=discord.Color.red())
+                await member.send(embed=embed)
 
 client.run(os.environ['DISCORD_TOKEN'])
