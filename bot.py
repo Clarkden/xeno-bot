@@ -258,7 +258,7 @@ async def announcement(ctx, *, string):
     await ctx.send(embed=embed)
 
 @client.command()
-async def applymod(self, ctx, member: discord.Member = None):
+async def applymod(ctx, member: discord.Member = None):
 
     #if not member else member
     member = ctx.author if not member else member
@@ -274,42 +274,42 @@ async def applymod(self, ctx, member: discord.Member = None):
         async with member.typing():
             await asyncio.sleep(5)
         await member.send("What's your Minecraft IGN + Discord Username?")
-        msg = await self.bot.wait_for('message', check=checkmsg, timeout=250.0)
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         first = msg.content
         async with member.typing():
             await asyncio.sleep(2)
         await member.send("How old are you? (If you feel uncomfortable saying this, just confirm if you're at least a teenager)")
-        msg = await self.bot.wait_for('message', check=checkmsg, timeout=250.0)
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         second = msg.content
         async with member.typing():
             await asyncio.sleep(2)
         await member.send("What Time Zone do you live in? (So I know when you're online, and gives me a reason if you're not too active)")
-        msg = await self.bot.wait_for('message', check=checkmsg, timeout=250.0)
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         third = msg.content
         async with member.typing():
             await asyncio.sleep(2)
         await member.send("Why do you want to be Moderator? Isn't it fun to play without any responsibilites?")
-        msg = await self.bot.wait_for('message', check=checkmsg, timeout=250.0)
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         fourth = msg.content
         async with member.typing():
             await asyncio.sleep(2)
         await member.send("What will you do for the Discord Server?")
-        msg = await self.bot.wait_for('message', check=checkmsg, timeout=250.0)
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         fifth = msg.content
         async with member.typing():
             await asyncio.sleep(2)
         await member.send("Anything else you want to say?")
-        msg = await self.bot.wait_for('message', check=checkmsg, timeout=250.0)
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         sixth = msg.content
 
     except asyncio.TimeoutError:
         await member.send("You took too long to write in a response :(")
     else:
-        channel = self.bot.get_channel(694061907291930664)
+        channel = client.get_channel(694061907291930664)
         poo = await member.send("Are you sure you want to submit this application?")
         await poo.add_reaction('✅')
         await poo.add_reaction('❌')
-        reaction, user = await self.bot.wait_for("reaction_add", timeout=60.0, check=checkreact)
+        reaction, user = await client.wait_for("reaction_add", timeout=60.0, check=checkreact)
         if str(reaction.emoji) == '✅':
             async with member.typing():
                 await asyncio.sleep(3)
