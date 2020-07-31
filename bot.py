@@ -330,6 +330,7 @@ async def application(ctx, member: discord.Member = None):
             accept = await channel.send("Do you want to accept or decline this application?")
             await accept.add_reaction('✅')
             await accept.add_reaction('❌')
+            await asyncio.sleep(3)
             reaction1, user1 = await client.wait_for("reaction_add", timeout=86400.0, check=checkreact)
             if str(reaction1.emoji) == '✅':
                 async with member.typing():
