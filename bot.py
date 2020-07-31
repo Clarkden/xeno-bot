@@ -337,9 +337,11 @@ async def application(ctx, member: discord.Member = None):
                 await member.send('Your application was accepted!')
                 role = get(channel.server.roles, name="Intern")
                 await member.add_roles(application_author, role)
+                print(yes)
             else:
                 if str(reaction.emoji) == '❌':
                     await member.send('Your application wasn\'t accepted')
+                    print(no)
         else:
             if str(reaction.emoji) == '❌':
                 await member.send('Application won\'t be submitted')
