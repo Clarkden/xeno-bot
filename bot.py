@@ -259,7 +259,7 @@ async def announcement(ctx, *, string):
 
 @client.command()
 async def application(ctx, member: discord.Member = None):
-    
+    application_author = ctx.author
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=1):
@@ -327,7 +327,7 @@ async def application(ctx, member: discord.Member = None):
             poopoo.set_footer(text=f"{member}")
             #poopoo.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=poopoo)
-            accept = await member.send("Do you want to accept or decline this application?")
+            accept = await channel.send("Do you want to accept or decline this application?")
             await accept.add_reaction('✅')
             await accept.add_reaction('❌')
             reaction1, user1 = await client.wait_for("reaction_add", timeout=86400.0, check=checkreact)
@@ -335,8 +335,8 @@ async def application(ctx, member: discord.Member = None):
                 async with member.typing():
                     await asyncio.sleep(3)
                 await member.send('Your application was accepted!')
-                role = get(member.server.roles, name="Intern")
-                await member.add_roles(member, role)
+                role = get(channel.server.roles, name="Intern")
+                await member.add_roles(application_author, role)
             else:
                 if str(reaction.emoji) == '❌':
                     await member.send('Your application wasn\'t accepted')
