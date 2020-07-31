@@ -269,31 +269,31 @@ async def applymod(ctx, member: discord.Member = None):
         return user.id == member.id and str(reaction.emoji) in ['✅', '❌']
     try:
         doodoo = discord.Embed(title="Application will start soon...",
-                                description="Remember to be 100% Honest and provide good answers!\nThe Questions will be sent shortly...", color=discord.Color.dark_orange())
+                                description="Remember to be honest and provide good answers!\nThe Questions will be sent shortly...", color=discord.Color.dark_orange())
         await member.send(embed=doodoo)
         async with member.typing():
             await asyncio.sleep(5)
-        await member.send("What's your Minecraft IGN + Discord Username?")
+        await member.send("What's your Discord Username?")
         msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         first = msg.content
         async with member.typing():
             await asyncio.sleep(2)
-        await member.send("How old are you? (If you feel uncomfortable saying this, just confirm if you're at least a teenager)")
-        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        await member.send("Have you use any other scripts previously? If so, describe your experience and name the script.")
+        msg = await client.wait_for('message', check=checkmsg, timeout=700.0)
         second = msg.content
         async with member.typing():
             await asyncio.sleep(2)
-        await member.send("What Time Zone do you live in? (So I know when you're online, and gives me a reason if you're not too active)")
+        await member.send("Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)")
         msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         third = msg.content
         async with member.typing():
             await asyncio.sleep(2)
-        await member.send("Why do you want to be Moderator? Isn't it fun to play without any responsibilites?")
+        await member.send("Why do you want to join Xeno?")
         msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         fourth = msg.content
         async with member.typing():
             await asyncio.sleep(2)
-        await member.send("What will you do for the Discord Server?")
+        await member.send("If you do join, do you intend on purchasing the script?")
         msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         fifth = msg.content
         async with member.typing():
@@ -313,17 +313,17 @@ async def applymod(ctx, member: discord.Member = None):
         if str(reaction.emoji) == '✅':
             async with member.typing():
                 await asyncio.sleep(3)
-            await member.send('Thank you for applying! Your application will be sent to the Owner soon')
+            await member.send('Thank you for applying! Your application will be reviewed!')
             await asyncio.sleep(3)
             poopoo = discord.Embed(
-                title='Application Answers', description=f"1) What\'s your Minecraft IGN + Discord Username?\n{first}, \n2) How old are you? (If you're not comfortable saying this at least confirm if you're a teenager)\n{second}, \n3) What Time Zone do you live in? (So I know when you're online, and gives me a reason if you're not too active)\n{third}, \n4)Why do you want to be Moderator? Isn\'t it fun to play without any responsibilites?\n{fourth}, \n5) What will you do for the Discord Server?\n{fifth}, \n6) Anything else you want to say?\n{sixth}", color=discord.Color.dark_orange())
+                title='Application Answers', description=f"1) What\'s your Discord Username?\n{first}, \n2) Have you use any other scripts previously? If so, describe your experience and name the script.\n{second}, \n3) Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)\n{third}, \n4)Why do you want to join Xeno?\n{fourth}, \n5) If you do join, do you intend on purchasing the script?\n{fifth}, \n6) Anything else you want to say?\n{sixth}", color=discord.Color.dark_orange())
             poopoo.set_author(
                 name=f"Application taken by: {member}", icon_url=f"{member.avatar_url}")
             poopoo.set_footer(text=f"{member}")
-            poopoo.timestamp = datetime.datetime.utcnow()
+            #poopoo.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=poopoo)
         else:
             if str(reaction.emoji) == '❌':
-                await member.send('Application won\'t be sent')
+                await member.send('Application won\'t be submitted')
 
 client.run(os.environ['DISCORD_TOKEN'])
