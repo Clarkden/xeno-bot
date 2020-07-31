@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 from discord.ext.commands import (CommandNotFound, CommandOnCooldown)
-
+from discord.utils import get
 
 on_cooldown = {}
 on_cooldown2 = {}
@@ -28,13 +28,13 @@ async def on_ready():
     print('Bot is ready.')
     
 @client.event
-async def on_reaction_add(ctx, reaction, user):
-    author = ctx.message.author
-    if reaction.user == client.user:
+async def on_reaction_add(reaction, user):
+    Channel = client.get_channel(694013033521086554)
+    if reaction.message.channel.id != Channel:
         return
-    if reaction.message == None and reaction.emoji == "white_check_mark":
-        verified = discord.utils.get(user.server.roles, name="Intern")
-        await author.add_roles(user, verified)
+    if reaction.emoji == ":white_check_mark:":
+      Role = discord.utils.get(user.server.roles, name="Intern")
+      await discord.Member.add_roles(user, Role)
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
