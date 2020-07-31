@@ -258,6 +258,20 @@ async def announcement(ctx, *, string):
     await ctx.send(embed=embed)
 
 @client.command()
+@commands.has_role('User/Dev')
+async def accept_application(ctx, member : discord.Member):
+    await member.send('Your application has been accepted :)')
+    role = discord.utils.get(ctx.guild.roles, name = "Intern") 
+    await member.add_roles(role)
+
+@commands.has_role('User/Dev')
+async def decline_application(ctx, member : discord.Member):
+    channel = client.get_channel(694061907291930664)
+    await member.send('Your application has been decline :(')
+    await channel.send(f'$kick {member} application denied :(')
+
+    
+@client.command()
 async def application(ctx, member: discord.Member = None):
     application_author = ctx.message.author
     channel = ctx.message.channel
@@ -327,21 +341,6 @@ async def application(ctx, member: discord.Member = None):
             poopoo.set_footer(text=f"{member}")
             #poopoo.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=poopoo)
-            accept = await channel.send("Do you want to accept or decline this application?")
-            await accept.add_reaction('✅')
-            await accept.add_reaction('❌')
-            reaction1, user1 = await client.wait_for("reaction_add", timeout=43000.0, check1=checkreact)
-            if str(reaction1.emoji) == '✅':
-                async with member.typing():
-                    await asyncio.sleep(3)
-                await member.send('Your application was accepted!')
-                role = discord.utils.get(ctx.guild.roles, name = "Intern") 
-                await application_author.add_roles(role)
-            else:
-                if str(reaction.emoji) == '❌':
-                    await member.send('Your application wasn\'t accepted')
-                    reason = 'Application denied'
-                    await member.kick(reason=reason)
         else:
             if str(reaction.emoji) == '❌':
                 await member.send('Application won\'t be submitted')
