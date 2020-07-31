@@ -327,8 +327,8 @@ async def application(ctx, member: discord.Member = None):
             poopoo.set_footer(text=f"{member}")
             #poopoo.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=poopoo)
-            await poopoo.add_reaction('✅')
-            await poopoo.add_reaction('❌')
+            await client.add_reaction(poopoo,'✅')
+            await client.add_reaction(poopoo,'❌')
             reaction1, user1 = await client.wait_for("reaction_add", timeout=86400.0, check=checkreact)
             if str(reaction1.emoji) == '✅':
                 async with member.typing():
