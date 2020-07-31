@@ -42,8 +42,8 @@ async def on_reaction_add(reaction, user):
 @commands.has_role('Dev/Owner')
 async def clear(ctx, number):
     number = int(number)
-    number = number + 1
     realnumber = number
+    number = number + 1
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=number):
