@@ -32,9 +32,11 @@ async def on_reaction_add(reaction, user):
     Channel = client.get_channel(694013033521086554)
     if reaction.message.channel.id != Channel:
         return
-    if reaction.emoji == ":white_check_mark:":
+    if reaction.emoji == "white_check_mark":
       Role = discord.utils.get(user.server.roles, name="Intern")
       await discord.Member.add_roles(user, Role)
+    else:
+      print("Wrong Reaction")
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
