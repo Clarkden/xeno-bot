@@ -236,7 +236,7 @@ async def announcment(ctx, string):
     messages = []
     async for message in channel.history(limit=1):
               messages.append(message)
-    embed = discord.Embed(description=f"***Announcment from {ctx.author.mention}***: \n{string}\n ||@everyone||", color=discord.Color.red())
+    embed = discord.Embed(description=f"**Announcment from {ctx.author.mention}**: \n{string}\n ||@everyone||", color=discord.Color.red())
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     await channel.delete_messages(messages)
     await ctx.send(embed=embed)
