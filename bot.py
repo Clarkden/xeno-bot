@@ -275,17 +275,17 @@ async def accept_application(ctx, member : discord.Member):
 
 @client.command()
 @commands.has_role('Dev/Owner')
-async def decline_application(ctx, member : discord.Member):
+async def decline_application(ctx, member : discord.Member, reason=Declined):
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=1):
               messages.append(message)
     await channel.delete_messages(messages)
     channel = client.get_channel(694061907291930664)
-    await member.send('Your application has been decline :(')
-    await member.kick(reason=reason)
+    await member.send('Your application has been declined :(')
     embed = discord.Embed(description=f"{member} | Application Denied", color=discord.Color.red())
     await channel.send(embed=embed)
+    await member.kick(reason=reason)
 
     
 @client.command()
