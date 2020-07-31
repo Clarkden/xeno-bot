@@ -260,7 +260,8 @@ async def announcement(ctx, *, string):
 @client.command()
 async def applymod(self, ctx, member: discord.Member = None):
 
-    member = ctx.author if not member else member
+    #if not member else member
+    member = ctx.author
     def checkmsg(m):
         return m.author == member
 
