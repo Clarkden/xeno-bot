@@ -33,7 +33,7 @@ async def on_raw_reaction_add(payload):
     if message_id == 738614423660396575:
         guild_id = payload.guild_id 
         guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
-        if payload.emoji.name == ':white_check_mark:': 
+        if payload.emoji.name == 'white_check_mark': 
             role = discord.utils.get(guild.roles, name='Intern')
         else:
             pass
