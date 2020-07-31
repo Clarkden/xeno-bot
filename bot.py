@@ -327,6 +327,18 @@ async def application(ctx, member: discord.Member = None):
             poopoo.set_footer(text=f"{member}")
             #poopoo.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=poopoo)
+            await poopoo.add_reaction('✅')
+            await poopoo.add_reaction('❌')
+            reaction, user = await client.wait_for("reaction_add", timeout=86400.0, check=checkreact)
+            if str(reaction.emoji) == '✅':
+                async with member.typing():
+                    await asyncio.sleep(3)
+                await member.send('Your application was accepted!')
+                role = get(member.server.roles, name="Intern")
+                await member.add_roles(member, role)
+            else:
+                if str(reaction.emoji) == '❌':
+                    await member.send('Your application wasn\'t accepted')
         else:
             if str(reaction.emoji) == '❌':
                 await member.send('Application won\'t be submitted')
