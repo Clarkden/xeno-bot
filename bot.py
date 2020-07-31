@@ -321,14 +321,14 @@ async def application(ctx, member: discord.Member = None):
             await member.send('Thank you for applying! Your application will be reviewed!')
             await asyncio.sleep(3)
             poopoo = discord.Embed(
-                title='Application Answers', description=f"1) What\'s your Discord Username?\n{first}, \n2) Have you use any other scripts previously? If so, describe your experience and name the script.\n{second}, \n3) Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)\n{third}, \n4)Why do you want to join Xeno?\n{fourth}, \n5) If you do join, do you intend on purchasing the script?\n{fifth}, \n6) Anything else you want to say?\n{sixth}", color=discord.Color.dark_orange())
+                title='Application Answers', description=f"**1) What\'s your Discord Username?**\n{first}, \n**2) Have you use any other scripts previously? If so, describe your experience and name the script.**\n{second}, \n**3) Are you decent with computers? (So I won't have to spend hours helping you troubleshoot if you have errors)**\n{third}, \n**4)Why do you want to join Xeno?**\n{fourth}, \n**5) If you do join, do you intend on purchasing the script?**\n{fifth}, \n**6) Anything else you want to say?**\n{sixth}", color=discord.Color.dark_orange())
             poopoo.set_author(
                 name=f"Application taken by: {member}", icon_url=f"{member.avatar_url}")
             poopoo.set_footer(text=f"{member}")
             #poopoo.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=poopoo)
-            await poopoo.add_reaction('✅')
-            await poopoo.add_reaction('❌')
+            await client.add_reaction(poopoo,'✅')
+            await client.add_reaction(poopoo,'❌')
             reaction, user = await client.wait_for("reaction_add", timeout=86400.0, check=checkreact)
             if str(reaction.emoji) == '✅':
                 async with member.typing():
