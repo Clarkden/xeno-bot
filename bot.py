@@ -258,8 +258,13 @@ async def announcement(ctx, *, string):
     await ctx.send(embed=embed)
 
 @client.command()
-async def applymod(ctx, member: discord.Member = None):
-
+async def application(ctx, member: discord.Member = None):
+    
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+              messages.append(message)
+    await channel.delete_messages(messages) 
     #if not member else member
     member = ctx.author if not member else member
     def checkmsg(m):
