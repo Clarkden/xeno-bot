@@ -267,10 +267,10 @@ async def accept_application(ctx, member : discord.Member):
     async for message in channel.history(limit=1):
               messages.append(message)
     await channel.delete_messages(messages)
-    await member.send('Your application has been accepted :)')
+    embed = discord.Embed(description=f"{member} | Application Accepted", color=discord.Color.green())
+    await member.send(embed=embed)
     role = discord.utils.get(ctx.guild.roles, name = "Intern") 
     await member.add_roles(role)
-    embed = discord.Embed(description=f"{member} | Application Accepted", color=discord.Color.green())
     await channel.send(embed=embed)
 
 @client.command()
@@ -281,9 +281,9 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
     async for message in channel.history(limit=1):
               messages.append(message)
     await channel.delete_messages(messages)
-    channel = client.get_channel(694061907291930664)
-    await member.send('Your application has been declined :(')
     embed = discord.Embed(description=f"{member} | Application Denied", color=discord.Color.red())
+    channel = client.get_channel(694061907291930664)
+    await member.send(embed=embed)
     await channel.send(embed=embed)
     await member.kick(reason=reason)
 
