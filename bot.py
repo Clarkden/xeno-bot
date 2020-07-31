@@ -228,6 +228,18 @@ async def embed(ctx, string):
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
     await channel.delete_messages(messages)
     await ctx.send(embed=embed)
+    
+@client.command()
+@commands.has_role('Dev/Owner')
+async def announcment(ctx, string):
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+              messages.append(message)
+    embed = discord.Embed(description=f"***Announcment from {ctx.author.mention}***: \n{sug}\n", color=discord.Color.red())
+    embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
+    await channel.delete_messages(messages)
+    await ctx.send(embed=embed)
 
 
 client.run(os.environ['DISCORD_TOKEN'])
