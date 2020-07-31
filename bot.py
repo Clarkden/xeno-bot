@@ -330,19 +330,18 @@ async def application(ctx, member: discord.Member = None):
             accept = await channel.send("Do you want to accept or decline this application?")
             await accept.add_reaction('✅')
             await accept.add_reaction('❌')
-            await asyncio.sleep(3)
-            reaction1, user1 = await client.wait_for("reaction_add", timeout=86400.0, check=checkreact)
+            reaction1, user = await client.wait_for("reaction_add", timeout=43000.0, check=checkreact)
             if str(reaction1.emoji) == '✅':
                 async with member.typing():
                     await asyncio.sleep(3)
                 await member.send('Your application was accepted!')
                 role = discord.utils.get(ctx.guild.roles, name = "Intern") 
                 await application_author.add_roles(role)
-                print('yes')
             else:
                 if str(reaction.emoji) == '❌':
                     await member.send('Your application wasn\'t accepted')
-                    print('no')
+                    reason = 'Application denied'
+                    await member.kick(reason=reason)
         else:
             if str(reaction.emoji) == '❌':
                 await member.send('Application won\'t be submitted')
