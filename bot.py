@@ -217,6 +217,10 @@ async def suggest(ctx, *, sug):
     poo = await channel.send(embed=embed)
     await poo.add_reaction("☑️")
     await poo.add_reaction("🚫")
+    embed1 = discord.Embed(description=f"{ctx.author.mention} made a suggestion", color=discord.Color.green())
+    embed1.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
+    channel1 = client.get_channel(694061907291930664)
+    await channel1.send(embed=embed1)
 
 @client.command()
 @commands.has_role('Dev/Owner')
