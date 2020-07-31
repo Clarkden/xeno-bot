@@ -210,6 +210,7 @@ async def suggest(ctx, *, sug):
     messages = []
     async for message in channel.history(limit=1):
         messages.append(message)
+    await channel.delete_messages(messages)
     embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.green())
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     channel = client.get_channel(738536411317272666)
