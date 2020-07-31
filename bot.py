@@ -42,6 +42,7 @@ async def on_reaction_add(reaction, user):
 @commands.has_role('Dev/Owner')
 async def clear(ctx, number):
     number = int(number)
+    number = number + 1
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=number):
@@ -268,6 +269,8 @@ async def accept_application(ctx, member : discord.Member):
     await member.send('Your application has been accepted :)')
     role = discord.utils.get(ctx.guild.roles, name = "Intern") 
     await member.add_roles(role)
+    embed = discord.Embed(description=f"{member} | Application Accepted", color=discord.Color.green())
+    await channel.send(embed=embed)
 
 @client.command()
 @commands.has_role('Dev/Owner')
@@ -279,7 +282,9 @@ async def decline_application(ctx, member : discord.Member):
     await channel.delete_messages(messages)
     channel = client.get_channel(694061907291930664)
     await member.send('Your application has been decline :(')
-    await channel.send(f'$kick {member} application denied :(')
+    await member.kick(reason=reason)
+    embed = discord.Embed(description=f"{member} | Application Denied", color=discord.Color.red())
+    await channel.send(embed=embed)
 
     
 @client.command()
