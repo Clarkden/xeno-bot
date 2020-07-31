@@ -336,7 +336,7 @@ async def application(ctx, member: discord.Member = None):
                     await asyncio.sleep(3)
                 await member.send('Your application was accepted!')
                 role = discord.utils.get(ctx.guild.roles, name = "Intern") 
-                await ctx.add_roles(role)
+                await application_author.add_roles(role)
                 print('yes')
             else:
                 if str(reaction.emoji) == '❌':
