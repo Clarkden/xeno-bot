@@ -258,14 +258,25 @@ async def announcement(ctx, *, string):
     await ctx.send(embed=embed)
 
 @client.command()
-@commands.has_role('User/Dev')
+@commands.has_role('Dev/Owner')
 async def accept_application(ctx, member : discord.Member):
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+              messages.append(message)
+    await channel.delete_messages(messages)
     await member.send('Your application has been accepted :)')
     role = discord.utils.get(ctx.guild.roles, name = "Intern") 
     await member.add_roles(role)
 
-@commands.has_role('User/Dev')
+@client.command()
+@commands.has_role('Dev/Owner')
 async def decline_application(ctx, member : discord.Member):
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+              messages.append(message)
+    await channel.delete_messages(messages)
     channel = client.get_channel(694061907291930664)
     await member.send('Your application has been decline :(')
     await channel.send(f'$kick {member} application denied :(')
