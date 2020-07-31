@@ -185,7 +185,8 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     async for message in channel.history(limit=1):
             messages.append(message)
     await channel.delete_messages(messages)
-    await ctx.send(f'{member} has been kicked for {reason} ')
+    embed = discord.Embed(description=f":white_check_mark | {member} has been kicked for {reason}", color=discord.Color.blue())
+    await ctx.send(embed=embed)
     await member.kick(reason=reason)
 
 @client.command()
@@ -197,7 +198,8 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     async for message in channel.history(limit=1):
             messages.append(message)
     await channel.delete_messages(messages)
-    await ctx.send(f'{member} has been banned for {reason} ')
+    embed = discord.Embed(description=f":white_check_mark | {member} has been banned for {reason}", color=discord.Color.blue())
+    await ctx.send(embed=embed)
     await member.ban(reason=reason)
 
 
@@ -208,9 +210,9 @@ async def suggest(ctx, *, sug):
     messages = []
     async for message in channel.history(limit=1):
         messages.append(message)
-    embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
+    embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.green())
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
-    channel = client.get_channel(717535356903227413)
+    channel = client.get_channel(738536411317272666)
     poo = await channel.send(embed=embed)
     await poo.add_reaction("☑️")
     await poo.add_reaction("🚫")
