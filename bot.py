@@ -261,7 +261,7 @@ async def announcement(ctx, *, string):
 async def applymod(self, ctx, member: discord.Member = None):
 
     #if not member else member
-    member = ctx.author
+    member = ctx.author if not member else member
     def checkmsg(m):
         return m.author == member
 
