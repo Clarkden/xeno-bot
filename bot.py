@@ -36,7 +36,7 @@ async def on_raw_reaction_add(payload):
         if payload.emoji.name == 'white_check_mark': 
             role = discord.utils.get(guild.roles, name='Intern')
         else:
-            pass
+            role = discord.utils.get(guild.roles, name='none')
         if role is not None:
             member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
             if member is not None:
