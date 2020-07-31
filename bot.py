@@ -202,9 +202,12 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 
 
 @client.command()
-@commands.cooldown(5, 30, type=BucketType.user)
-async def suggest(self, ctx, *, sug):
-    await ctx.message.delete()
+@commands.has_role('User')
+async def suggest(ctx, *, sug):
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+        messages.append(message)
     embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     embed.timestamp = datetime.datetime.utcnow()
