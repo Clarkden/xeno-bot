@@ -30,13 +30,16 @@ async def on_ready():
     print('Bot is ready.')
     
 @client.event
-async def on_reaction_add(reaction, user):
-    Channel = client.get_channel(694013033521086554)
-    if reaction.message.channel.id != Channel:
-        return
-    if reaction.emoji == ":white_check_mark:":
-      Role = discord.utils.get(user.server.roles, name="Intern")
-      await discord.Member.add_roles(user, Role)
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="Please pass in all required arguments", color=discord.Color.red())
+        await ctx.send(embed=embed)
+    if isinstance(error, commands.MissingRole):
+        embed = discord.Embed(description="Role is insufficient", color=discord.Color.red())
+        await ctx.send(embed=embed)
+    if isinstance(error, CommandNotFound):
+        embed = discord.Embed(description="Command not found", color=discord.Color.red())
+        await ctx.send(embed=embed)  
 
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
