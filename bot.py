@@ -218,6 +218,15 @@ async def suggest(ctx, *, sug):
     await poo.add_reaction("☑️")
     await poo.add_reaction("🚫")
 
+@commands.has_role('Dev/Owner')
+async def embed(ctx, string):
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+              messages.append(message)
+    embed = discord.Embed(description=f"{string}", color=discord.Color.green())
+    await channel.delete_messages(messages)
+    await ctx.send(embed=embed)
 
 
 client.run(os.environ['DISCORD_TOKEN'])
