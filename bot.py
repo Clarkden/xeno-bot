@@ -220,7 +220,7 @@ async def suggest(ctx, *, sug):
 
 @client.command()
 @commands.has_role('Dev/Owner')
-async def embed(ctx, string):
+async def embed(ctx, *, string):
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=1):
@@ -231,7 +231,7 @@ async def embed(ctx, string):
     
 @client.command()
 @commands.has_role('Dev/Owner')
-async def announcment(ctx, string):
+async def announcment(ctx, *, string):
     channel = ctx.message.channel
     messages = []
     async for message in channel.history(limit=1):
