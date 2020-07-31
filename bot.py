@@ -210,7 +210,7 @@ async def suggest(ctx, *, sug):
         messages.append(message)
     embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
-    embed.timestamp = datetime.datetime.utcnow()
+    embed.timestamp = datetime.datetime.now()
     channel = ctx.guild.get_channel(717535356903227413)
     poo = await channel.send(embed=embed)
     await poo.add_reaction("☑️")
