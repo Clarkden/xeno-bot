@@ -205,16 +205,14 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 @commands.cooldown(5, 30, type=BucketType.user)
 async def suggest(self, ctx, *, sug):
     await ctx.message.delete()
-    try:
-        embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
-        embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
-        embed.timestamp = datetime.datetime.utcnow()
-        channel = ctx.guild.get_channel(717535356903227413)
-        poo = await channel.send(embed=embed)
-        await poo.add_reaction("☑️")
-        await poo.add_reaction("🚫")
-    except Exception as error:
-        raise(error)
+    embed = discord.Embed(description=f"Suggestion provided by {ctx.author.mention}: {sug}\n\nReact down below to leave your opinion! ⬇️", color=discord.Color.dark_purple())
+    embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
+    embed.timestamp = datetime.datetime.utcnow()
+    channel = ctx.guild.get_channel(717535356903227413)
+    poo = await channel.send(embed=embed)
+    await poo.add_reaction("☑️")
+    await poo.add_reaction("🚫")
+
 
 
 client.run(os.environ['DISCORD_TOKEN'])
