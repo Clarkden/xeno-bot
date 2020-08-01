@@ -230,6 +230,8 @@ async def warn(ctx, member : discord.Member, *, reason=None):
     embed = discord.Embed(description=f":white_check_mark: | {member} has been warned for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.warn(reason=reason)
+    embed = discord.Embed(description=f":white_check_mark: | You have been warned for {reason}\n\nPlease try not to do this agian :slight_smile:", color=discord.Color.blue())
+    await member.send(embed=embed)
 
 
 @client.command()
