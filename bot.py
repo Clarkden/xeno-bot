@@ -252,11 +252,13 @@ async def embed(ctx, *, string):
 @client.command()
 @commands.has_role('Dev/Owner')
 async def embed_in_channel(ctx, channel, *, string):
+    channel1 = ctx.message.channel
+    channel = client.get_channel(channel)
     messages = []
     async for message in channel.history(limit=1):
               messages.append(message)
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
-    await ctx.delete_messages(messages)
+    await channel1.delete_messages(messages)
     await channel.send(embed=embed)
     
 @client.command()
