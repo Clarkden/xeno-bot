@@ -239,7 +239,7 @@ async def suggest(ctx, *, sug):
     await channel1.send(embed=embed1)
 
 @client.command()
-@commands.has_role('Dev/Owner')
+@commands.has_role('User')
 async def embed(ctx, *, string):
     channel = ctx.message.channel
     messages = []
@@ -248,6 +248,16 @@ async def embed(ctx, *, string):
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
     await channel.delete_messages(messages)
     await ctx.send(embed=embed)
+    
+@client.command()
+@commands.has_role('Dev/Owner')
+async def embed_in_channel(ctx, channel, *, string):
+    messages = []
+    async for message in channel.history(limit=1):
+              messages.append(message)
+    embed = discord.Embed(description=f"{string}", color=discord.Color.green())
+    await ctx.delete_messages(messages)
+    await channel.send(embed=embed)
     
 @client.command()
 @commands.has_role('Dev/Owner')
