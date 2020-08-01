@@ -218,6 +218,19 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     await ctx.send(embed=embed)
     await member.ban(reason=reason)
 
+@client.command()
+@commands.has_role('Dev/Owner')
+async def warn(ctx, member : discord.Member, *, reason=None):
+    author = ctx.author
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=1):
+            messages.append(message)
+    await channel.delete_messages(messages)
+    embed = discord.Embed(description=f":white_check_mark: | {member} has been warned for {reason}", color=discord.Color.blue())
+    await ctx.send(embed=embed)
+    await member.warn(reason=reason)
+
 
 @client.command()
 @commands.has_role('User')
