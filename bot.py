@@ -163,7 +163,7 @@ async def premium_reset(ctx, *, string):
 
 @client.command()
 @commands.has_role('User')
-async def expiration(ctx, member: discord.Member = None, *, string):
+async def expiration(ctx, string, member: discord.Member = None):
     author = ctx.author.id
     member = ctx.author if not member else member
     try:
