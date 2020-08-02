@@ -66,9 +66,9 @@ async def clear_chat(ctx):
 @client.command()
 @commands.has_role('User')
 #@cooldown(1, 14400, BucketType.user)
-async def reset(ctx, *, string):
+async def reset(ctx, string,member: discord.Member = None):
     author = ctx.author.id
-    
+    member = ctx.author if not member else member
     try:
         # calculate the amount of time since the last (successful) use of the command
         last_move = datetime.now() - on_cooldown[author]
