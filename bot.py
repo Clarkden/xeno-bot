@@ -78,7 +78,7 @@ async def reset(ctx, string,member: discord.Member = None):
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
         if 'true' in r.text:
-            embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
+            embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.purple())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
@@ -127,7 +127,7 @@ async def premium_reset(ctx,string,member: discord.Member = None):
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
         if 'true' in r.text:
-            embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.green())
+            embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.purple())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
@@ -178,7 +178,7 @@ async def expiration(ctx, string,member: discord.Member = None):
         before_keyword, keyword, after_keyword = r.text.partition(keyword)
         expiration = after_keyword.replace('\"', '')
         real_expiration = expiration.replace('}', '')
-        embed = discord.Embed(title="Expiration Check", color = discord.Color.green())
+        embed = discord.Embed(title="Expiration Check", color = discord.Color.purple())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
         embed.add_field(name = 'Expiration', value = f'{real_expiration}')
         embed.set_footer(text = '60 second cooldown before using this command again')
