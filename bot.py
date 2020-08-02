@@ -55,6 +55,18 @@ async def clear(ctx, number):
     await channel.delete_messages(messages)
     await ctx.send(embed=embed)
 
+@client.command(pass_context=True)
+@commands.has_role('Dev/Owner')
+async def clear_chat(ctx):
+    channel = ctx.message.channel
+    messages = []
+    async for message in channel.history(limit=100,000):
+              messages.append(message)
+    embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
+    await channel.delete_messages(messages)
+    await ctx.send(embed=embed)
+
+    
 @client.command()
 @commands.has_role('User')
 #@cooldown(1, 14400, BucketType.user)
