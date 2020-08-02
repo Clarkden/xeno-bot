@@ -165,6 +165,7 @@ async def premium_reset(ctx, *, string):
 @commands.has_role('User')
 async def expiration(ctx, *, string):
     author = ctx.author.id
+    member = ctx.author if not member else member
     try:
         # calculate the amount of time since the last (successful) use of the command
         last_move = datetime.now() - on_cooldown2[author]
@@ -178,8 +179,8 @@ async def expiration(ctx, *, string):
         expiration = after_keyword.replace('\"', '')
         real_expiration = expiration.replace('}', '')
         embed = discord.Embed(title="**Expiration Check**", color = discord.Color.green())
-        embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
-        embed.add_field(name = 'Key Expires in', value = f'{real_expiration}')
+        embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
+        embed.add_field(name = 'Expiration', value = f'{real_expiration}')
         embed.set_footer(text = '60 second cooldown before using this command again')
         channel = ctx.message.channel
         messages = []
