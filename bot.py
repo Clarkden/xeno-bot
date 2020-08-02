@@ -115,7 +115,7 @@ async def reset(ctx, string,member: discord.Member = None):
 @client.command()
 @commands.has_role('Premium')
 #@cooldown(1, 14400, BucketType.user)
-async def premium_reset(ctx,member: discord.Member = None, *, string):
+async def premium_reset(ctx,string,member: discord.Member = None):
     author = ctx.author.id
     member = ctx.author if not member else member
     try:
@@ -163,7 +163,7 @@ async def premium_reset(ctx,member: discord.Member = None, *, string):
 
 @client.command()
 @commands.has_role('User')
-async def expiration(ctx, member: discord.Member = None, *, string):
+async def expiration(ctx, string,member: discord.Member = None):
     author = ctx.author.id
     member = ctx.author if not member else member
     try:
