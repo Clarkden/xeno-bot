@@ -14,7 +14,7 @@ on_cooldown2 = {}
 move_cooldown = 14400
 move_cooldown2 = 60
 client = commands.Bot(command_prefix = '$')
-
+#hi
 def convert(seconds): 
     seconds = seconds % (24 * 3600) 
     hour = seconds // 3600
