@@ -78,8 +78,8 @@ async def reset(ctx, *, string):
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
         if 'true' in r.text:
-            embed = discord.Embed(description = 'HWID RESET', color = discord.Color.green())
-            embed.set_author(name=f'{ctx.author.name}')
+            embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
+            embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
             channel = ctx.message.channel
@@ -115,9 +115,9 @@ async def reset(ctx, *, string):
 @client.command()
 @commands.has_role('Premium')
 #@cooldown(1, 14400, BucketType.user)
-async def premium_reset(ctx, *, string):
+async def premium_reset(ctx,member: discord.Member = None, *, string):
     author = ctx.author.id
-    
+    member = ctx.author if not member else member
     try:
         # calculate the amount of time since the last (successful) use of the command
         last_move = datetime.now() - on_cooldown[author]
@@ -127,8 +127,8 @@ async def premium_reset(ctx, *, string):
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
         if 'true' in r.text:
-            embed = discord.Embed(description = 'PREMIUM HWID RESET', color = discord.Color.green())
-            embed.set_author(name=f'{ctx.author.name}')
+            embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.green())
+            embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
             channel = ctx.message.channel
@@ -163,7 +163,7 @@ async def premium_reset(ctx, *, string):
 
 @client.command()
 @commands.has_role('User')
-async def expiration(ctx, string, member: discord.Member = None):
+async def expiration(ctx, member: discord.Member = None, *, string):
     author = ctx.author.id
     member = ctx.author if not member else member
     try:
@@ -178,7 +178,7 @@ async def expiration(ctx, string, member: discord.Member = None):
         before_keyword, keyword, after_keyword = r.text.partition(keyword)
         expiration = after_keyword.replace('\"', '')
         real_expiration = expiration.replace('}', '')
-        embed = discord.Embed(title="**Expiration Check**", color = discord.Color.green())
+        embed = discord.Embed(title="Expiration Check", color = discord.Color.green())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
         embed.add_field(name = 'Expiration', value = f'{real_expiration}')
         embed.set_footer(text = '60 second cooldown before using this command again')
@@ -187,7 +187,7 @@ async def expiration(ctx, string, member: discord.Member = None):
         async for message in channel.history(limit=1):
                 messages.append(message)
         await channel.delete_messages(messages)
-        await ctx.send(embed=embed)
+        await channel.send(embed=embed)
     else:
         channel = ctx.message.channel
         messages = []
