@@ -50,9 +50,20 @@ async def on_message(message):
                 information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
                 await channel.send(embed=information_embed)
         if 'hello' in message.content or 'hi' in message.content or 'yo' in message.content:
+            async with channel.typing():
+                await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
+        if 'bye' in message.content or 'cya' in message.content:
+            async with channel.typing():
+                await asyncio.sleep(4)
+            hello = discord.Embed(title='Bye', description='Have a good day', color=discord.Color.purple())
+            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            await channel.send(embed=hello)
+            await asyncio.sleep(5)
+            await ctx.channel.purge(limit=4)
+
     await client.process_commands(message)
 
 @client.event
@@ -74,11 +85,8 @@ async def clear(ctx, number):
     realnumber = number
     number = number + 1
     channel = ctx.message.channel
-    messages = []
-    async for message in channel.history(limit=number):
-              messages.append(message)
-    embed = discord.Embed(description=f":white_check_mark: | {realnumber} messages were deleted", color=discord.Color.green())
-    await channel.delete_messages(messages)
+    await ctx.channel.purge(limit=number)
+    embed = discord.Embed(description=f":soap: | {realnumber} messages were deleted", color=discord.Color.green())
     await ctx.send(embed=embed)
 
 @client.command(pass_context=True)
