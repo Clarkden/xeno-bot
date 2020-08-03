@@ -30,14 +30,15 @@ async def on_ready():
     print('Bot is ready.')
     
 @client.event
-async def on_message(ctx,*, message):
+async def on_message(*, message):
     if message.author == client.user:
         return
+    channel = message.channel
     if 'auth' in message:
         if 'failed' in message:
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2.Not running as administrator.\n3.Computer\Internet is blocking the connection. Try opening script with vpn.\n4.Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset followed by your key. For exmaple, $reset 1234.', color=discord.Color.purple())
             auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
-            await ctx.send(embed=auth_failed)
+            await channel.send(embed=auth_failed)
     await client.process_commands(message)
 
 @client.event
