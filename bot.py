@@ -32,10 +32,16 @@ async def on_ready():
 @client.event
 async def on_message(ctx, message,member: discord.Member = None):
     member = ctx.author if not member else member
-    if 'auth failed' in message:
-        auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2.Not running as administrator.\n3.Computer\Internet is blocking the connection. Try opening script with vpn.\n4.Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset followed by your key. For exmaple, $reset 1234.', color=discord.Color.purple())
-        auth_failed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
-        await ctx.send(embed=auth_failed)
+    if auth in message:
+        if failed in message:
+            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2.Not running as administrator.\n3.Computer\Internet is blocking the connection. Try opening script with vpn.\n4.Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset followed by your key. For exmaple, $reset 1234.', color=discord.Color.purple())
+            auth_failed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
+            await ctx.send(embed=auth_failed)
+            await client.process_commands(message)
+        else:
+            await client.process_commands(message)
+    else:
+        await client.process_commands(message)
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
