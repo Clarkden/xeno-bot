@@ -35,7 +35,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066:
+    if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
         if 'auth failed' in message.content:
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset followed by your key. For exmaple, $reset 1234.', color=discord.Color.purple())
             auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
@@ -44,6 +44,11 @@ async def on_message(message):
             good_settings = discord.Embed(title='Settings', description='**Suggested Settings:**\n**For legit play**\n1. Humanize-5.\n2. Timing-3.\n3. Gun Timing-1.\n4. Control Percent-98.\n\n**For blatant play:**\n1. Humanize off\n2. Control Percent off\n3. Timing-2.\n4. Gun Timing-1.', color=discord.Color.purple())
             good_settings.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=good_settings)
+        if 'keybinds' in message.content:
+            keybinds = discord.Embed(title='Keybind System', description='**How to use Keybinds:**\n\nTo use custom keybinds, first you need virtual key codes. These can be found here https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes on microsofts website. Once you find the key you want, use a hex to decimal converter. Here is one https://www.rapidtables.com/convert/number/hex-to-decimal.html. When prompted, enter the hex value you got from the virtual key codes (should look something like this 0x0 for exmaple. Then convert the hex to the code. Go to the folder with the script in it and change the codes. The first line is the toggle for the script, second line is ak, third is lr, etc. It looks just like it does in the selection box. The last lines 4 are for attachments.\nKeybinds are loaded on startup, but if you want to change them while running the script, do so, save the file and reload the keybinds from the settings tab\nTo hide the script press the up arrow, to show the script press the down arrow\n', color=discord.Color.purple())
+            keybinds.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            keybinds.set_image(url="https://cdn.discordapp.com/attachments/730504871706361920/730506132623196261/keybinds.PNG")
+            await channel.send(embed=keybinds)
     if message.channel.id  == 694008360239890495:
         if 'how do i buy' in message.content or 'how do i purchase' in message.content or 'what is the price' in message.content or 'is this free' in message.content or 'is this undetected' in message.content  or 'help' in message.content or 'i want to buy' in message.content or 'how much' in message.content or 'are there any slots' in message.content or 'how many slots' in message.content or 'how much does this cost' in message.content:
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
