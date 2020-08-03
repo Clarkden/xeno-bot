@@ -30,6 +30,13 @@ async def on_ready():
     print('Bot is ready.')
     
 @client.event
+async def on_message(ctx, message,member: discord.Member = None):
+    member = ctx.author if not member else member
+    if 'auth failed' in message:
+        auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2.Not running as administrator.\n3.Computer\Internet is blocking the connection. Try opening script with vpn.\n4.Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset followed by your key. For exmaple, $reset 1234.', color=discord.Color.purple())
+        auth_failed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
+        await ctx.send(embed=auth_failed)
+@client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         embed = discord.Embed(description="Please pass in all required arguments", color=discord.Color.red())
@@ -78,7 +85,7 @@ async def reset(ctx, string,member: discord.Member = None):
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
         if 'true' in r.text:
-            embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.purple())
+            embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
@@ -115,7 +122,7 @@ async def reset(ctx, string,member: discord.Member = None):
 @client.command()
 @commands.has_role('Premium')
 #@cooldown(1, 14400, BucketType.user)
-async def premium_reset(ctx,string,member: discord.Member = None):
+async def premium_reset(ctx,member: discord.Member = None, *, string):
     author = ctx.author.id
     member = ctx.author if not member else member
     try:
@@ -127,7 +134,7 @@ async def premium_reset(ctx,string,member: discord.Member = None):
     if last_move is None or last_move.seconds > move_cooldown:
         r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
         if 'true' in r.text:
-            embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.purple())
+            embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.green())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Reset', value = 'Success')
             embed.set_footer(text = '4 hour cool down before using this command again')
@@ -163,7 +170,7 @@ async def premium_reset(ctx,string,member: discord.Member = None):
 
 @client.command()
 @commands.has_role('User')
-async def expiration(ctx, string,member: discord.Member = None):
+async def expiration(ctx, member: discord.Member = None, *, string):
     author = ctx.author.id
     member = ctx.author if not member else member
     try:
@@ -178,7 +185,7 @@ async def expiration(ctx, string,member: discord.Member = None):
         before_keyword, keyword, after_keyword = r.text.partition(keyword)
         expiration = after_keyword.replace('\"', '')
         real_expiration = expiration.replace('}', '')
-        embed = discord.Embed(title="Expiration Check", color = discord.Color.purple())
+        embed = discord.Embed(title="Expiration Check", color = discord.Color.green())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
         embed.add_field(name = 'Expiration', value = f'{real_expiration}')
         embed.set_footer(text = '60 second cooldown before using this command again')
