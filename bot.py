@@ -30,9 +30,9 @@ async def on_ready():
     print('Bot is ready.')
     
 @client.event
-async def on_message(ctx,member: discord.Member = None,* message):
+async def on_message(ctx,member: discord.Member = None,*, message):
     member = ctx.author if not member else member
-    if ctx.author.id == client.user.id:
+    if message.author == client.user:
         return
     if 'auth' in message:
         if 'failed' in message:
