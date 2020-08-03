@@ -323,8 +323,7 @@ async def embed_in_channel(ctx, channel, *, string):
 @commands.has_role('Dev/Owner')
 async def announcement(ctx, *, string):
     channel = ctx.message.channel
-    embed = discord.Embed(title="Announcement",description=f"\n{string}\n", color=discord.Color.red())
-    embed.set_footer(text=f"{ctx.author.mention}")
+    embed = discord.Embed(title="Announcement",description=f"\n{string}\n\n-{ctx.author.mention}", color=discord.Color.red())
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     await channel.purge(limit=1)
     await ctx.send('||@everyone||')
