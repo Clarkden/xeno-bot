@@ -62,7 +62,7 @@ async def on_message(message):
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
             await asyncio.sleep(5)
-            await ctx.channel.purge(limit=4)
+            await message.channel.purge(limit=4)
 
     await client.process_commands(message)
 
