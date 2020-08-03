@@ -28,6 +28,7 @@ def convert(seconds):
 @client.event
 async def on_ready():
     print('Bot is ready.')
+    await client.change_presence(activity=discord.Activity(game=discord.Game(name='Xeno on top')))
     
 @client.event
 async def on_message(message):
@@ -43,11 +44,15 @@ async def on_message(message):
             good_settings = discord.Embed(title='Settings', description='**Suggested Settings:**\n**For legit play**\n1. Humanize-5.\n2. Timing-3.\n3. Gun Timing-1.\n4. Control Percent-98.\n\n**For blatant play:**\n1. Humanize off\n2. Control Percent off\n3. Timing-2.\n4. Gun Timing-1.', color=discord.Color.purple())
             good_settings.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=good_settings)
-    if 'how do i buy' in message.content or 'how do i purchase' in message.content or 'what is the price' in message.content or 'is this free' in message.content or 'is this undetected' in message.content  or 'help' in message.content:
-        if message.channel.id  == 694008360239890495:
-            information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
-            information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
-            await channel.send(embed=information_embed)
+    if message.channel.id  == 694008360239890495:
+        if 'how do i buy' in message.content or 'how do i purchase' in message.content or 'what is the price' in message.content or 'is this free' in message.content or 'is this undetected' in message.content  or 'help' in message.content or 'i want to buy' in message.content or 'how much' in message.content or 'are there any slots' in message.content or 'how many slots' in message.content or 'how much does this cost' in message.content:
+                information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
+                information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+                await channel.send(embed=information_embed)
+        if 'hello' in message.content or 'hi' in message.content or 'yo' in message.content:
+            hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
+            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            await channel.send(embed=hello)
     await client.process_commands(message)
 
 @client.event
