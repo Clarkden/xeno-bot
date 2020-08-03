@@ -49,7 +49,7 @@ async def on_message(message):
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
                 information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
                 await channel.send(embed=information_embed)
-        if 'hello' in message.content or 'hi' in message.content or 'yo' in message.content:
+        if 'hello' in message.content or 'hi' in message.content:
             async with channel.typing():
                 await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
@@ -316,19 +316,17 @@ async def embed_in_channel(ctx, channel, *, string):
     async for message in channel1.history(limit=1):
               messages.append(message)
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
-    await channel1.delete_messages(messages)
+    await channel1.delete_messages(messages)w
     await channel2.send(embed=embed)
     
 @client.command()
 @commands.has_role('Dev/Owner')
 async def announcement(ctx, *, string):
     channel = ctx.message.channel
-    messages = []
-    async for message in channel.history(limit=1):
-              messages.append(message)
-    embed = discord.Embed(description=f"**Announcement from {ctx.author.mention}**: \n{string}\n", color=discord.Color.red())
+    embed = discord.Embed(title="Announcement",description=f"\n{string}\n", color=discord.Color.red())
+    embed.set_footer(text=f"{ctx.author.mention}")
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
-    await channel.delete_messages(messages)
+    await channel.purge(limit=1)
     await ctx.send('||@everyone||')
     await ctx.send(embed=embed)
 
