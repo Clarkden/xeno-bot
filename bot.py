@@ -316,7 +316,7 @@ async def embed_in_channel(ctx, channel, *, string):
     async for message in channel1.history(limit=1):
               messages.append(message)
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
-    await channel1.delete_messages(messages)w
+    await channel1.delete_messages(messages)
     await channel2.send(embed=embed)
     
 @client.command()
