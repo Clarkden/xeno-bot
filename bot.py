@@ -181,6 +181,7 @@ async def download(ctx, member: discord.Member = None):
                 await ctx.channel.purge(limit=1)
             else:   
                 await member.send("Key not active or is expired")
+                await member.send("Make sure you are sending a key for the normal version")
                 await ctx.channel.purge(limit=1)
         else:
             channel = ctx.message.channel
