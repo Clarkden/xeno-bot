@@ -170,7 +170,7 @@ async def download(ctx, member: discord.Member = None):
         string = msg.content
         try:
             # calculate the amount of time since the last (successful) use of the command
-            last_move = datetime.now() - on_cooldown[author]
+            last_move = datetime.now() - on_cooldown2[author]
         except KeyError:
             last_move = None
             on_cooldown[author] = datetime.now()
@@ -178,16 +178,8 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             if 'true' in r.text:
                 await member.send("https://mega.nz/file/vI0AlSIA#88-gvWIQkbNoemPVE1xSj6NQuLCRYmW53mAarAsZ9DQ")
-            else:  
-                channel = ctx.message.channel
-                messages = []
-                async for message in channel.history(limit=1):
-                        messages.append(message)
-                await channel.delete_messages(messages)
-                embed = discord.Embed(description = 'Error', color = discord.Color.red())
-                embed.set_author(name=f'{ctx.author.name}')
-                embed.set_footer(text = 'Key does not exist or is expired')
-                await ctx.send(embed=embed)
+            else:   
+                await member.send("Key not active or is expired")
         else:
             channel = ctx.message.channel
             messages = []
