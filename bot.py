@@ -178,8 +178,10 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             if 'true' in r.text:
                 await member.send("https://mega.nz/file/vI0AlSIA#88-gvWIQkbNoemPVE1xSj6NQuLCRYmW53mAarAsZ9DQ")
+                await ctx.channel.purge(limit=1)
             else:   
                 await member.send("Key not active or is expired")
+                await ctx.channel.purge(limit=1)
         else:
             channel = ctx.message.channel
             messages = []
