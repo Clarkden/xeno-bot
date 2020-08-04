@@ -149,9 +149,16 @@ async def reset(ctx, string,member: discord.Member = None):
 @client.command()
 @commands.has_role('Premium')
 #@cooldown(1, 14400, BucketType.user)
-async def premium_reset(ctx,member: discord.Member = None, *, string):
+async def premium_reset(ctx,member: discord.Member = None):
+
+    def checkmsg(m):
+        return m.author == member
+    
     author = ctx.author.id
     member = ctx.author if not member else member
+    await member.send("What is your key?")
+    msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+    string = msg.content
     try:
         # calculate the amount of time since the last (successful) use of the command
         last_move = datetime.now() - on_cooldown[author]
