@@ -121,7 +121,7 @@ async def reset(ctx, member: discord.Member = None):
                 embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
                 embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
                 embed.add_field(name = 'Reset', value = 'Success')
-                embed.set_footer(text = '4 hour cool down before using this command again')
+                embed.set_footer(text = '$reset')
                 channel = ctx.message.channel
                 messages = []
                 async for message in channel.history(limit=1):
@@ -227,7 +227,7 @@ async def premium_reset(ctx,member: discord.Member = None):
                 embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.green())
                 embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
                 embed.add_field(name = 'Reset', value = 'Success')
-                embed.set_footer(text = '4 hour cool down before using this command again')
+                embed.set_footer(text = '$premium_reset')
                 channel = ctx.message.channel
                 messages = []
                 async for message in channel.history(limit=1):
@@ -288,7 +288,7 @@ async def expiration(ctx, member: discord.Member = None):
             embed = discord.Embed(title="Expiration Check", color = discord.Color.green())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Expiration', value = f'{real_expiration}')
-            embed.set_footer(text = '60 second cooldown before using this command again')
+            embed.set_footer(text = '$expiration')
             channel = ctx.message.channel
             messages = []
             async for message in channel.history(limit=1):
