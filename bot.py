@@ -37,7 +37,7 @@ async def on_message(message):
     channel = message.channel
     if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
         if 'auth failed' in message.content:
-            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset followed by your key. For exmaple, $reset 1234.', color=discord.Color.purple())
+            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset in #hwid_reset', color=discord.Color.purple())
             auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=auth_failed)
         if 'good settings' in message.content or 'what settings' in message.content or 'what is timing' in message.content or 'what is gun timing' in message.content or 'how to use' in message.content:
@@ -106,6 +106,9 @@ async def reset(ctx, member: discord.Member = None):
             return m.author == member
         author = ctx.author.id
         member = ctx.author if not member else member
+        await member.send("What is your key?")
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        string = msg.content
         try:
             # calculate the amount of time since the last (successful) use of the command
             last_move = datetime.now() - on_cooldown[author]
@@ -222,6 +225,9 @@ async def expiration(ctx, member: discord.Member = None):
             return m.author == member
         author = ctx.author.id
         member = ctx.author if not member else member
+        await member.send("What is your key?")
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        string = msg.content
         try:
             # calculate the amount of time since the last (successful) use of the command
             last_move = datetime.now() - on_cooldown2[author]
