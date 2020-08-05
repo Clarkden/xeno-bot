@@ -127,7 +127,7 @@ async def redeem_key(ctx, member: discord.Member = None):
             role = discord.utils.get(ctx.guild.roles, name = "New User")
             await member.send(invitelink) 
             await member.add_roles(role)
-            await member.send("Please wait for Clarkden to get online to receive your key. Nobody else can give you the key and download.")
+            await member.send("Please wait for Clarkden to get online to receive your key for the script. Nobody else can give you the key and download.")
         else:
             await member.send("There was an issue validating your key. Please message Clarkden.")
     else:
@@ -196,7 +196,7 @@ async def reset(ctx, member: discord.Member = None):
 @commands.has_role('User')
 @cooldown(1, 14400, BucketType.user)
 async def download(ctx, member: discord.Member = None):
-    if ctx.channel.id == 731781244580397066:
+    if ctx.channel.id == 740419650612887643:
         def checkmsg(m):
             return m.author == member
         author = ctx.author.id
@@ -232,6 +232,7 @@ async def download(ctx, member: discord.Member = None):
             embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
             await ctx.send(embed=embed)
     else:
+        await ctx.channel.purge(limit=1)
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
         await ctx.send(embed=embed)
