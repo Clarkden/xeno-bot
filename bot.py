@@ -108,6 +108,16 @@ async def clear_chat(ctx):
     await ctx.channel.purge(limit=100000)
     await ctx.send(embed=embed)
 
+@client.command()
+async def bot_commands(ctx):
+    if ctx.channel.id == 694008360239890495:
+        embed = discord.Embed(name="Error",description="This channel does not have access", color=discord.Color.red())
+        await ctx.send(embed=embed)  
+    else:
+        embed = discord.Embed(title = 'Commands', description="1. Reset Hwid for Normal Key | $reset\n2. Reset Hwid for Premium Key | $premium_reset\n3. Get Download for script | $download\n4. Embed a message | $embed\n5. Suggest a feature or fix bug | $suggest\n6. Check Expiration on key | $expiration", color = discord.Color.green())
+        embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+        embed.set_footer(text = '$bot_commands')
+        await ctx.send(embed=embed)
 
 @client.command()
 async def join(ctx, member: discord.Member = None):
@@ -344,7 +354,7 @@ async def expiration(ctx, member: discord.Member = None):
             async for message in channel.history(limit=1):
                     messages.append(message)
             await channel.delete_messages(messages)
-            await channel.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         else:
             channel = ctx.message.channel
             messages = []
