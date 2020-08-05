@@ -128,7 +128,8 @@ async def redeem_key(ctx, member: discord.Member = None):
         #key = str(key)
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT * from access_keys where access='{key}'")
-        if mycursor.fetchone():#[0]: #== 1:
+        redeemed = mycursor.fetchone()
+        if redeemed:#[0]: #== 1:
             mycursor.execute(f"DELETE from access_keys where access='{key}'")
             channel = client.get_channel(724550485742452820)
             invitelink = await channel.create_invite(max_uses=1,unique=True)
@@ -136,7 +137,7 @@ async def redeem_key(ctx, member: discord.Member = None):
             await member.send(invitelink) 
             await member.add_roles(role)
             await member.send("Please wait for Clarkden to get online to receive your key for the script. Nobody else can give you the key and download.")
-        if mycursor.fetchzero():
+        else:
             await member.send("There was an issue validating your key. Please message Clarkden.")
     else:
         await ctx.channel.purge(limit=1)
