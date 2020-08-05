@@ -8,6 +8,14 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 from discord.ext.commands import (CommandNotFound, CommandOnCooldown)
 from discord.utils import get
+import mysql.connector
+
+mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE']
+)
 
 on_cooldown = {}
 on_cooldown2 = {}
@@ -96,7 +104,35 @@ async def clear_chat(ctx):
     await ctx.channel.purge(limit=100000)
     await ctx.send(embed=embed)
 
-    
+
+@client.command()
+@commands.has_role('Intern')
+async def redeem_key(ctx, member: discord.Member = None):
+    if ctx.channel.id == 740405740950519839:
+        await ctx.channel.purge(limit=1)
+        channel1 = client.get_channel(724550485742452820)
+        def checkmsg(m):
+            return m.author == member
+        author = ctx.author.id
+        member = ctx.author if not member else member
+        await member.send("Enter key received in email")
+        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        key = msg.content
+        key = str(key)
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * from access_keys where access={key}")
+        if mycursor.fetchone():#[0]: #== 1:
+            mycursor.execute(f"DELTE * from access_keys where access={key}")
+            invitelink = await ctx.channel1.create_invite(max_uses=1,unique=True)
+            role = discord.utils.get(ctx.guild.roles, name = "New User")
+            await member.send(invitelink) 
+            await member.add_roles(role)
+            await member.send("Please wait for Clarkden to get online to receive your key. Nobody else can give you the key and download.")
+        else:
+            await member.send("There was an issue validating your key. Please message Clarkden.")
+    else:
+        await ctx.channel.purge(limit=1)
+
 @client.command()
 @commands.has_role('User')
 #@cooldown(1, 14400, BucketType.user)
@@ -176,12 +212,12 @@ async def download(ctx, member: discord.Member = None):
             on_cooldown[author] = datetime.now()
         if last_move is None or last_move.seconds > move_cooldown:
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
-            if 'true' in r.text:
+            p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
+            if 'true' in r.text or 'true' in p.text:
                 await member.send("https://mega.nz/file/3M03DBAB#MB9P7viKu5UEd0kje7zcPx5GRgHNAmy-SxAqAp-QsaI")
                 await ctx.channel.purge(limit=1)
             else:   
                 await member.send("Key not active or is expired")
-                await member.send("Make sure you are sending a key for the normal version")
                 await ctx.channel.purge(limit=1)
         else:
             channel = ctx.message.channel
