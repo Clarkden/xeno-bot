@@ -106,6 +106,14 @@ async def clear_chat(ctx):
 
 
 @client.command()
+async def join(ctx, member: discord.Member = None):
+    await ctx.channel.purge(limit=1)
+    if ctx.channel.id == 694013033521086554:
+        member = ctx.author if not member else member
+        role = discord.utils.get(ctx.guild.roles, name = "Intern")
+        await member.add_roles(role)
+
+@client.command()
 @commands.has_role('Intern')
 async def redeem_key(ctx, member: discord.Member = None):
     if ctx.channel.id == 740405740950519839 or ctx.channel.id == 717535356903227413:
