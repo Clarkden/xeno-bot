@@ -422,25 +422,10 @@ async def suggest(ctx, *, sug):
 @client.command()
 @commands.has_role('User')
 async def embed(ctx, *, string):
-    channel = ctx.message.channel
-    messages = []
-    async for message in channel.history(limit=1):
-              messages.append(message)
+    await ctx.channel.purge(limit=1)
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
-    await channel.delete_messages(messages)
+    embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     await ctx.send(embed=embed)
-    
-@client.command()
-@commands.has_role('Dev/Owner')
-async def embed_in_channel(ctx, channel, *, string):
-    channel1 = ctx.message.channel
-    channel2 = client.get_channel(f"{channel}")
-    messages = []
-    async for message in channel1.history(limit=1):
-              messages.append(message)
-    embed = discord.Embed(description=f"{string}", color=discord.Color.green())
-    await channel1.delete_messages(messages)
-    await channel2.send(embed=embed)
     
 @client.command()
 @commands.has_role('Dev/Owner')
