@@ -108,21 +108,21 @@ async def clear_chat(ctx):
 @client.command()
 @commands.has_role('Intern')
 async def redeem_key(ctx, member: discord.Member = None):
-    if ctx.channel.id == 740405740950519839:
+    if ctx.channel.id == 740405740950519839 or ctx.channel.id == 717535356903227413:
         await ctx.channel.purge(limit=1)
         channel1 = client.get_channel(724550485742452820)
         def checkmsg(m):
             return m.author == member
         author = ctx.author.id
         member = ctx.author if not member else member
-        await member.send("Enter key received in email")
+        await member.send("Enter key received in email:")
         msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
         key = msg.content
-        key = str(key)
+        #key = str(key)
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT * from access_keys where access={key}")
         if mycursor.fetchone():#[0]: #== 1:
-            mycursor.execute(f"DELTE * from access_keys where access={key}")
+            mycursor.execute(f"DELETE from access_keys where access={key}")
             invitelink = await ctx.channel1.create_invite(max_uses=1,unique=True)
             role = discord.utils.get(ctx.guild.roles, name = "New User")
             await member.send(invitelink) 
