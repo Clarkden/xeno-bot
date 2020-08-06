@@ -43,37 +43,37 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if 'license' in message.content or 'License' in message.content:
+    if 'license' in message.content.lower():
             hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
     if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
-        if 'auth failed' in message.content:
+        if 'auth failed' in message.content.lower():
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
             auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=auth_failed)
-        if 'good settings' in message.content or 'what settings' in message.content or 'what is timing' in message.content or 'what is gun timing' in message.content or 'how to use' in message.content:
+        if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
             good_settings = discord.Embed(title='Settings', description='**Suggested Settings:**\n**For legit play**\n1. Humanize-5.\n2. Timing-3.\n3. Gun Timing-1.\n4. Control Percent-98.\n\n**For blatant play:**\n1. Humanize off\n2. Control Percent off\n3. Timing-2.\n4. Gun Timing-1.', color=discord.Color.purple())
             good_settings.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=good_settings)
     if message.channel.id  == 694008360239890495:
-        if 'how do i buy' in message.content or 'how do i purchase' in message.content or 'what is the price' in message.content or 'is this free' in message.content or 'is this undetected' in message.content  or 'help' in message.content or 'i want to buy' in message.content or 'how much' in message.content or 'are there any slots' in message.content or 'how many slots' in message.content or 'how much does this cost' in message.content:
+        if 'how do i buy' in message.content.lower() or 'how do i purchase' in message.content.lower() or 'what is the price' in message.content.lower() or 'is this free' in message.content.lower() or 'is this undetected' in message.content.lower()  or 'help' in message.content.lower() or 'i want to buy' in message.content.lower() or 'how much' in message.content.lower() or 'are there any slots' in message.content.lower() or 'how many slots' in message.content.lower() or 'how much does this cost' in message.content.lower():
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
                 information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
                 await channel.send(embed=information_embed)
-        if 'hello' in message.content or 'hi' in message.content:
+        if 'hello' in message.content.lower() or 'hi' in message.content.lower():
             async with channel.typing():
                 await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
-        if 'kys' in message.content or 'fuck you' in message.content:
+        if 'kys' in message.content.lower() or 'fuck you' in message.content.lower():
             async with channel.typing():
                 await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='Hey don\'t say that :)', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
-        if 'bye' in message.content or 'cya' in message.content:
+        if 'bye' in message.content.lower() or 'cya' in message.content.lower():
             async with channel.typing():
                 await asyncio.sleep(4)
             hello = discord.Embed(title='Bye', description='Have a good day', color=discord.Color.purple())
