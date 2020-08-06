@@ -67,6 +67,12 @@ async def on_message(message):
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
+        if 'kys' in message.content or 'fuck you' in message.content:
+            async with channel.typing():
+                await asyncio.sleep(3)
+            hello = discord.Embed(title='Hello', description='Hey don\'t say that :)', color=discord.Color.purple())
+            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            await channel.send(embed=hello)
         if 'bye' in message.content or 'cya' in message.content:
             async with channel.typing():
                 await asyncio.sleep(4)
