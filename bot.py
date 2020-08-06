@@ -53,7 +53,7 @@ async def on_message(message):
             auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=auth_failed)
         if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
-            good_settings = discord.Embed(title='Settings', description='**Suggested Settings:**\n**For legit play**\n1. Humanize-5.\n2. Timing-3.\n3. Gun Timing-1.\n4. Control Percent-98.\n\n**For blatant play:**\n1. Humanize off\n2. Control Percent off\n3. Timing-2.\n4. Gun Timing-1.', color=discord.Color.purple())
+            good_settings = discord.Embed(title='Settings', description='**Suggested Settings:**\n**For legit play**\n1. Humanize-5.\n2. Timing-3.\n3. Gun Timing-1.\n4. Control Percent-98.\n\n**For blatant play:**\n1. Humanize off\n2. Control Percent off\n3. Timing-2.\n4. Gun Timing-1.\n\n**Rust Settings**\n1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1', color=discord.Color.purple())
             good_settings.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=good_settings)
     if message.channel.id  == 694008360239890495:
