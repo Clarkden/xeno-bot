@@ -14,10 +14,9 @@ mydb = mysql.connector.connect(
     host=os.environ['HOST'],
     user=os.environ['USER'],
     passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE']
+    database=os.environ['DATABASE'],
+    autocommit=True
 )
-mydb.autocommit(True)
-
 on_cooldown = {}
 on_cooldown2 = {}
 move_cooldown = 14400
