@@ -504,7 +504,7 @@ async def new_config(ctx,member: discord.Member = None):
         ControlPercent = ControlPercent.content
         await ctx.channel.send("Enter your humanization value or if you don't use it enter No:")
         Humanization = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        Humanization = Humanizaiton.content
+        Humanization = Humanization.content
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
         name_check = mycursor.fetchone()
@@ -516,6 +516,8 @@ async def new_config(ctx,member: discord.Member = None):
         mydb.close()
     except asyncio.TimeoutError:
         await ctx.channel.send("You took too long to write in a response :(")
+    else:
+        pass
 
 @client.command()
 async def application(ctx, member: discord.Member = None):
