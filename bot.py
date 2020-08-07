@@ -498,7 +498,8 @@ async def show_config(ctx, *, name):
             guntiming = row[3]
             controlpercent = row[4]
             humanization = row[5]
-        embed = discord.Embed(title=f"Config: {name}",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}", color=discord.Color.green())
+            author = row[6]
+        embed = discord.Embed(title=f"Config: {name} by {author}",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
     else:
         embed = discord.Embed(title="Config Error",description=f"The config named {name} could not be found", color=discord.Color.red())
@@ -526,12 +527,14 @@ async def show_all_configs(ctx):
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT Name FROM Configs")
     config_get = mycursor.fetchall()
+    #config_get = mycursor.fetchmany(5)
     configs = ""
     for row in config_get:
         configs+=str(row[0])
         configs+="\n"
+    author = str(row[6])
     #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs}", color=discord.Color.purple())
+    embed = discord.Embed(title="All Configs",description=f"{configs} by {author}", color=discord.Color.purple())
     await ctx.channel.send(embed=embed)
     sleep(10)
     mydb.commit()
@@ -567,7 +570,7 @@ async def new_config(ctx,member: discord.Member = None):
         embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
         await ctx.channel.send(embed=embed)
     else:
-        mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
+        mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}', '{ctx.author}')")
         embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
     sleep(10)
