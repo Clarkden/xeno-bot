@@ -157,6 +157,7 @@ async def redeem_key(ctx, key, member: discord.Member = None):
             await member.send("There was an issue validating your key. Please message Clarkden.")
     else:
         await ctx.channel.purge(limit=1)
+    mycursor.close()
     mydb.commit()
     mydb.close()
 
@@ -516,6 +517,7 @@ async def new_config(ctx,member: discord.Member = None):
         mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
         embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
+    mycursor.close()
     mydb.commit()
     mydb.close()
 
