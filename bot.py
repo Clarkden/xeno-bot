@@ -16,6 +16,7 @@ mydb = mysql.connector.connect(
     passwd=os.environ['PASSWORD'],
     database=os.environ['DATABASE']
 )
+mydb.autocommit()
 
 on_cooldown = {}
 on_cooldown2 = {}
