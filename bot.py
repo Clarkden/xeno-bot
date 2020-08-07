@@ -529,13 +529,13 @@ async def show_all_configs(ctx):
     config_get = mycursor.fetchall()
     #config_get = mycursor.fetchmany(5)
     configs = ""
-    author = ""
     for row in config_get:
         configs+=str(row[0])
+        configs+=str(" by ")
+        configs+=str(row[6])
         configs+="\n"
-        author = str(row[6])
     #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs} by {author}", color=discord.Color.purple())
+    embed = discord.Embed(title="All Configs",description=f"{configs}", color=discord.Color.purple())
     await ctx.channel.send(embed=embed)
     sleep(10)
     mydb.commit()
