@@ -498,11 +498,41 @@ async def show_config(ctx, *, name):
             guntiming = row[3]
             controlpercent = row[4]
             humanization = row[5]
-        embed = discord.Embed(title=f"**{name}**",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}", color=discord.Color.green())
+        embed = discord.Embed(title=f"Config: {name}",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
     else:
         embed = discord.Embed(title="Config Error",description=f"The config named {name} could not be found", color=discord.Color.red())
         await ctx.channel.send(embed=embed)
+    sleep(10)
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
+
+@client.command()
+@commands.has_role('Owner')
+async def delete_config(ctx, *, name):
+    mycursor = mydb.cursor()
+    mycursor.execute(f"DELETE FROM Configs WHERE Name='{name}'")
+    embed = discord.Embed(title="Config Deleted",description=f"The config named {name} was deleted", color=discord.Color.red())
+    await ctx.channel.send(embed=embed)
+    sleep(10)
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
+
+@client.command()
+@commands.has_role('User')
+async def show_all_configs(ctx):
+    mycursor = mydb.cursor()
+    mycursor.execute(f"SELECT Name FROM Configs")
+    config_get = mycursor.fetchall()
+    configs = ""
+    for row in config_get:
+        configs+=str(row[0])
+        configs+="\n"
+    #print(config_get, end=" ")
+    embed = discord.Embed(title="All Configs",description=f"{configs}" color=discord.Color.red())
+    await ctx.channel.send(embed=embed)
     sleep(10)
     mydb.commit()
     mycursor.close()
