@@ -11,12 +11,7 @@ from discord.ext.commands import (CommandNotFound, CommandOnCooldown)
 from discord.utils import get
 import mysql.connector
 
-mydb = mysql.connector.connect(
-    host=os.environ['HOST'],
-    user=os.environ['USER'],
-    passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
+
 on_cooldown = {}
 on_cooldown2 = {}
 move_cooldown = 14400
@@ -138,7 +133,14 @@ async def join(ctx, member: discord.Member = None):
 @client.command()
 @commands.has_role('Intern')
 async def redeem_key(ctx, key, member: discord.Member = None):
+    
     if ctx.channel.id == 740405740950519839 or ctx.channel.id == 717535356903227413:
+        mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
         await ctx.channel.purge(limit=1)
         author = ctx.author.id
         member = ctx.author if not member else member
@@ -489,6 +491,12 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
 @client.command()
 @commands.has_role('User')
 async def show_config(ctx, *, name):
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
     config_get = mycursor.fetchall()
@@ -513,6 +521,12 @@ async def show_config(ctx, *, name):
 @client.command()
 @commands.is_owner()
 async def delete_config(ctx, *, name):
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
     mycursor = mydb.cursor()
     mycursor.execute(f"DELETE FROM Configs WHERE Name='{name}'")
     embed = discord.Embed(title="Config Deleted",description=f"The config named {name} was deleted", color=discord.Color.red())
@@ -525,6 +539,12 @@ async def delete_config(ctx, *, name):
 @client.command()
 @commands.has_role('User')
 async def show_all_configs(ctx):
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT Name, Author FROM Configs")
     config_get = mycursor.fetchall()
@@ -547,6 +567,12 @@ async def show_all_configs(ctx):
 @client.command()
 @commands.has_role('User')
 async def new_config(ctx,member: discord.Member = None):
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
     member = ctx.author if not member else member
     def checkmsg(m):
         return m.author == member
