@@ -32,11 +32,10 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-loading = discord.Embed(totle="Loading...", color=discord.Color.greem())
-
 @client.event
 async def on_ready():
-    print('Bot is ready.')
+    channel = client.get_channel(694061907291930664)
+    await channel.send('Bot is ready.')
     await client.change_presence(activity=discord.Activity(game=discord.Game(name='Xeno on top')))
     
 @client.event
@@ -159,7 +158,7 @@ async def redeem_key(ctx, key, member: discord.Member = None):
             await member.send("There was an issue validating your key. Please message Clarkden.")
     else:
         await ctx.channel.purge(limit=1)
-    Sleep(10)
+    time.sleep(10)
     mydb.commit()
     mycursor.close()
     mydb.close()
