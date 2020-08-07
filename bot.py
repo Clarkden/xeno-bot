@@ -96,6 +96,8 @@ async def on_command_error(ctx, error):
         embed = discord.Embed(description="Command not found", color=discord.Color.red())
         await ctx.send(embed=embed)  
 
+
+
 @client.command(pass_context=True)
 @commands.has_role('Dev/Owner')
 async def clear(ctx, number):
@@ -481,6 +483,35 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
     await member.kick(reason=reason)
 
     
+@client.command
+@commands.has_role('User')
+async def new_config(ctx,member: discord.Member = None):
+    member = ctx.author if not member else member
+    def checkmsg(m):
+        return m.author == member
+    try:
+        await ctx.channel.send("Enter config name:")
+        name = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        await ctx.channel.send("Enter timing value:")
+        Timing = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        await ctx.channel.send("Enter gun timing value:")
+        GunTiming = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        await ctx.channel.send("Enter your control percent value or if you don't use it enter No:")
+        ControlPercent = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        await ctx.channel.send("Enter your humanization value or if you don't use it enter No:")
+        Humanization = await client.wait_for('message', check=checkmsg, timeout=250.0)
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
+        name_check = mycursor.fetchone()
+        if name_check:#[0]: #== 1:
+            embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
+        else:
+            mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
+            embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
+        mydb.close()
+    except asyncio.TimeoutError:
+        await ctx.channel.send("You took too long to write in a response :(")
+
 @client.command()
 async def application(ctx, member: discord.Member = None):
     application_author = ctx.message.author
