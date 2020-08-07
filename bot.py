@@ -137,6 +137,7 @@ async def join(ctx, member: discord.Member = None):
 @client.command()
 @commands.has_role('Intern')
 async def redeem_key(ctx, key, member: discord.Member = None):
+    mydb.autocommit(True)
     if ctx.channel.id == 740405740950519839 or ctx.channel.id == 717535356903227413:
         await ctx.channel.purge(limit=1)
         author = ctx.author.id
@@ -485,6 +486,7 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
 @client.command()
 @commands.has_role('User')
 async def new_config(ctx,member: discord.Member = None):
+    mydb.autocommit(True)
     member = ctx.author if not member else member
     def checkmsg(m):
         return m.author == member
@@ -514,7 +516,6 @@ async def new_config(ctx,member: discord.Member = None):
         mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
         embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
-    mydb.commit()
     mydb.close()
 
 @client.command()
