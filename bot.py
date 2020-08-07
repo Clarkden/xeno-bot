@@ -483,7 +483,7 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
     await member.kick(reason=reason)
 
     
-@client.command
+@client.command()
 @commands.has_role('User')
 async def new_config(ctx,member: discord.Member = None):
     member = ctx.author if not member else member
