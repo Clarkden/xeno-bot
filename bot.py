@@ -525,14 +525,15 @@ async def delete_config(ctx, *, name):
 @commands.has_role('User')
 async def show_all_configs(ctx):
     mycursor = mydb.cursor()
-    mycursor.execute(f"SELECT Name FROM Configs")
+    mycursor.execute(f"SELECT Name, Author FROM Configs")
     config_get = mycursor.fetchall()
-    #config_get = mycursor.fetchmany(5)
     configs = ""
     for row in config_get:
+        configs+="**"
         configs+=str(row[0])
-        configs+=str(" by ")
-        configs+=str(row[6])
+        configs+="**"
+        configs+=" by "
+        configs+=str(row[1])
         configs+="\n"
     #print(config_get, end=" ")
     embed = discord.Embed(title="All Configs",description=f"{configs}", color=discord.Color.purple())
