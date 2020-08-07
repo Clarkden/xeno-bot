@@ -489,35 +489,33 @@ async def new_config(ctx,member: discord.Member = None):
     member = ctx.author if not member else member
     def checkmsg(m):
         return m.author == member
-    try:
-        await ctx.channel.send("Enter config name:")
-        name = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        name = name.content
-        await ctx.channel.send("Enter timing value:")
-        Timing = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        Timing = Timing.content
-        await ctx.channel.send("Enter gun timing value:")
-        GunTiming = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        GunTiming = GunTiming.content
-        await ctx.channel.send("Enter your control percent value or if you don't use it enter No:")
-        ControlPercent = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        ControlPercent = ControlPercent.content
-        await ctx.channel.send("Enter your humanization value or if you don't use it enter No:")
-        Humanization = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        Humanization = Humanization.content
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
-        name_check = mycursor.fetchone()
-        if name_check:#[0]: #== 1:
-            embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
-        else:
-            mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
-            embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
-        mydb.close()
-    except asyncio.TimeoutError:
-        await ctx.channel.send("You took too long to write in a response :(")
+    await ctx.channel.send("Enter config name:")
+    name = await client.wait_for('message', check=checkmsg)
+    name = name.content
+    await ctx.channel.send("Enter timing value:")
+    Timing = await client.wait_for('message', check=checkmsg)
+    Timing = Timing.content
+    await ctx.channel.send("Enter gun timing value:")
+    GunTiming = await client.wait_for('message', check=checkmsg)
+    GunTiming = GunTiming.content
+    await ctx.channel.send("Enter your control percent value or if you don't use it enter No:")
+    ControlPercent = await client.wait_for('message', check=checkmsg)
+    ControlPercent = ControlPercent.content
+    await ctx.channel.send("Enter your humanization value or if you don't use it enter No:")
+    Humanization = await client.wait_for('message', check=checkmsg)
+    Humanization = Humanization.content
+    mycursor = mydb.cursor()
+    mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
+    name_check = mycursor.fetchone()
+    await ctx.channel.purge(limit=10)
+    if name_check:#[0]: #== 1:
+        embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
+        await ctx.channel.send(embed=embed)
     else:
-        pass
+        mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
+        embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
+        await ctx.channel.send(embed=embed)
+    mydb.close()
 
 @client.command()
 async def application(ctx, member: discord.Member = None):
