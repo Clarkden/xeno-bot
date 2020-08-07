@@ -15,7 +15,6 @@ mydb = mysql.connector.connect(
     user=os.environ['USER'],
     passwd=os.environ['PASSWORD'],
     database=os.environ['DATABASE'],
-    autocommit=True
 )
 on_cooldown = {}
 on_cooldown2 = {}
@@ -506,6 +505,7 @@ async def new_config(ctx,member: discord.Member = None):
     Humanization = Humanization.content
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
+    mydb.commit()
     name_check = mycursor.fetchone()
     await ctx.channel.purge(limit=10)
     if name_check:#[0]: #== 1:
@@ -513,6 +513,7 @@ async def new_config(ctx,member: discord.Member = None):
         await ctx.channel.send(embed=embed)
     else:
         mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}')")
+        mydb.commit()
         embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
     mydb.close()
