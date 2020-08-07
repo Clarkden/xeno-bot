@@ -509,7 +509,7 @@ async def show_config(ctx, *, name):
     mydb.close()
 
 @client.command()
-@commands.has_role('Owner')
+@commands.is_owner()
 async def delete_config(ctx, *, name):
     mycursor = mydb.cursor()
     mycursor.execute(f"DELETE FROM Configs WHERE Name='{name}'")
@@ -531,7 +531,7 @@ async def show_all_configs(ctx):
         configs+=str(row[0])
         configs+="\n"
     #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs}", color=discord.Color.red())
+    embed = discord.Embed(title="All Configs",description=f"{configs}", color=discord.Color.purple())
     await ctx.channel.send(embed=embed)
     sleep(10)
     mydb.commit()
