@@ -493,12 +493,12 @@ async def show_config(ctx, *, name):
     config_get = mycursor.fetchall()
     if(config_get):
         for row in config_get:
-            name = ("Config name: ", row[0])
-            timing = ("Timing: ",row[2])
-            guntiming = ("Gun Timing: ",row[3])
-            controlpercent = ("Control Percent: ",row[4])
-            humanization = ("Humanization: ",row[5])
-        embed = discord.Embed(title=f"**{name}**",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}", color=discord.Color.red())
+            name = "Config name: ", row[0]
+            timing = "Timing: ",row[2]
+            guntiming = "Gun Timing: ",row[3]
+            controlpercent = "Control Percent: ",row[4]
+            humanization = "Humanization: ",row[5]
+        embed = discord.Embed(title=f"**{name}**",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}", color=discord.Color.green())
         await ctx.channel.send(embed=embed)
     else:
         embed = discord.Embed(title="Config Error",description=f"The config named {name} could not be found", color=discord.Color.red())
