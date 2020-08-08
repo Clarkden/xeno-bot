@@ -27,16 +27,19 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(minutes=1)
+@tasks.loop(minutes=30)
 async def called_once_a_day():
     message_channel = client.get_channel(717535356903227413)
-    print(f"Got channel {message_channel}")
-    await message_channel.send("Your message")
+    embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
+    await ctx.channel.purge(limit=100000)
+    await message_channel.send(embed=embed)
 
 @called_once_a_day.before_loop
 async def before():
     await client.wait_until_ready()
-    print("Finished waiting")
+    channel = client.get_channel(717535356903227413)
+    embed = discord.Embed(description="**Cleaning Chat**", color=discord.Color.green())
+    await channel.send
 
 @client.event
 async def on_ready():
