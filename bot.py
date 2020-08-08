@@ -29,7 +29,7 @@ def convert(seconds):
       
 @tasks.loop(minutes=30)
 async def called_once_a_day():
-    message_channel = client.get_channel(717535356903227413)
+    message_channel = client.get_channel(731781244580397066)
     embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
     await ctx.channel.purge(limit=100000)
     await message_channel.send(embed=embed)
@@ -37,7 +37,7 @@ async def called_once_a_day():
 @called_once_a_day.before_loop
 async def before():
     await client.wait_until_ready()
-    channel = client.get_channel(717535356903227413)
+    channel = client.get_channel(731781244580397066)
     embed = discord.Embed(description="**Cleaning Chat**", color=discord.Color.green())
     await channel.send
 
