@@ -423,18 +423,28 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 
 @client.command()
 @commands.has_role('Dev/Owner')
-async def warn(ctx, member : discord.Member, *, reason=None):
-    author = ctx.author
-    channel = ctx.message.channel
-    messages = []
-    async for message in channel.history(limit=1):
-            messages.append(message)
-    await channel.delete_messages(messages)
-    embed = discord.Embed(description=f":white_check_mark: | {member} has been warned for {reason}", color=discord.Color.blue())
-    await ctx.send(embed=embed)
-    await member.warn(reason=reason)
-    embed = discord.Embed(description=f":white_check_mark: | You have been warned for {reason}\n\nPlease try not to do this agian :slight_smile:", color=discord.Color.blue())
-    await member.send(embed=embed)
+async def warn(ctx, member, *, reason=None):
+    await ctx.channel.purge(limit=1)
+    mydb = mysql.connector.connect(host="68.168.213.91",user="xenoserv_pythonbot",passwd="!Pythonbot",database="xenoserv_redeem_key")
+    mycursor = mydb.cursor()
+    mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}')")
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
+    mydb = mysql.connector.connect(host="68.168.213.91",user="xenoserv_pythonbot",passwd="!Pythonbot",database="xenoserv_redeem_key")
+    mycursor = mydb.cursor()
+    mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
+    mycursor.fetchall()
+    if mycursor.rowcount == 3:
+        embed = discord.Embed(description=f":white_check_mark: | {member} has been banned becase they have been warned 3 times", color=discord.Color.blue())
+        await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(description=f":white_check_mark: | {member} has been warned for {reason} and has been warned {mycursor.rowcount} times", color=discord.Color.blue())
+        await ctx.send(embed=embed)
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
+
 
 
 @client.command()
