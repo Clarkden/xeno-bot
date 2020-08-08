@@ -27,7 +27,7 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(minutes=30)
+@tasks.loop(hour=1)
 async def called_once_a_day():
     message_channel = client.get_channel(731781244580397066)
     embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
