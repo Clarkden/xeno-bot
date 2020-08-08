@@ -423,7 +423,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 
 @client.command()
 @commands.has_role('Dev/Owner')
-async def warn(ctx, member, *, reason=None):
+async def warn(ctx, member : discord.Member, *, reason=None):
     await ctx.channel.purge(limit=1)
     mydb = mysql.connector.connect(host="68.168.213.91",user="xenoserv_pythonbot",passwd="!Pythonbot",database="xenoserv_redeem_key")
     mycursor = mydb.cursor()
@@ -437,10 +437,11 @@ async def warn(ctx, member, *, reason=None):
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
     if mycursor.rowcount == 3:
-        embed = discord.Embed(description=f"{member} has been banned becase they have been warned 3 times", color=discord.Color.blue())
+        embed = discord.Embed(description=f"{member} has been banned becase they have been warned 3 times", color=discord.Color.purple())
         await ctx.send(embed=embed)
+        await member.ban(reason=reason)
     else:
-        embed = discord.Embed(description=f"{member} has been warned | Reason {reason} | {member} has been warned {mycursor.rowcount} times", color=discord.Color.blue())
+        embed = discord.Embed(description=f"{member} has been warned | Reason: {reason} | Warns: {mycursor.rowcount}", color=discord.Color.purple())
         await ctx.send(embed=embed)
     mydb.commit()
     mycursor.close()
