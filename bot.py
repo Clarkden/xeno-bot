@@ -5,7 +5,7 @@ import asyncio
 import typing
 import time
 from datetime import datetime, timedelta    
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import cooldown, BucketType
 from discord.ext.commands import (CommandNotFound, CommandOnCooldown)
 from discord.utils import get
@@ -27,6 +27,17 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
+@tasks.loop(minutes=1)
+async def called_once_a_day():
+    message_channel = client.get_channel(717535356903227413)
+    print(f"Got channel {message_channel}")
+    await message_channel.send("Your message")
+
+@called_once_a_day.before_loop
+async def before():
+    await client.wait_until_ready()
+    print("Finished waiting")
+
 @client.event
 async def on_ready():
     channel = client.get_channel(694061907291930664)
@@ -683,4 +694,5 @@ async def application(ctx, member: discord.Member = None):
                 embed = discord.Embed(description=f"{member} | Your application won't be submitted", color=discord.Color.red())
                 await member.send(embed=embed)
 
+called_once_a_day.start()
 client.run(os.environ['DISCORD_TOKEN'])
