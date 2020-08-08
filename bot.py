@@ -425,14 +425,24 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 @commands.has_role('Dev/Owner')
 async def warn(ctx, member : discord.Member, *, reason=None):
     await ctx.channel.purge(limit=1)
-    mydb = mysql.connector.connect(host="68.168.213.91",user="xenoserv_pythonbot",passwd="!Pythonbot",database="xenoserv_redeem_key")
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
     mycursor = mydb.cursor()
     mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}')")
     mydb.commit()
     mycursor.close()
     mydb.close()
     time.sleep(5)
-    mydb = mysql.connector.connect(host="68.168.213.91",user="xenoserv_pythonbot",passwd="!Pythonbot",database="xenoserv_redeem_key")
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
