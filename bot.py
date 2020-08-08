@@ -431,15 +431,16 @@ async def warn(ctx, member, *, reason=None):
     mydb.commit()
     mycursor.close()
     mydb.close()
+    time.sleep(5)
     mydb = mysql.connector.connect(host="68.168.213.91",user="xenoserv_pythonbot",passwd="!Pythonbot",database="xenoserv_redeem_key")
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
     if mycursor.rowcount == 3:
-        embed = discord.Embed(description=f":white_check_mark: | {member} has been banned becase they have been warned 3 times", color=discord.Color.blue())
+        embed = discord.Embed(description=f"{member} has been banned becase they have been warned 3 times", color=discord.Color.blue())
         await ctx.send(embed=embed)
     else:
-        embed = discord.Embed(description=f":white_check_mark: | {member} has been warned for {reason} and has been warned {mycursor.rowcount} times", color=discord.Color.blue())
+        embed = discord.Embed(description=f"{member} has been warned | Reason {reason} | {member} has been warned {mycursor.rowcount} times", color=discord.Color.blue())
         await ctx.send(embed=embed)
     mydb.commit()
     mycursor.close()
