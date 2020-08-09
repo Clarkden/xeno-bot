@@ -593,7 +593,7 @@ async def show_all_configs(ctx):
         configs+=str(row[1])
         configs+="\n"
     #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs}", color=discord.Color.purple())
+    embed = discord.Embed(title="All Configs",description=f"{configs}\n\n Total of {mycursor.rowcount} configs", color=discord.Color.purple())
     await ctx.channel.send(embed=embed)
     #time.sleep(5)
     mydb.commit()
