@@ -27,7 +27,7 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(hours=1)
+@tasks.loop(hours=24)
 async def called_once_a_day():
     message_channel = client.get_channel(731781244580397066)
     embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
@@ -422,7 +422,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
 @client.command()
-@commands.has_role('Dev/Owner')
+@commands.is_owner()
 async def warn(ctx, member : discord.Member, *, reason=None):
     await ctx.channel.purge(limit=1)
     mydb = mysql.connector.connect(
