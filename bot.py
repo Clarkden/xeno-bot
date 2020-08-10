@@ -721,7 +721,7 @@ async def application(ctx, member: discord.Member = None):
 
 @client.command()
 @commands.is_owner()
-async def message_role(ctx, role: discord.Role, *, message):
+async def message_role(ctx, role: discord.Role):
     channel = client.get_channel(694008360239890495)
     for member in channel.server.members:
         if role in member.roles:
@@ -730,12 +730,42 @@ async def message_role(ctx, role: discord.Role, *, message):
 
 @client.command()
 @commands.is_owner()
-async def message_role_test(ctx, role: discord.Role, *, message):
+async def message_role_test(ctx, role: discord.Role):
     channel = client.get_channel(717535356903227413)
     for member in channel.server.members:
         if role in member.roles:
             embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
             await member.send(embed=embed)
+
+@client.command()
+@commands.is_owner()
+async def message_user_w_role(ctx, desired_role):
+    # For every member in the guild in which the message was send.
+    for mem in ctx.guild.members:
+        # Members.roles gives list with roles. Thus you need to iterate and check if role == desired role
+        for role in mem.roles:
+            if str(role) == desired_role:
+                try:
+                    # Sends the dm if the user has the desired role
+                    await mem.send("YOUR MESSAGE")
+                    await ctx.send("ANOTHER MESSAGE")
+                    break
+                except:
+                    # If the user closed his dm's
+                    await ctx.send("ANOTHER MESSAGE")
+                    print("User dm closed")
+
+@client.command()
+@commands.is_owner()
+async def message_all_test(ctx, role: discord.Role):
+    #channel = client.get_channel(717535356903227413)
+    for member in ctx.guild.members:
+        if role in member.roles:
+            try:
+                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
+                await member.send(embed=embed)    
+            except:
+                pass                
 
 
 #called_once_a_day.start()
