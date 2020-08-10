@@ -593,7 +593,7 @@ async def show_all_configs(ctx):
         configs+=str(row[1])
         configs+="\n"
     #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total of {mycursor.rowcount} configs**", color=discord.Color.purple())
+    embed = discord.Embed(title="All Configs",description=f"{configs}\n\n Total of {mycursor.rowcount} configs", color=discord.Color.purple())
     await ctx.channel.send(embed=embed)
     #time.sleep(5)
     mydb.commit()
@@ -719,5 +719,24 @@ async def application(ctx, member: discord.Member = None):
                 embed = discord.Embed(description=f"{member} | Your application won't be submitted", color=discord.Color.red())
                 await member.send(embed=embed)
 
-called_once_a_day.start()
+@client.command()
+@commands.is_owner()
+async def message_role(ctx, role: discord.Role, *, message):
+    channel = client.get_channel(694008360239890495)
+    for member in channel.server.members:
+        if role in member.roles:
+            embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
+            await client.send_message(member, message)
+
+@client.command()
+@commands.is_owner()
+async def message_role_test(ctx, role: discord.Role, *, message):
+    channel = client.get_channel(717535356903227413)
+    for member in channel.server.members:
+        if role in member.roles:
+            embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
+            await client.send_message(member, message)
+
+
+#called_once_a_day.start()
 client.run(os.environ['DISCORD_TOKEN'])
