@@ -726,7 +726,7 @@ async def message_role(ctx, role: discord.Role, *, message):
     for member in channel.server.members:
         if role in member.roles:
             embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
-            await client.send_message(member, message)
+            await member.send(embed=embed)
 
 @client.command()
 @commands.is_owner()
@@ -735,7 +735,7 @@ async def message_role_test(ctx, role: discord.Role, *, message):
     for member in channel.server.members:
         if role in member.roles:
             embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
-            await client.send_message(member, message)
+            await member.send(embed=embed)
 
 
 #called_once_a_day.start()
