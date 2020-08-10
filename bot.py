@@ -758,11 +758,12 @@ async def message_user_w_role(ctx, desired_role):
 @client.command()
 @commands.is_owner()
 async def message_all_test(ctx, role: discord.Role):
-    #channel = client.get_channel(717535356903227413)
-    for member in ctx.guild.members:
+    channel = client.get_channel(717535356903227413)
+    await ctx.channel.purge(limit=1)
+    for member in channel.guild.members:
         if role in member.roles:
             try:
-                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased yet. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.red())
+                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member} administration has noticed that you haven't purchased. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.purple())
                 await member.send(embed=embed)    
             except:
                 pass                
