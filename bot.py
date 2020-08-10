@@ -593,7 +593,7 @@ async def show_all_configs(ctx):
         configs+=str(row[1])
         configs+="\n"
     #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs}\n\n Total of {mycursor.rowcount} configs", color=discord.Color.purple())
+    embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total Configs: {mycursor.rowcount}**", color=discord.Color.purple())
     await ctx.channel.send(embed=embed)
     #time.sleep(5)
     mydb.commit()
@@ -721,7 +721,7 @@ async def application(ctx, member: discord.Member = None):
 
 @client.command()
 @commands.is_owner()
-async def message_all_test(ctx, channelid, role: discord.Role):
+async def message_all(ctx, channelid, role: discord.Role):
     channelid = int(channelid)
     channel = client.get_channel(channelid)
     await ctx.channel.purge(limit=1)
