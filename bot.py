@@ -247,9 +247,6 @@ async def download(ctx, member: discord.Member = None):
             return m.author == member
         author = ctx.author.id
         member = ctx.author if not member else member
-        await member.send("What is your key?")
-        msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
-        string = msg.content
         try:
             # calculate the amount of time since the last (successful) use of the command
             last_move = datetime.now() - on_cooldown2[author]
@@ -257,6 +254,9 @@ async def download(ctx, member: discord.Member = None):
             last_move = None
             on_cooldown2[author] = datetime.now()
         if last_move is None or last_move.seconds > move_cooldown2:
+            await member.send("What is your key?")
+            msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+            string = msg.content
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
