@@ -52,7 +52,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if 'license' in message.content.lower():
+    if 'license' in message.content.lower.endswith():
             hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
@@ -70,7 +70,7 @@ async def on_message(message):
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
                 information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
                 await channel.send(embed=information_embed)
-        if 'hello' in message.content.lower() or 'hi' in message.content.lower():
+        if 'hello' in message.content.lower.startswith() or 'hi' in message.content.lower.startswith():
             async with channel.typing():
                 await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
@@ -82,7 +82,7 @@ async def on_message(message):
             hello = discord.Embed(title='Hello', description='Hey don\'t say that :)', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
-        if 'bye' in message.content.lower() or 'cya' in message.content.lower():
+        if 'bye' in message.content.lower.startswith() or 'cya' in message.content.lower.startswith():
             async with channel.typing():
                 await asyncio.sleep(4)
             hello = discord.Embed(title='Bye', description='Have a good day', color=discord.Color.purple())
