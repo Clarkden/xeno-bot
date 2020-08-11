@@ -245,6 +245,7 @@ async def reset(ctx, member: discord.Member = None):
 @commands.has_role('User')
 @cooldown(1, 14400, BucketType.user)
 async def download(ctx, member: discord.Member = None):
+    await ctx.channel.purge(limit=1)
     if ctx.channel.id == 740419650612887643:
         def checkmsg(m):
             return m.author == member
@@ -264,12 +265,9 @@ async def download(ctx, member: discord.Member = None):
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
                 await member.send("https://mega.nz/file/3M03DBAB#MB9P7viKu5UEd0kje7zcPx5GRgHNAmy-SxAqAp-QsaI")
-                await ctx.channel.purge(limit=1)
             else:   
                 await member.send("Key not active or is expired")
-                await ctx.channel.purge(limit=1)
         else:
-            await ctx.channel.purge(limit=1)
             embed = discord.Embed(description = 'Error', color = discord.Color.red())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
             cooldown_count = move_cooldown2 - last_move.seconds
@@ -277,7 +275,6 @@ async def download(ctx, member: discord.Member = None):
             embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
             await ctx.channel.send(embed=embed)
     else:
-        await ctx.channel.purge(limit=1)
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
         await ctx.send(embed=embed)
@@ -287,7 +284,7 @@ async def download(ctx, member: discord.Member = None):
 @commands.has_role('Premium')
 #@cooldown(1, 14400, BucketType.user)
 async def premium_reset(ctx,member: discord.Member = None):
-
+    await ctx.channel.purge(limit=1)
     if ctx.channel.id == 731781244580397066:
         def checkmsg(m):
             return m.author == member
@@ -306,38 +303,19 @@ async def premium_reset(ctx,member: discord.Member = None):
         if last_move is None or last_move.seconds > move_cooldown:
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text:
-                embed = discord.Embed(title = 'Premium Hwid Reset', color = discord.Color.green())
-                embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
-                embed.add_field(name = 'Reset', value = 'Success')
-                embed.set_footer(text = '$premium_reset')
-                channel = ctx.message.channel
-                messages = []
-                async for message in channel.history(limit=1):
-                        messages.append(message)
-                await channel.delete_messages(messages)
-                await ctx.send(embed=embed)
+                embed = discord.Embed(description=f'<@{author}>',color = discord.Color.green())
+                embed.set_author(name=f'Premium Hwid Reset Success', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742831007178162238/6951_Online.png")
+                await ctx.channel.send(embed=embed)
                 requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':os.environ['PRIVATE_KEY_PREMIUM'], 'license': f'{string}'})
             else:   
-                channel = ctx.message.channel
-                messages = []
-                async for message in channel.history(limit=1):
-                        messages.append(message)
-                await channel.delete_messages(messages)
-                embed = discord.Embed(description = 'Error', color = discord.Color.red())
-                embed.set_author(name=f'{ctx.author.name}')
-                embed.set_footer(text = 'Key does not exist or is expired')
+                embed = discord.Embed(description=f'<@{author}>',color = discord.Color.red())
+                embed.set_author(name=f'Hwid Reset Failed', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
                 await ctx.send(embed=embed)
         else:
-            channel = ctx.message.channel
-            messages = []
-            async for message in channel.history(limit=1):
-                    messages.append(message)
-            await channel.delete_messages(messages)
-            embed = discord.Embed(description = 'Error', color = discord.Color.red())
-            embed.set_author(name=f'{ctx.author.name}')
             cooldown_count = move_cooldown - last_move.seconds
             real_coold_count = convert(cooldown_count)
-            embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
+            embed = discord.Embed(description=f'<@{author}> you are still on cooldown for {real_coold_count}',color = discord.Color.red())
+            embed.set_author(name=f'Hwid Reset Failed', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
             await ctx.send(embed=embed)
     else:
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
@@ -397,32 +375,25 @@ async def expiration(ctx, member: discord.Member = None):
 @client.command()
 @commands.has_role('Dev/Owner')
 async def kick(ctx, member : discord.Member, *, reason=None):
-    author = ctx.author
-    channel = ctx.message.channel
-    messages = []
-    async for message in channel.history(limit=1):
-            messages.append(message)
-    await channel.delete_messages(messages)
-    embed = discord.Embed(description=f":white_check_mark: | {member} has been kicked for {reason}", color=discord.Color.blue())
+    author = member.id
+    await ctx.channel.purge(limit=0)
+    embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.kick(reason=reason)
 
 @client.command()
 @commands.has_role('Dev/Owner')
 async def ban(ctx, member : discord.Member, *, reason=None):
-    author = ctx.author
-    channel = ctx.message.channel
-    messages = []
-    async for message in channel.history(limit=1):
-            messages.append(message)
-    await channel.delete_messages(messages)
-    embed = discord.Embed(description=f":white_check_mark: | {member} has been banned for {reason}", color=discord.Color.blue())
+    author = member.id
+    await ctx.channel.purge(limit=0)
+    embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been banned for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.ban(reason=reason)
 
 @client.command()
 @commands.is_owner()
 async def warn(ctx, member : discord.Member, *, reason=None):
+    author = member.id
     await ctx.channel.purge(limit=1)
     mydb = mysql.connector.connect(
     host=os.environ['HOST'],
@@ -446,11 +417,11 @@ async def warn(ctx, member : discord.Member, *, reason=None):
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
     if mycursor.rowcount == 3:
-        embed = discord.Embed(description=f"{member} has been banned becase they have been warned 3 times", color=discord.Color.purple())
+        embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been banned becase they have been warned 3 times", color=discord.Color.purple())
         await ctx.send(embed=embed)
         await member.ban(reason=reason)
     else:
-        embed = discord.Embed(description=f"{member} has been warned | Reason: {reason} | Warns: {mycursor.rowcount}", color=discord.Color.purple())
+        embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been warned | Reason: {reason} | Warns: {mycursor.rowcount}", color=discord.Color.purple())
         await ctx.send(embed=embed)
     mydb.commit()
     mycursor.close()
@@ -470,8 +441,8 @@ async def suggest(ctx, *, sug):
     embed.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     channel = client.get_channel(738536411317272666)
     poo = await channel.send(embed=embed)
-    await poo.add_reaction("☑️")
-    await poo.add_reaction("🚫")
+    await poo.add_reaction(":offline:")
+    await poo.add_reaction(":online:")
     embed1 = discord.Embed(description=f"{ctx.author.mention} made a suggestion", color=discord.Color.green())
     embed1.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar_url}")
     channel1 = client.get_channel(694061907291930664)
