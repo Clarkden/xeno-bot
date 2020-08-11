@@ -422,6 +422,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
+    member = client.get_user(author)
     if mycursor.rowcount == 3:
         embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `Warned 3 times` ", color=discord.Color.purple())
         embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
