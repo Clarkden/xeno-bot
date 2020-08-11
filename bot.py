@@ -381,7 +381,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
     embeded = await ctx.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
-     await member.send(embed=embed)
+    await member.send(embed=embed)
     await member.kick(reason=reason)
 
 @client.command()
@@ -393,7 +393,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been banned for {reason}", color=discord.Color.blue())
     embeded = await ctx.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
-     await member.send(embed=embed)
+    await member.send(embed=embed)
     await member.ban(reason=reason)
 
 @client.command()
@@ -428,7 +428,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
         embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
         embeded = await ctx.send(embed=embed)
         await embeded.add_reaction(":nicecheckmark:742861250341502997")
-         await member.send(embed=embed)
+        await member.send(embed=embed)
         await member.ban(reason=reason)
     else:
         embed = discord.Embed(title="Warn",description=f"\nName: <@{author}>\nReason:`{reason}`\nWarns: `{mycursor.rowcount}`", color=discord.Color.purple())
