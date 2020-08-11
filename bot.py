@@ -377,8 +377,10 @@ async def expiration(ctx, member: discord.Member = None):
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
-    embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
-    await ctx.send(embed=embed)
+    embed = discord.Embed(description=f"***Kick***\n\nName:<@{author}>\nReason: `{reason}` ", color=discord.Color.purple())
+    #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
+    embeded = await ctx.send(embed=embed)
+    await embeded.add_reaction(":nicecheckmark:742861250341502997")
     await member.kick(reason=reason)
 
 @client.command()
@@ -386,8 +388,10 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 async def ban(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
-    embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been banned for {reason}", color=discord.Color.blue())
-    await ctx.send(embed=embed)
+    embed = discord.Embed(description=f"***Ban***\n\nName:<@{author}>\nReason: `{reason}` ", color=discord.Color.purple())
+    #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been banned for {reason}", color=discord.Color.blue())
+    embeded = await ctx.send(embed=embed)
+    await embeded.add_reaction(":nicecheckmark:742861250341502997")
     await member.ban(reason=reason)
 
 @client.command()
@@ -417,11 +421,16 @@ async def warn(ctx, member : discord.Member, *, reason=None):
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
     if mycursor.rowcount == 3:
-        embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been banned becase they have been warned 3 times", color=discord.Color.purple())
-        await ctx.send(embed=embed)
+        embed = discord.Embed(description=f"***Ban***\n\nName:<@{author}>\nReason: `Warned 3 times` <:nicecheckmark:742861250341502997> | ", color=discord.Color.purple())
+        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+        embeded = await ctx.send(embed=embed)
+        await embeded.add_reaction(":nicecheckmark:742861250341502997")
         await member.ban(reason=reason)
     else:
-        embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997>| <@{author}> has been warned | Reason: {reason} | Warns: {mycursor.rowcount}", color=discord.Color.purple())
+        embed = discord.Embed(description=f"***Ban***\n\nName:<@{author}>\nReason:`{reason}`\nWarns: `{mycursor.rowcount}``", color=discord.Color.purple())
+        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+        embeded = await ctx.send(embed=embed)
+        await embeded.add_reaction(":nicecheckmark:742861250341502997")
         await ctx.send(embed=embed)
     mydb.commit()
     mycursor.close()
