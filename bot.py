@@ -501,8 +501,8 @@ async def info(ctx, channel, *, string):
     embed = discord.Embed(title="Information",description=f"\n{string}\n\n-Xeno Bot", color=discord.Color.purple())
     embed.set_author(name=f"Xeno", icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742823638897655829/3224_info.png")
     await channel.purge(limit=1)
-    await ctx.send('||@everyone||')
-    await ctx.send(embed=embed)
+    await channel.send(embed=embed)
+    await channel.send('||@here||')
 
 @client.command()
 @commands.has_role('Dev/Owner')
