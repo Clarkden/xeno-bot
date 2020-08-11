@@ -397,49 +397,52 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
 @client.command()
-@commands.is_owner()
+#@commands.is_owner()
 async def warn(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=1)
-    mydb = mysql.connector.connect(
-    host=os.environ['HOST'],
-    user=os.environ['USER'],
-    passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
-    mycursor = mydb.cursor()
-    mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}')")
-    mydb.commit()
-    mycursor.close()
-    mydb.close()
-    time.sleep(5)
-    mydb = mysql.connector.connect(
-    host=os.environ['HOST'],
-    user=os.environ['USER'],
-    passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
-    mycursor = mydb.cursor()
-    mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
-    mycursor.fetchall()
-    #member = client.get_user(author)
-    if mycursor.rowcount == 3:
-        embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `Warned 3 times` ", color=discord.Color.purple())
-        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
-        embeded = await ctx.send(embed=embed)
-        await embeded.add_reaction(":nicecheckmark:742861250341502997")
-        await member.send(embed=embed)
-        await member.ban(reason=reason)
+    if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'],
+    )
+        mycursor = mydb.cursor()
+        mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}')")
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+        time.sleep(5)
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'],
+    )
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
+        mycursor.fetchall()
+        #member = client.get_user(author)
+        if mycursor.rowcount == 3:
+            embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `Warned 3 times` ", color=discord.Color.purple())
+            embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+            embeded = await ctx.send(embed=embed)
+            await embeded.add_reaction(":nicecheckmark:742861250341502997")
+            await member.send(embed=embed)
+            await member.ban(reason=reason)
+        else:
+            embed = discord.Embed(title="Warning",description=f"\nName: <@{author}>\nReason:`{reason}`\nWarns: `{mycursor.rowcount}`", color=discord.Color.purple())
+            embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+            await member.send(embed=embed)
+            embeded = await ctx.send(embed=embed)
+            await embeded.add_reaction(":nicecheckmark:742861250341502997")
+            #await ctx.send(embed=embed)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
     else:
-        embed = discord.Embed(title="Warning",description=f"\nName: <@{author}>\nReason:`{reason}`\nWarns: `{mycursor.rowcount}`", color=discord.Color.purple())
-        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
-        await member.send(embed=embed)
-        embeded = await ctx.send(embed=embed)
-        await embeded.add_reaction(":nicecheckmark:742861250341502997")
-        #await ctx.send(embed=embed)
-    mydb.commit()
-    mycursor.close()
-    mydb.close()
+        ctx.channel.send("You lack the perms to use this command")
 
 
 
