@@ -200,10 +200,11 @@ async def reset(ctx, member: discord.Member = None):
         if last_move is None or last_move.seconds > move_cooldown:
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             if 'true' in r.text:
-                embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
-                embed.set_author(name=f'Reset', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742831007178162238/6951_Online.png")
+                #embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
+                embed = discord.Embed(description=f'<@{author}>',color = discord.Color.green())
+                embed.set_author(name=f'Hwid Reset', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742831007178162238/6951_Online.png")
                 #embed.add_field(name = 'Reset', value = 'Success')
-                embed.set_footer(text = f'<@{author}>')
+                #embed.set_footer(text = f'<@{author}>')
                 channel = ctx.message.channel
                 messages = []
                 async for message in channel.history(limit=1):
@@ -217,9 +218,11 @@ async def reset(ctx, member: discord.Member = None):
                 async for message in channel.history(limit=1):
                         messages.append(message)
                 await channel.delete_messages(messages)
-                embed = discord.Embed(description = 'Error', color = discord.Color.red())
-                embed.set_author(name=f'{ctx.author.name}')
-                embed.set_footer(text = 'Key does not exist or is expired')
+                embed = discord.Embed(description=f'<@{author}>',color = discord.Color.red())
+                embed.set_author(name=f'Hwid Reset Failed', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+                #embed = discord.Embed(description = 'Error', color = discord.Color.red())
+                #embed.set_author(name=f'{ctx.author.name}')
+                #embed.set_footer(text = 'Key does not exist or is expired')
                 await ctx.send(embed=embed)
         else:
             channel = ctx.message.channel
