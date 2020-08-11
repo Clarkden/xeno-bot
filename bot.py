@@ -504,7 +504,7 @@ async def info(ctx, wanted_channel, *, string):
     embed.set_author(name=f"Xeno Information", icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742823638897655829/3224_info.png")
     await ctx.channel.purge(limit=1)
     #await channel.send('||@here||')
-    await channel.send("@here", embed=embed)
+    await channel.send("||@here||", embed=embed)
 
 @client.command()
 @commands.has_role('Dev/Owner')
