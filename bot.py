@@ -255,8 +255,8 @@ async def download(ctx, member: discord.Member = None):
             last_move = datetime.now() - on_cooldown2[author]
         except KeyError:
             last_move = None
-            on_cooldown[author] = datetime.now()
-        if last_move is None or last_move.seconds > move_cooldown:
+            on_cooldown2[author] = datetime.now()
+        if last_move is None or last_move.seconds > move_cooldown2:
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
@@ -266,14 +266,10 @@ async def download(ctx, member: discord.Member = None):
                 await member.send("Key not active or is expired")
                 await ctx.channel.purge(limit=1)
         else:
-            channel = ctx.message.channel
-            messages = []
-            async for message in channel.history(limit=1):
-                    messages.append(message)
-            await channel.delete_messages(messages)
+            await ctx.channel.purge(limit=1)
             embed = discord.Embed(description = 'Error', color = discord.Color.red())
-            embed.set_author(name=f'{ctx.author.name}')
-            cooldown_count = move_cooldown - last_move.seconds
+            embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
+            cooldown_count = move_cooldown2 - last_move.seconds
             real_coold_count = convert(cooldown_count)
             embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
             await ctx.send(embed=embed)
