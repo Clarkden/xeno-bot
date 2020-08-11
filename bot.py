@@ -201,9 +201,9 @@ async def reset(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             if 'true' in r.text:
                 embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
-                embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
-                embed.add_field(name = 'Reset', value = 'Success')
-                embed.set_footer(text = '$reset')
+                embed.set_author(name=f'Reset', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742831007178162238/6951_Online.png")
+                #embed.add_field(name = 'Reset', value = 'Success')
+                embed.set_footer(text = f'{<@author>}')
                 channel = ctx.message.channel
                 messages = []
                 async for message in channel.history(limit=1):
