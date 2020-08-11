@@ -377,7 +377,7 @@ async def expiration(ctx, member: discord.Member = None):
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
-    embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
+    embed = discord.Embed(description=f"<:Online:742849952568442960> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.kick(reason=reason)
 
@@ -386,7 +386,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 async def ban(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
-    embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been banned for {reason}", color=discord.Color.blue())
+    embed = discord.Embed(description=f"<:Online:742849952568442960> | <@{author}> has been banned for {reason}", color=discord.Color.blue())
     await ctx.send(embed=embed)
     await member.ban(reason=reason)
 
@@ -417,11 +417,11 @@ async def warn(ctx, member : discord.Member, *, reason=None):
     mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
     mycursor.fetchall()
     if mycursor.rowcount == 3:
-        embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been banned becase they have been warned 3 times", color=discord.Color.purple())
+        embed = discord.Embed(description=f"<:Online:742849952568442960> | <@{author}> has been banned becase they have been warned 3 times", color=discord.Color.purple())
         await ctx.send(embed=embed)
         await member.ban(reason=reason)
     else:
-        embed = discord.Embed(description=f":nicecheckmark: | <@{author}> has been warned | Reason: {reason} | Warns: {mycursor.rowcount}", color=discord.Color.purple())
+        embed = discord.Embed(description=f"<:Online:742849952568442960>| <@{author}> has been warned | Reason: {reason} | Warns: {mycursor.rowcount}", color=discord.Color.purple())
         await ctx.send(embed=embed)
     mydb.commit()
     mycursor.close()
