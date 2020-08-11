@@ -272,7 +272,7 @@ async def download(ctx, member: discord.Member = None):
             cooldown_count = move_cooldown2 - last_move.seconds
             real_coold_count = convert(cooldown_count)
             embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
     else:
         await ctx.channel.purge(limit=1)
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
