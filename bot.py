@@ -230,11 +230,11 @@ async def reset(ctx, member: discord.Member = None):
             async for message in channel.history(limit=1):
                     messages.append(message)
             await channel.delete_messages(messages)
-            embed = discord.Embed(description = 'Error', color = discord.Color.red())
-            embed.set_author(name=f'{ctx.author.name}')
             cooldown_count = move_cooldown - last_move.seconds
             real_coold_count = convert(cooldown_count)
-            embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
+
+            embed = discord.Embed(description=f'<@{author}> you are still on cooldown for {real_coold_count}',color = discord.Color.red())
+            embed.set_author(name=f'Hwid Reset Failed', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
             await ctx.send(embed=embed)
     else:
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
