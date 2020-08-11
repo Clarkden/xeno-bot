@@ -494,15 +494,15 @@ async def announcement(ctx, *, string):
 
 @client.command()
 @commands.has_role('Dev/Owner')
-async def info(ctx, channel, *, string):
+async def info(ctx, wanted_channel, *, string):
     #channel = ctx.message.channel
-    channel = int(channel)
-    channel = client.get_channel(channel)
+    wanted_channel = int(wanted_channel)
+    channel = client.get_channel(wanted_channel)
     embed = discord.Embed(description=f"{string}", color=discord.Color.green())
     #embed = discord.Embed('''title="Information",'''description=f"\n{string}\n\n-Xeno Bot", color=discord.Color.purple())
     embed = discord.Embed(description=f"\n{string}\n\n-Xeno Bot", color=discord.Color.purple())
     embed.set_author(name=f"Xeno Information", icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742823638897655829/3224_info.png")
-    await channel.purge(limit=1)
+    await ctx.channel.purge(limit=1)
     #await channel.send('||@here||')
     await channel.send("@here", embed=embed)
 
