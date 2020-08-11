@@ -52,7 +52,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if 'license' in message.content.lower.endswith():
+    if 'license' in message.content.lower():
             hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
