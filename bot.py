@@ -246,24 +246,26 @@ async def reset(ctx, member: discord.Member = None):
 @cooldown(1, 14400, BucketType.user)
 async def download(ctx, member: discord.Member = None):
     await ctx.channel.purge(limit=1)
-    if ctx.channel.id == 740419650612887643:
+    if ctx.channel.id == 740419650612887643 or 717535356903227413:
         def checkmsg(m):
             return m.author == member
         author = ctx.author.id
         member = ctx.author if not member else member
         try:
+            await member.send("What is your key?")
+            msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
+            string = msg.content
             # calculate the amount of time since the last (successful) use of the command
             last_move = datetime.now() - on_cooldown2[author]
         except KeyError:
             last_move = None
             on_cooldown2[author] = datetime.now()
         if last_move is None or last_move.seconds > move_cooldown2:
-            await member.send("What is your key?")
-            msg = await client.wait_for('message', check=checkmsg, timeout=250.0)
-            string = msg.content
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
-            if 'true' in r.text or 'true' in p.text:
+            if 'true' in r.text:
+                await member.send("https://mega.nz/file/3M03DBAB#MB9P7viKu5UEd0kje7zcPx5GRgHNAmy-SxAqAp-QsaI")
+            elif 'true' in p.text:
                 await member.send("https://mega.nz/file/3M03DBAB#MB9P7viKu5UEd0kje7zcPx5GRgHNAmy-SxAqAp-QsaI")
             else:   
                 await member.send("Key not active or is expired")
