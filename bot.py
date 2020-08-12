@@ -245,7 +245,7 @@ async def reset(ctx, member: discord.Member = None):
 @commands.has_role('User')
 async def download(ctx, member: discord.Member = None):
     await ctx.channel.purge(limit=1)
-    if ctx.channel.id == 740419650612887643 or 717535356903227413:
+    if ctx.channel.id == 740419650612887643 or ctx.channel.id==717535356903227418:
         def checkmsg(m):
             return m.author == member
         author = ctx.author.id
@@ -274,7 +274,7 @@ async def download(ctx, member: discord.Member = None):
             cooldown_count = move_cooldown2 - last_move.seconds
             real_coold_count = convert(cooldown_count)
             embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
-            await ctx.channel.send(embed=embed)
+            await member.send(embed=embed)
     else:
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
