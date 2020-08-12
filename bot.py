@@ -243,7 +243,6 @@ async def reset(ctx, member: discord.Member = None):
 
 @client.command()
 @commands.has_role('User')
-@cooldown(1, 14400, BucketType.user)
 async def download(ctx, member: discord.Member = None):
     await ctx.channel.purge(limit=1)
     if ctx.channel.id == 740419650612887643 or 717535356903227413:
