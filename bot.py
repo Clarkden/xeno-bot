@@ -263,9 +263,9 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text:
-                await member.send("https://mega.nz/file/3M03DBAB#MB9P7viKu5UEd0kje7zcPx5GRgHNAmy-SxAqAp-QsaI")
+                await member.send("https://mega.nz/file/Ld0BRACA#4E9S7KLoUeQOuqsCtC0PXRhcLL1qNZkpV_6XfeOAHyI")
             elif 'true' in p.text:
-                await member.send("https://mega.nz/file/3M03DBAB#MB9P7viKu5UEd0kje7zcPx5GRgHNAmy-SxAqAp-QsaI")
+                await member.send("https://mega.nz/file/Ld0BRACA#4E9S7KLoUeQOuqsCtC0PXRhcLL1qNZkpV_6XfeOAHyI")
             else:   
                 await member.send("Key not active or is expired")
         else:
