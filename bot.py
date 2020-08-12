@@ -639,7 +639,7 @@ async def new_config(ctx,member: discord.Member = None):
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
     name_check = mycursor.fetchone()
-    await ctx.channel.purge(limit=10)
+    await ctx.channel.purge(limit=12)
     if name_check:#[0]: #== 1:
         embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
