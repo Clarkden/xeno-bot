@@ -528,35 +528,39 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
 @client.command()
 @commands.has_role('User')
 async def show_config(ctx, *, name):
-    mydb = mysql.connector.connect(
-    host=os.environ['HOST'],
-    user=os.environ['USER'],
-    passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
-    mycursor = mydb.cursor()
-    mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
-    config_get = mycursor.fetchall()
-    if(config_get):
-        for row in config_get:
-            name = row[0]
-            timing = row[2]
-            guntiming = row[3]
-            controlpercent = row[4]
-            humanization = row[5]
-            adjustment = row[6]
-            author = row[7]
-        embed = discord.Embed(title=f"Config: {name} by {author}",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}\nAdjustment: {adjustment}", color=discord.Color.green())
-        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
-        await ctx.channel.send(embed=embed)
-    else:
-        embed = discord.Embed(title="Config Error",description=f"The config named {name} could not be found", color=discord.Color.red())
-        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
-        await ctx.channel.send(embed=embed)
-    #time.sleep(5)
-    mydb.commit()
-    mycursor.close()
-    mydb.close()
+    if ctx.channel.id == 731781244580397066:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'],
+    )
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
+        config_get = mycursor.fetchall()
+        if(config_get):
+            for row in config_get:
+                name = row[0]
+                timing = row[2]
+                guntiming = row[3]
+                controlpercent = row[4]
+                humanization = row[5]
+                adjustment = row[6]
+                author = row[7]
+            embed = discord.Embed(title=f"Config: {name} by {author}",description=f"Timing: {timing}\nGun Timing: {guntiming}\nControl Percent: {controlpercent}\nHumanization: {humanization}\nAdjustment: {adjustment}", color=discord.Color.green())
+            embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+            await ctx.channel.send(embed=embed)
+        else:
+            embed = discord.Embed(title="Config Error",description=f"The config named {name} could not be found", color=discord.Color.red())
+            embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+            await ctx.channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+    embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+    await ctx.send(embed=embed)
 
 @client.command()
 @commands.is_owner()
@@ -580,79 +584,87 @@ async def delete_config(ctx, *, name):
 @client.command()
 @commands.has_role('User')
 async def show_all_configs(ctx):
-    mydb = mysql.connector.connect(
-    host=os.environ['HOST'],
-    user=os.environ['USER'],
-    passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
-    mycursor = mydb.cursor()
-    mycursor.execute(f"SELECT Name, Author FROM Configs")
-    config_get = mycursor.fetchall()
-    configs = ""
-    for row in config_get:
-        configs+="**"
-        configs+=str(row[0])
-        configs+="**"
-        configs+=" by "
-        configs+=str(row[1])
-        configs+="\n"
-    #print(config_get, end=" ")
-    embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total Configs: {mycursor.rowcount}**", color=discord.Color.purple())
-    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
-    await ctx.channel.send(embed=embed)
-    #time.sleep(5)
-    mydb.commit()
-    mycursor.close()
-    mydb.close()
+    if ctx.channel.id == 731781244580397066:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'],
+    )
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT Name, Author FROM Configs")
+        config_get = mycursor.fetchall()
+        configs = ""
+        for row in config_get:
+            configs+="**"
+            configs+=str(row[0])
+            configs+="**"
+            configs+=" by "
+            configs+=str(row[1])
+            configs+="\n"
+        #print(config_get, end=" ")
+        embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total Configs: {mycursor.rowcount}**", color=discord.Color.purple())
+        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+        await ctx.channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+    embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+    await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_role('User')
 async def new_config(ctx,member: discord.Member = None):
-    mydb = mysql.connector.connect(
-    host=os.environ['HOST'],
-    user=os.environ['USER'],
-    passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
-    member = ctx.author if not member else member
-    def checkmsg(m):
-        return m.author == member
-    await ctx.channel.send("Enter config name:")
-    name = await client.wait_for('message', check=checkmsg)
-    name = name.content
-    await ctx.channel.send("Enter timing value:")
-    Timing = await client.wait_for('message', check=checkmsg)
-    Timing = Timing.content
-    await ctx.channel.send("Enter gun timing value:")
-    GunTiming = await client.wait_for('message', check=checkmsg)
-    GunTiming = GunTiming.content
-    await ctx.channel.send("Enter your control percent value or if you don't use it enter No:")
-    ControlPercent = await client.wait_for('message', check=checkmsg)
-    ControlPercent = ControlPercent.content
-    await ctx.channel.send("Enter your humanization value or if you don't use it enter No:")
-    Humanization = await client.wait_for('message', check=checkmsg)
-    Humanization = Humanization.content
-    await ctx.channel.send("Enter your Adjustment value and your sensitivity(the effect of adjustment varies per sensitivity):")
-    Adjustment = await client.wait_for('message', check=checkmsg)
-    Adjustment = Adjustment.content
-    mycursor = mydb.cursor()
-    mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
-    name_check = mycursor.fetchone()
-    await ctx.channel.purge(limit=12)
-    if name_check:#[0]: #== 1:
-        embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
-        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
-        await ctx.channel.send(embed=embed)
-    else:
-        mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}','{Adjustment}', '{ctx.author}')")
-        embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
-        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
-        await ctx.channel.send(embed=embed)
-    #time.sleep(5)
-    mydb.commit()
-    mycursor.close()
-    mydb.close()
+    if ctx.channel.id == 731781244580397066:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'],
+    )
+        member = ctx.author if not member else member
+        def checkmsg(m):
+            return m.author == member
+        await ctx.channel.send("Enter config name:")
+        name = await client.wait_for('message', check=checkmsg)
+        name = name.content
+        await ctx.channel.send("Enter timing value:")
+        Timing = await client.wait_for('message', check=checkmsg)
+        Timing = Timing.content
+        await ctx.channel.send("Enter gun timing value:")
+        GunTiming = await client.wait_for('message', check=checkmsg)
+        GunTiming = GunTiming.content
+        await ctx.channel.send("Enter your control percent value or if you don't use it enter No:")
+        ControlPercent = await client.wait_for('message', check=checkmsg)
+        ControlPercent = ControlPercent.content
+        await ctx.channel.send("Enter your humanization value or if you don't use it enter No:")
+        Humanization = await client.wait_for('message', check=checkmsg)
+        Humanization = Humanization.content
+        await ctx.channel.send("Enter your Adjustment value and your sensitivity(the effect of adjustment varies per sensitivity):")
+        Adjustment = await client.wait_for('message', check=checkmsg)
+        Adjustment = Adjustment.content
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
+        name_check = mycursor.fetchone()
+        await ctx.channel.purge(limit=12)
+        if name_check:#[0]: #== 1:
+            embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
+            embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+            await ctx.channel.send(embed=embed)
+        else:
+            mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}','{Adjustment}', '{ctx.author}')")
+            embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
+            embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+            await ctx.channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+    embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+    await ctx.send(embed=embed)
 
 @client.command()
 async def application(ctx, member: discord.Member = None):
