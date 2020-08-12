@@ -269,15 +269,14 @@ async def download(ctx, member: discord.Member = None):
             else:   
                 await member.send("Key not active or is expired")
         else:
-            embed = discord.Embed(description = 'Error', color = discord.Color.red())
-            embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
             cooldown_count = move_cooldown2 - last_move.seconds
             real_coold_count = convert(cooldown_count)
-            embed.set_footer(text = f'You are still on cooldown for {real_coold_count}')
+            embed = discord.Embed(title="Error", description = f'<@{member.id}> you are still on cooldown for {real_coold_count}', color = discord.Color.red())
+            embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
             await member.send(embed=embed)
     else:
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
-        embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
+        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
         await ctx.send(embed=embed)
  
  
