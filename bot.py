@@ -533,8 +533,8 @@ async def show_config(ctx, *, name):
         host=os.environ['HOST'],
         user=os.environ['USER'],
         passwd=os.environ['PASSWORD'],
-        database=os.environ['DATABASE'],
-    )
+        database=os.environ['DATABASE'])
+
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT * FROM Configs WHERE Name='{name}'")
         config_get = mycursor.fetchall()
@@ -570,8 +570,8 @@ async def delete_config(ctx, *, name):
     host=os.environ['HOST'],
     user=os.environ['USER'],
     passwd=os.environ['PASSWORD'],
-    database=os.environ['DATABASE'],
-)
+    database=os.environ['DATABASE'])
+
     mycursor = mydb.cursor()
     mycursor.execute(f"DELETE FROM Configs WHERE Name='{name}'")
     embed = discord.Embed(title="Config Deleted",description=f"The config named {name} was deleted", color=discord.Color.red())
@@ -590,8 +590,8 @@ async def show_all_configs(ctx):
         host=os.environ['HOST'],
         user=os.environ['USER'],
         passwd=os.environ['PASSWORD'],
-        database=os.environ['DATABASE'],
-    )
+        database=os.environ['DATABASE'])
+
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT Name, Author FROM Configs")
         config_get = mycursor.fetchall()
@@ -624,8 +624,8 @@ async def new_config(ctx,member: discord.Member = None):
         host=os.environ['HOST'],
         user=os.environ['USER'],
         passwd=os.environ['PASSWORD'],
-        database=os.environ['DATABASE'],
-    )
+        database=os.environ['DATABASE'])
+        
         member = ctx.author if not member else member
         def checkmsg(m):
             return m.author == member
