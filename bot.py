@@ -558,9 +558,10 @@ async def show_config(ctx, *, name):
         mydb.commit()
         mycursor.close()
         mydb.close()
-    embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
-    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
-    await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+        await ctx.send(embed=embed)
 
 @client.command()
 @commands.is_owner()
@@ -610,9 +611,10 @@ async def show_all_configs(ctx):
         mydb.commit()
         mycursor.close()
         mydb.close()
-    embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
-    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
-    await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+        await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_role('User')
@@ -662,9 +664,10 @@ async def new_config(ctx,member: discord.Member = None):
         mydb.commit()
         mycursor.close()
         mydb.close()
-    embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
-    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
-    await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
+        await ctx.send(embed=embed)
 
 @client.command()
 async def application(ctx, member: discord.Member = None):
