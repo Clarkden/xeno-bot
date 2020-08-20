@@ -275,11 +275,11 @@ async def download(ctx, member: discord.Member = None):
                 if '1' in string2:
                     await member.send("https://mega.nz/file/zENlXCxL#Ek7ifZvE-eLG7b6-UCNhLFA9W7xus46ZURFEgfxY4SI")
                     channel = client.get_channel(694061907291930664)
-                    channel.send(f'`{member} downloaded the Xeno v2.7.5`')
+                    await channel.send(f'`{member} downloaded the Xeno v2.7.5`')
                 elif '2' in string2:
                     await member.send("https://mega.nz/file/accl1QpS#yFAq2kmTF6yi7lqqPw45gX3qESpG8tkbZDdW8ICaj3Q")
                     channel = client.get_channel(694061907291930664)
-                    channel.send(f'`{member} downloaded the test update`')
+                    await channel.send(f'`{member} downloaded the test update`')
                 else:
                     await member.send("Invalid Option")
             else:   
