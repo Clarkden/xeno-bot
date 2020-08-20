@@ -433,7 +433,7 @@ async def all_warns(ctx):
         configs+="`"
         configs+=str(row[1])
         configs+="`"
-        configs+="Warner: "
+        configs+=" Warner: "
         configs+="`"
         configs+=str(row[2])
         configs+="`"
@@ -496,12 +496,6 @@ async def warn(ctx, member : discord.Member, *, reason=None):
         mycursor.close()
         mydb.close()
 
-        embed = discord.Embed(title="Warning",description=f"\nName: <@{author}>\nReason:`{reason}`\nWarns: `{mycursor.rowcount}`", color=discord.Color.purple())
-        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
-        await member.send(embed=embed)
-        embeded = await ctx.send(embed=embed)
-        await embeded.add_reaction(":nicecheckmark:742861250341502997")
-
         time.sleep(5)
         mydb = mysql.connector.connect(
         host=os.environ['HOST'],
@@ -513,6 +507,13 @@ async def warn(ctx, member : discord.Member, *, reason=None):
         mycursor.execute(f"SELECT * FROM Warns WHERE discord='{member}'")
         mycursor.fetchall()
         #member = client.get_user(author)
+
+        embed = discord.Embed(title="Warning",description=f"\nName: <@{author}>\nReason:`{reason}`\nWarns: `{mycursor.rowcount}`", color=discord.Color.purple())
+        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+        await member.send(embed=embed)
+        embeded = await ctx.send(embed=embed)
+        await embeded.add_reaction(":nicecheckmark:742861250341502997")
+
         if mycursor.rowcount == 3:
             embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `Warned 3 times` ", color=discord.Color.purple())
             embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
@@ -520,6 +521,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
             await embeded.add_reaction(":nicecheckmark:742861250341502997")
             await member.send(embed=embed)
             await member.ban(reason=reason)
+        
         mydb.commit()
         mycursor.close()
         mydb.close()
