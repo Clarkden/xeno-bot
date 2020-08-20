@@ -16,7 +16,7 @@ on_cooldown = {}
 on_cooldown2 = {}
 move_cooldown = 14400
 move_cooldown2 = 60
-client = commands.Bot(command_prefix = '$')
+client = commands.Bot(command_prefix = '.')
 client.remove_command('help')
 #hi
 def convert(seconds): 
@@ -409,9 +409,76 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
 @client.command()
+async def all_warns(ctx):
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'])
+
+    mycursor = mydb.cursor()
+    mycursor.execute(f"SELECT Discord, Reason, Warner FROM Warns")
+    config_get = mycursor.fetchall()
+    configs = ""
+    for row in config_get:
+        configs+="Discord: "
+        configs+="`"
+        configs+=str(row[0])
+        configs+="`"
+        configs+=" Reason: "
+        configs+="`"
+        configs+=str(row[1])
+        configs+="`"
+        configs+="Warner"
+        configs+="`"
+        configs+=str(row[2])
+        configs+="`"
+        configs+="\n"
+    #print(config_get, end=" ")
+    embed = discord.Embed(title="All Warns",description=f"{configs}\n **Total Warns: {mycursor.rowcount}**", color=discord.Color.purple())
+    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+    await ctx.channel.send(embed=embed)
+    #time.sleep(5)
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
+
+
+
+
+@client.command()
+async def remove_warn(ctx, member : discord.Member, *, reason=None):
+    if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
+        await ctx.channel.purge(limit=1)
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'],
+        )
+        mycursor = mydb.cursor()
+        mycursor.execute(f"DELETE FROM warns WHERE Discord='{member}' AND Reason='{reason}'")
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+        time.sleep(5)
+
+        embed = discord.Embed(title="Warning deleted",description=f"\n<@{ctx.author}> has deleted a warning\nRecepient of original warning:<@{member}> \nWarning:`{reason}`", color=discord.Color.purple())
+        embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+        await member.send(embed=embed)
+        embeded = await ctx.send(embed=embed)
+        await embeded.add_reaction(":nicecheckmark:742861250341502997")
+
+    else:
+        ctx.channel.send("You lack the perms to use this command")
+    
+
+
+@client.command()
 #@commands.is_owner()
 async def warn(ctx, member : discord.Member, *, reason=None):
     author = member.id
+    warner = ctx.author
     await ctx.channel.purge(limit=1)
     if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
         mydb = mysql.connector.connect(
@@ -421,7 +488,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
         database=os.environ['DATABASE'],
     )
         mycursor = mydb.cursor()
-        mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}')")
+        mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}', '{warner}')")
         mydb.commit()
         mycursor.close()
         mydb.close()
