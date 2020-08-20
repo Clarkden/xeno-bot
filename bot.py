@@ -429,7 +429,7 @@ async def all_warns(ctx):
         configs+="`"
         configs+=str(row[1])
         configs+="`"
-        configs+="Warner"
+        configs+="Warner: "
         configs+="`"
         configs+=str(row[2])
         configs+="`"
