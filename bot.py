@@ -463,7 +463,7 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
         mydb.close()
         time.sleep(5)
 
-        embed = discord.Embed(title="Warning deleted",description=f"\n<@{ctx.author.id}> has deleted a warning\nRecepient of original warning:<@{member.id}> \nWarning:`{reason}`", color=discord.Color.purple())
+        embed = discord.Embed(title="Warning deleted",description=f"\n`Warning deleted by:`<@{ctx.author.id}>\n`Recepient of original warning:`<@{member.id}> \nWarning:`{reason}`", color=discord.Color.purple())
         embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
         await ctx.channel.send(embed=embed)
         await member.send(embed=embed)
