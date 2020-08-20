@@ -657,7 +657,7 @@ async def new_config(ctx,member: discord.Member = None):
             await ctx.channel.send(embed=embed)
         else:
             mycursor.execute(f"INSERT INTO Configs VALUES ('{name}','NULL','{Timing}','{GunTiming}','{ControlPercent}', '{Humanization}','{Adjustment}', '{ctx.author}')")
-            embed = discord.Embed(title="Config Added",description=f"Config named {name} has been added Successfully ", color=discord.Color.green())
+            embed = discord.Embed(title="Config Added",description=f"Config named `{name}` has been added Successfully ", color=discord.Color.green())
             embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
             await ctx.channel.send(embed=embed)
         #time.sleep(5)
