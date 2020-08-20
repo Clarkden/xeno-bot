@@ -59,11 +59,11 @@ async def on_message(message):
             await channel.send(embed=hello)
     if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
         if 'auth failed' in message.content.lower():
-            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command $reset or $premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
+            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
             auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=auth_failed)
         if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
-            good_settings = discord.Embed(title='Needed Game Settings', description='1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1\n\n To find good settings use the commands\n$show_all_configs | $show_config (config name) | $new_config', color=discord.Color.purple())
+            good_settings = discord.Embed(title='Needed Game Settings', description='1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1\n\n To find good settings use the commands\n.show_all_configs | .show_config (config name) | .new_config', color=discord.Color.purple())
             good_settings.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=good_settings)
     if message.channel.id  == 694008360239890495:
@@ -109,7 +109,7 @@ async def on_command_error(ctx, error):
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(title="All Commands", description="**$download** (Download Xeno)\n**$embed** (Embed a message)\n**$expiration** (Check the expiration of your key)\n**$redeem_key** (Redeem a key from the shoppy to access the user discord)\n**$reset** (Reset your hwid)\n**$new_config** (creates a config that can be uploaded to a database)\n**$show_all_configs** (Shows all configs in the database)\n**$show_config** (Show a specific config)\n**$suggest** (Suggest a feature or bug fix)\n", color=discord.Color.purple())
+    embed = discord.Embed(title="All Commands", description="**.download** (Download Xeno)\n**.embed** (Embed a message)\n**.expiration** (Check the expiration of your key)\n**.redeem_key** (Redeem a key from the shoppy to access the user discord)\n**.reset** (Reset your hwid)\n**.new_config** (creates a config that can be uploaded to a database)\n**.show_all_configs** (Shows all configs in the database)\n**.show_config** (Show a specific config)\n**.suggest** (Suggest a feature or bug fix)\n", color=discord.Color.purple())
     embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")  
     await ctx.send(embed=embed)
 
@@ -137,9 +137,9 @@ async def bot_commands(ctx):
         embed = discord.Embed(name="Error",description="This channel does not have access", color=discord.Color.red())
         await ctx.send(embed=embed)  
     else:
-        embed = discord.Embed(title = 'Commands', description="1. Reset Hwid for Normal Key | $reset\n2. Reset Hwid for Premium Key | $premium_reset\n3. Get Download for script | $download\n4. Embed a message | $embed\n5. Suggest a feature or fix bug | $suggest\n6. Check Expiration on key | $expiration", color = discord.Color.green())
+        embed = discord.Embed(title = 'Commands', description="1. Reset Hwid for Normal Key | .reset\n2. Reset Hwid for Premium Key | .premium_reset\n3. Get Download for script | .download\n4. Embed a message | .embed\n5. Suggest a feature or fix bug | .suggest\n6. Check Expiration on key | .expiration", color = discord.Color.green())
         embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
-        embed.set_footer(text = '$bot_commands')
+        embed.set_footer(text = '.bot_commands')
         await ctx.send(embed=embed)
 
 @client.command()
@@ -360,7 +360,7 @@ async def expiration(ctx, member: discord.Member = None):
             embed = discord.Embed(title="Expiration Check", color = discord.Color.green())
             embed.set_author(name=f'{ctx.author.name}', icon_url=f"{member.avatar_url}")
             embed.add_field(name = 'Expiration', value = f'{real_expiration}')
-            embed.set_footer(text = '$expiration')
+            embed.set_footer(text = '.expiration')
             channel = ctx.message.channel
             messages = []
             async for message in channel.history(limit=1):
@@ -461,13 +461,13 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
         mydb.commit()
         mycursor.close()
         mydb.close()
-        time.sleep(5)
 
         embed = discord.Embed(title="Warning deleted",description=f"\n<@{ctx.author}> has deleted a warning\nRecepient of original warning:<@{member}> \nWarning:`{reason}`", color=discord.Color.purple())
         embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
         await member.send(embed=embed)
         embeded = await ctx.send(embed=embed)
         await embeded.add_reaction(":nicecheckmark:742861250341502997")
+        time.sleep(5)
 
     else:
         ctx.channel.send("You lack the perms to use this command")
