@@ -93,6 +93,7 @@ async def on_message(message):
 
     await client.process_commands(message)
 
+
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -105,6 +106,11 @@ async def on_command_error(ctx, error):
         embed = discord.Embed(description="Command not found", color=discord.Color.red())
         await ctx.send(embed=embed)  
 
+@client.command()
+async def help(ctx):
+    embed = discord.Embed(title="All Commands", description="$download (Download Xeno)\n$embed (Embed a message)\n$expiration (Check the expiration of your key)\n$redeem_key (Redeem a key from the shoppy to access the user discord)\n$reset (Reset your hwid)\n$new_config (creates a config that can be uploaded to a database)\n$show_all_configs (Shows all configs in the database)\n$show_config (Show a specific config)\n$suggest (Suggest a feature or bug fix)", color=discord.Color.purple())
+    embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")  
+    await ctx.channel.send(embed=embed)
 
 
 @client.command(pass_context=True)
