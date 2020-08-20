@@ -208,7 +208,7 @@ async def reset(ctx, member: discord.Member = None):
             if 'true' in r.text:
                 #embed = discord.Embed(title = 'Hwid Reset', color = discord.Color.green())
                 embed = discord.Embed(description=f'<@{author}>',color = discord.Color.green())
-                embed.set_author(name=f'Hwid Reset', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742831007178162238/6951_Online.png")
+                embed.set_author(name=f'Hwid Reset Succeeded', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742831007178162238/6951_Online.png")
                 #embed.add_field(name = 'Reset', value = 'Success')
                 #embed.set_footer(text = f'<@{author}>')
                 channel = ctx.message.channel
