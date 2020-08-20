@@ -491,7 +491,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
         database=os.environ['DATABASE'],
     )
         mycursor = mydb.cursor()
-        mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}', '{warner}, {author}')")
+        mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{member}', '{reason}', '{warner}', '{author}')")
         mydb.commit()
         mycursor.close()
         mydb.close()
