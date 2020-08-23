@@ -189,6 +189,12 @@ async def redeem_key(ctx, key, member: discord.Member = None):
 @commands.has_role('User')
 #@cooldown(1, 14400, BucketType.user)
 async def reset(ctx, member: discord.Member = None):
+
+    embed = discord.Embed(title = 'Error', description = "Command is not active", color = discord.Color.red())
+    embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
+    await ctx.send(embed=embed)
+
+    '''
     if ctx.channel.id == 731781244580397066:
         def checkmsg(m):
             return m.author == member
@@ -246,6 +252,7 @@ async def reset(ctx, member: discord.Member = None):
         embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
         embed.set_author(name=f'{ctx.author.name}', icon_url=f"{ctx.author.avatar_url}")
         await ctx.send(embed=embed)
+        '''
 
 @client.command()
 @commands.has_role('User')
