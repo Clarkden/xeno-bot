@@ -53,6 +53,15 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
+    if 'kys' in message.content.lower() or 'fuck you' in message.content.lower():
+        await channel.purge(limit=1)
+        #async with channel.typing():
+            #await asyncio.sleep(3)
+        hello = discord.Embed(title='Hello', description='Hey don\'t say that :)', color=discord.Color.purple())
+        hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+        await channel.send(embed=hello)
+        time.sleep(3)
+        await channel.purge(limit=1)
     if 'license' in message.content.lower():
             hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
@@ -77,12 +86,6 @@ async def on_message(message):
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
             await channel.send(embed=hello)
-        if 'kys' in message.content.lower() or 'fuck you' in message.content.lower():
-            async with channel.typing():
-                await asyncio.sleep(3)
-            hello = discord.Embed(title='Hello', description='Hey don\'t say that :)', color=discord.Color.purple())
-            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
-            await channel.send(embed=hello)
         if 'bye' in message.content.lower.startswith() or 'cya' in message.content.lower.startswith():
             async with channel.typing():
                 await asyncio.sleep(4)
@@ -94,6 +97,8 @@ async def on_message(message):
 
     await client.process_commands(message)
 
+
+@welcome.command
 
 @client.event
 async def on_command_error(ctx, error):
