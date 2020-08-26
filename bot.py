@@ -151,6 +151,23 @@ async def join(ctx, member: discord.Member = None):
         await member.add_roles(role)
 
 @client.command()
+@commands.is_owner()
+async def create_key(ctx, key):
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],)
+    await ctx.channel.purge(limit=1)
+    mycursor = mydb.cursor()
+    mycursor.execute(f"INSERT INTO access_keys VALUES ('NULL', '{key}')")
+    await ctx.channel.send(f'`Created key: {key}`')
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
+
+
+@client.command()
 @commands.has_role('Intern')
 async def redeem_key(ctx, key, member: discord.Member = None):
     
