@@ -54,13 +54,13 @@ async def on_message(message):
         return
     channel = message.channel
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
-        message.add_reaction(":nicecheckmark:742861250341502997")
+        await message.add_reaction(":nicecheckmark:742861250341502997")
 
     if 'kys' in message.content.lower() or 'fuck you' in message.content.lower() or 'kill yourself' in message.content.lower():
         await channel.purge(limit=1)
         #async with channel.typing():
             #await asyncio.sleep(3)
-        hello = discord.Embed(description='`Hey don\'t say that :)`', color=discord.Color.purple())
+        hello = discord.Embed(description='Hey don\'t say that :)', color=discord.Color.purple())
         #hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
         await channel.send(embed=hello)
         time.sleep(3)
