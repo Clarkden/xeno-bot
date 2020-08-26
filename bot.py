@@ -300,7 +300,7 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
-                await member.send("Type `1` for `Xeno 2.7.5` or `2` for `Xeno 2.7.5.5 (beta update)`")
+                await member.send("Type `1` for `Xeno 2.7.5` or `2` for `Xeno 2.7.5.5 (beta update)` or `3` for `Xeno 2.7.5.5 (fixed auto-detect)")
                 msg2 = await client.wait_for('message', check=checkmsg, timeout=250.0)
                 string2 = msg2.content
                 if '1' in string2:
@@ -309,6 +309,10 @@ async def download(ctx, member: discord.Member = None):
                     await channel.send(f'`{member} downloaded the Xeno v2.7.5`')
                 elif '2' in string2:
                     await member.send("https://mega.nz/file/accl1QpS#yFAq2kmTF6yi7lqqPw45gX3qESpG8tkbZDdW8ICaj3Q")
+                    channel = client.get_channel(694061907291930664)
+                    await channel.send(f'`{member} downloaded the test update`')
+                elif '3' in string2:
+                    await member.send("https://mega.nz/file/mJthVQwA#KPxdDotNtYH3TMCgyadfXVmE6ABrChRMn3es44gzeRE")
                     channel = client.get_channel(694061907291930664)
                     await channel.send(f'`{member} downloaded the test update`')
                 else:
