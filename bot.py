@@ -60,7 +60,8 @@ async def on_message(message):
         await channel.purge(limit=1)
         #async with channel.typing():
             #await asyncio.sleep(3)
-        hello = discord.Embed(description='Hey don\'t say that :)', color=discord.Color.purple())
+        #color = 0xeb4034
+        hello = discord.Embed(description='Hey don\'t say that :)', color=0xeb4034)
         #hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
         await channel.send(embed=hello)
         time.sleep(3)
