@@ -53,7 +53,10 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if 'kys' in message.content.lower() or 'fuck you' in message.content.lower():
+    if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
+        message.add_reaction(":nicecheckmark:742861250341502997")
+
+    if 'kys' in message.content.lower() or 'fuck you' in message.content.lower() or 'kill yourself' in message.content.lower():
         await channel.purge(limit=1)
         #async with channel.typing():
             #await asyncio.sleep(3)
