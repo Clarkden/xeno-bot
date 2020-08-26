@@ -562,7 +562,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
             
             mydb.commit()
             mycursor.close()
-        mydb.close()
+            mydb.close()
     else:
         ctx.channel.send("`You lack the perms to use this command`")
 
