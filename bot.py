@@ -98,8 +98,6 @@ async def on_message(message):
     await client.process_commands(message)
 
 
-@welcome.command
-
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
