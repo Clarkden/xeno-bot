@@ -122,7 +122,9 @@ async def on_message(message):
                         if counting == 100:
                             await message.channel.send("`YAY 100`")
                         if counting == 1000:
-                            await message.channel.send("`YAY 1000`")
+                            await message.channel.send(f"`YAY 1000 {message.author} wins`")
+                            channel = client.get_channel(694061907291930664)
+                            await channel.send(f"`YAY 1000 {message.author} wins`")
                     else:
                         counting = 0
                         await message.add_reaction(":nologo:742796559896412161")
