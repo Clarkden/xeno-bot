@@ -52,6 +52,7 @@ async def on_ready():
     
 @client.event
 async def on_message(message):
+    global counting
     if message.author == client.user:
         return
     channel = message.channel
