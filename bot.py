@@ -128,7 +128,7 @@ async def on_message(message):
 @commands.is_owner()
 async def setcount(ctx, count):
     global counting
-    counting = count
+    counting = int(count)
     await ctx.channel.send(f'`Count set at {count}`')
 
 @client.event
