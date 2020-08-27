@@ -107,7 +107,7 @@ async def on_message(message):
     if message.channel.id == 748596711747879062:
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
             user = message.author
-            if user == last_user:
+            '''if user == last_user:
                 banned_counters.append(user)
                 last_user = ''
                 counting = 0
@@ -119,34 +119,42 @@ async def on_message(message):
                         role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                         await user.remove_roles(role)
             else:
-                last_user = user
-                try:
-                    currentCount = int(message.content)
-                    newcount = counting + 1
-                    if  currentCount == newcount:
-                        counting += 1
-                        await message.add_reaction(":nicecheckmark:742861250341502997")
+                last_user = user'''
+            try:
+                currentCount = int(message.content)
+                newcount = counting + 1
+                if  currentCount == newcount:
+                    counting += 1
+                    await message.add_reaction(":nicecheckmark:742861250341502997")
+                    if counting % 20 == 0:
                         if counting == 100:
-                            await message.channel.send("`YAY 100`")
-                        if counting == 500:
-                            await message.channel.send(f"`YAY 500 {message.author} wins`")
-                            channel = client.get_channel(694061907291930664)
-                            await channel.send(f"`YAY 500 {message.author} wins`")
-                            await message.author.send("`Your premium license: GQKHX-F939-K1MDN`")
-                    else:
-                        banned_counters.append(user)
-                        last_user = ''
-                        counting = 0
-                        await message.add_reaction(":nologo:742796559896412161")
-                        await message.channel.send(f"`{message.author} messed up the count!`")
-                        await message.channel.send("`Start at 1!`")
-                        if banned_counters.count(user) > 2:
-                            await message.channel.send(f"`{user} has lost the ability to count!`")
-                            role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
-                            await user.remove_roles(role)
-                    
-                except:
-                    pass
+                            pass
+                        elif counting == 500:
+                            pass
+                        else:
+                            await message.channel.send("`REMINDER! Whoever is the person to say 500 by counting from 1 wins a premium key.`")
+
+                    if counting == 100:
+                        await message.channel.send("`YAY 100`")
+                    if counting == 500:
+                        await message.channel.send(f"`YAY 500 {message.author} wins`")
+                        channel = client.get_channel(694061907291930664)
+                        await channel.send(f"`YAY 500 {message.author} wins`")
+                        await message.author.send("`Your premium license: GQKHX-F939-K1MDN`")
+                else:
+                    banned_counters.append(user)
+                    last_user = ''
+                    counting = 0
+                    await message.add_reaction(":nologo:742796559896412161")
+                    await message.channel.send(f"`{message.author} messed up the count!`")
+                    await message.channel.send("`Start at 1!`")
+                    if banned_counters.count(user) > 2:
+                        await message.channel.send(f"`{user} has lost the ability to count!`")
+                        role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
+                        await user.remove_roles(role)
+                
+            except:
+                pass
 
     await client.process_commands(message)
 
