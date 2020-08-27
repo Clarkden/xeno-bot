@@ -123,7 +123,7 @@ async def on_message(message):
 
     await client.process_commands(message)
 
-@client.command
+@client.command()
 @commands.is_owner()
 async def setcount(ctx, count):
     global counting
