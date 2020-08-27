@@ -114,7 +114,7 @@ async def on_message(message):
                 await message.add_reaction(":nologo:742796559896412161")
                 await message.channel.send(f"`{message.author} messed up the count! You cannot say more than 1 number in a row!`")
                 await message.channel.send("`Start at 1!`")
-                if banned_counters.count(user) == 4:
+                if banned_counters.count(user) > 2:
                         await message.channel.send(f"`{user} has lost the ability to count!`")
                         role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                         await user.remove_roles(role)
@@ -140,7 +140,7 @@ async def on_message(message):
                         await message.add_reaction(":nologo:742796559896412161")
                         await message.channel.send(f"`{message.author} messed up the count!`")
                         await message.channel.send("`Start at 1!`")
-                        if banned_counters.count(user) == 4:
+                        if banned_counters.count(user) > 2:
                             await message.channel.send(f"`{user} has lost the ability to count!`")
                             role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                             await user.remove_roles(role)
