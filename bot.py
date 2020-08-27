@@ -12,7 +12,7 @@ from discord.utils import get
 import mysql.connector
 
 
-count = 0
+counting = 0
 
 on_cooldown = {}
 on_cooldown2 = {}
@@ -103,9 +103,9 @@ async def on_message(message):
     if message.channel.id == 748596711747879062:
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
             currentCount = int(message.content)
-            newcount = count + 1
+            newcount = counting + 1
             if  currentCount == newcount:
-                count = count + 1
+                counting += 1
                 await message.add_reaction(":nicecheckmark:742861250341502997")
             else:
                 await message.add_reaction(":nologo:742796559896412161")
