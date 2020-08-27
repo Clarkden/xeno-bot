@@ -648,12 +648,6 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
     await channel.send(embed=embed)
     await member.kick(reason=reason)
 
-@show_config.error
-async def show_config_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        embed = discord.Embed(description="Please pass in all required arguments\nExample: .show_config Name", color=discord.Color.red())
-        await ctx.send(embed=embed)
-
 @client.command()
 @commands.has_role('User')
 async def show_config(ctx, *, name):
