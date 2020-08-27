@@ -197,11 +197,13 @@ async def redeem_key(ctx, key, member: discord.Member = None):
             channel = client.get_channel(724550485742452820)
             invitelink = await channel.create_invite(max_uses=1,unique=True)
             role = discord.utils.get(ctx.guild.roles, name = "New User")
+            role2 = discord.utils.get(ctx.guild.roles, name = "Intern")
             await member.send(invitelink) 
             await member.add_roles(role)
-            await member.send("Please wait for Clarkden to get online to receive your key for the script. Nobody else can give you the key and download.")
+            await member.remove_roles(role2)
+            await member.send("`Please wait for Clarkden to get online to receive your key for the script. Nobody else can give you the key and download.`")
         else:
-            await member.send("There was an issue validating your key. Please message Clarkden.")
+            await member.send("`There was an issue validating your key. Please message Clarkden.`")
     else:
         await ctx.channel.purge(limit=1)
     #time.sleep(10)
