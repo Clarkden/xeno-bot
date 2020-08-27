@@ -518,9 +518,10 @@ async def warn(ctx, member : discord.Member, *, reason=None):
     author = member.id
     warner = ctx.author
     await ctx.channel.purge(limit=1)
-    if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
+    #if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
+    if ctx.author.id == 208036172247728128:
         if author == 208036172247728128:
-            ctx.channel.send("`You cannot warn Clarkden`")
+            await ctx.channel.send("`You cannot warn Clarkden`")
         else:
             mydb = mysql.connector.connect(
             host=os.environ['HOST'],
