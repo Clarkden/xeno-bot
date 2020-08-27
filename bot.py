@@ -300,7 +300,7 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
-                await member.send("Type `1` for `Xeno 2.7.5` or `2` for `Xeno 2.7.5.5 (beta update)` or `3` for `Xeno 2.7.5.5 (fixed auto-detect)")
+                await member.send("Type `1` for `Xeno 2.7.5` or `2` for `Xeno 2.7.5.5 (beta update)` or `3` for `Xeno 2.7.5.5 (fixed auto-detect)`")
                 msg2 = await client.wait_for('message', check=checkmsg, timeout=250.0)
                 string2 = msg2.content
                 if '1' in string2:
@@ -314,7 +314,7 @@ async def download(ctx, member: discord.Member = None):
                 elif '3' in string2:
                     await member.send("https://mega.nz/file/mJthVQwA#KPxdDotNtYH3TMCgyadfXVmE6ABrChRMn3es44gzeRE")
                     channel = client.get_channel(694061907291930664)
-                    await channel.send(f'`{member} downloaded the test update`')
+                    await channel.send(f'`{member} downloaded the test update with fixed auto detect`')
                 else:
                     await member.send("Invalid Option")
             else:   
@@ -554,7 +554,7 @@ async def warn(ctx, member : discord.Member, *, reason=None):
             await embeded.add_reaction(":nicecheckmark:742861250341502997")
 
             if mycursor.rowcount == 3:
-                embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `Warned 3 times` ", color=discord.Color.purple())
+                embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `{reason}`\nReason for ban: `Warned 3 times` ", color=discord.Color.purple())
                 embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
                 embeded = await ctx.send(embed=embed)
                 await embeded.add_reaction(":nicecheckmark:742861250341502997")
@@ -647,6 +647,12 @@ async def decline_application(ctx, member : discord.Member, reason="Denied"):
     await member.send(embed=embed)
     await channel.send(embed=embed)
     await member.kick(reason=reason)
+
+@show_config.error
+async def show_config_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="Please pass in all required arguments\nExample: .show_config Name", color=discord.Color.red())
+        await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_role('User')
