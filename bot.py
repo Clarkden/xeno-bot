@@ -105,21 +105,21 @@ async def on_message(message):
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
             try:
                 currentCount = int(message.content)
-                newcount = counting + 1
-                if  currentCount == newcount:
-                    counting += 1
-                    await message.add_reaction(":nicecheckmark:742861250341502997")
-                    if counting == 100:
-                        await message.channel.send("`YAY 100`")
-                    if counting == 1000:
-                        await message.channel.send("`YAY 1000`")
-                else:
-                    counting = 0
-                    await message.add_reaction(":nologo:742796559896412161")
-                    await message.channel.send(f"`{message.author} messed up the count!`")
-                    await message.channel.send("`Start at 1!`")
             except:
-                pass
+                break
+            newcount = counting + 1
+            if  currentCount == newcount:
+                counting += 1
+                await message.add_reaction(":nicecheckmark:742861250341502997")
+                if counting == 100:
+                    await message.channel.send("`YAY 100`")
+                if counting == 1000:
+                    await message.channel.send("`YAY 1000`")
+            else:
+                counting = 0
+                await message.add_reaction(":nologo:742796559896412161")
+                await message.channel.send(f"`{message.author} messed up the count!`")
+                await message.channel.send("`Start at 1!`")
 
     await client.process_commands(message)
 
