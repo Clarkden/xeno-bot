@@ -12,6 +12,9 @@ from discord.utils import get
 import mysql.connector
 
 
+count = 0
+newcount = count + 1
+
 on_cooldown = {}
 on_cooldown2 = {}
 move_cooldown = 14400
@@ -98,6 +101,14 @@ async def on_message(message):
             await channel.send(embed=hello)
             await asyncio.sleep(5)
             await message.channel.purge(limit=4)
+    if message.channel.id == 748596711747879062:
+        if '1' in message.content.startswith() or '2' in message.content.startswith() or '3' in message.content.startswith() or '4' in message.content.startswith() or '5' in message.content.startswith() or '6' in message.content.startswith() or '7' in message.content.startswith() or '8' in message.content.startswith() or '9' in message.content.startswith():
+            if int(message.content) == newcount:
+                count = count + 1
+                await message.add_reaction(":nicecheckmark:742861250341502997")
+            else:
+                await message.channel.send(f"`{message.author} messed up the count!`")
+                await message.channel.send("`Start at 0!`")
 
     await client.process_commands(message)
 
