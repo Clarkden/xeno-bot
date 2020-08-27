@@ -13,6 +13,7 @@ import mysql.connector
 
 
 counting = 0
+last_user = ''
 
 on_cooldown = {}
 on_cooldown2 = {}
@@ -53,6 +54,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global counting
+    global last_user
     if message.author == client.user:
         return
     channel = message.channel
@@ -103,24 +105,32 @@ async def on_message(message):
             await message.channel.purge(limit=4)
     if message.channel.id == 748596711747879062:
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
-            try:
-                currentCount = int(message.content)
-                newcount = counting + 1
-                if  currentCount == newcount:
-                    counting += 1
-                    await message.add_reaction(":nicecheckmark:742861250341502997")
-                    if counting == 100:
-                        await message.channel.send("`YAY 100`")
-                    if counting == 1000:
-                        await message.channel.send("`YAY 1000`")
-                else:
-                    counting = 0
-                    await message.add_reaction(":nologo:742796559896412161")
-                    await message.channel.send(f"`{message.author} messed up the count!`")
-                    await message.channel.send("`Start at 1!`")
-                
-            except:
-                pass
+            user = message.author
+            if user == last_user:
+                counting = 0
+                await message.add_reaction(":nologo:742796559896412161")
+                await message.channel.send(f"`{message.author} messed up the count! You cannot say more than 1 number in a row!`")
+                await message.channel.send("`Start at 1!`")
+            else:
+                last_user = user
+                try:
+                    currentCount = int(message.content)
+                    newcount = counting + 1
+                    if  currentCount == newcount:
+                        counting += 1
+                        await message.add_reaction(":nicecheckmark:742861250341502997")
+                        if counting == 100:
+                            await message.channel.send("`YAY 100`")
+                        if counting == 1000:
+                            await message.channel.send("`YAY 1000`")
+                    else:
+                        counting = 0
+                        await message.add_reaction(":nologo:742796559896412161")
+                        await message.channel.send(f"`{message.author} messed up the count!`")
+                        await message.channel.send("`Start at 1!`")
+                    
+                except:
+                    pass
 
     await client.process_commands(message)
 
@@ -911,7 +921,21 @@ async def message_all(ctx, channelid, role: discord.Role):
                 embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member}, administration has noticed that you haven't purchased. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information. Feel free to check out our latest showcase as well: https://youtu.be/5Tjtqs7dXes", color=discord.Color.purple())
                 await member.send(embed=embed)    
             except:
-                pass                
+                pass            
+
+@client.command()
+@commands.is_owner()
+async def give_all_role(ctx, channelid, role: discord.Role):
+    channelid = int(channelid)
+    channel = client.get_channel(channelid)
+    await ctx.channel.purge(limit=1)
+    role2 = discord.utils.get(ctx.guild.roles, name = f"{role}")
+    for member in channel.guild.members:
+        try:
+            await member.add_roles(role2)
+            #await member.send(embed=embed)    
+        except:
+            pass            
 
 
 #called_once_a_day.start()
