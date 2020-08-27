@@ -116,7 +116,7 @@ async def on_message(message):
                 await message.channel.send("`Start at 1!`")
                 if banned_counters.count(user) == 4:
                         await message.channel.send(f"`{user} has lost the ability to count!`")
-                        role = discord.utils.get(message.channel.roles, name = f"Counter")
+                        role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                         await user.remove_roles(role)
             else:
                 last_user = user
@@ -142,7 +142,7 @@ async def on_message(message):
                         await message.channel.send("`Start at 1!`")
                         if banned_counters.count(user) == 4:
                             await message.channel.send(f"`{user} has lost the ability to count!`")
-                            role = discord.utils.get(message.channel.roles, name = f"Counter")
+                            role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                             await user.remove_roles(role)
                     
                 except:
