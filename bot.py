@@ -109,6 +109,7 @@ async def on_message(message):
                 counting += 1
                 await message.add_reaction(":nicecheckmark:742861250341502997")
             else:
+                counting = 0
                 await message.add_reaction(":nologo:742796559896412161")
                 await message.channel.send(f"`{message.author} messed up the count!`")
                 await message.channel.send("`Start at 1!`")
