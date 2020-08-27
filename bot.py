@@ -154,6 +154,7 @@ async def on_message(message):
                         await user.remove_roles(role)
                 
             except:
+                await message.channel.purge(limit=1)
                 pass
 
     await client.process_commands(message)
