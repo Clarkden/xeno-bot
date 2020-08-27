@@ -14,6 +14,7 @@ import mysql.connector
 
 counting = 0
 last_user = ''
+banned_counters = []
 
 on_cooldown = {}
 on_cooldown2 = {}
@@ -107,10 +108,16 @@ async def on_message(message):
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
             user = message.author
             if user == last_user:
+                banned_counters.append(user)
+                last_user = ''
                 counting = 0
                 await message.add_reaction(":nologo:742796559896412161")
                 await message.channel.send(f"`{message.author} messed up the count! You cannot say more than 1 number in a row!`")
                 await message.channel.send("`Start at 1!`")
+                if banned_counters.count(user) == 4:
+                        await message.channel.send(f"`{member} has lost the ability to count!`")
+                        role = discord.utils.get(ctx.guild.roles, name = f"Counter")
+                        await message.author.remove_roles(role)
             else:
                 last_user = user
                 try:
@@ -121,15 +128,22 @@ async def on_message(message):
                         await message.add_reaction(":nicecheckmark:742861250341502997")
                         if counting == 100:
                             await message.channel.send("`YAY 100`")
-                        if counting == 1000:
-                            await message.channel.send(f"`YAY 1000 {message.author} wins`")
+                        if counting == 500:
+                            await message.channel.send(f"`YAY 500 {message.author} wins`")
                             channel = client.get_channel(694061907291930664)
-                            await channel.send(f"`YAY 1000 {message.author} wins`")
+                            await channel.send(f"`YAY 500 {message.author} wins`")
+                            await message.author.send("`Your premium license: GQKHX-F939-K1MDN`")
                     else:
+                        banned_counters.append(user)
+                        last_user = ''
                         counting = 0
                         await message.add_reaction(":nologo:742796559896412161")
                         await message.channel.send(f"`{message.author} messed up the count!`")
                         await message.channel.send("`Start at 1!`")
+                        if banned_counters.count(user) == 4:
+                            await message.channel.send(f"`{member} has lost the ability to count!`")
+                            role = discord.utils.get(ctx.guild.roles, name = f"Counter")
+                            await message.author.remove_roles(role)
                     
                 except:
                     pass
