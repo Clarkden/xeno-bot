@@ -221,6 +221,14 @@ async def join(ctx, member: discord.Member = None):
         await member.add_roles(role)
 
 @client.command()
+async def view(ctx, member: discord.Member = None):
+    await ctx.channel.purge(limit=1)
+    if ctx.channel.id == 740481635614720122:
+        member = ctx.author if not member else member
+        role = discord.utils.get(ctx.guild.roles, name = "Waiting For Role")
+        await member.add_roles(role)
+
+@client.command()
 @commands.is_owner()
 async def create_key(ctx, key):
     mydb = mysql.connector.connect(
