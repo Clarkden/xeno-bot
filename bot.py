@@ -62,7 +62,7 @@ async def on_message(message):
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
-    if 'kys' in message.content.lower() or 'fuck you' in message.content.lower() or 'kill yourself' in message.content.lower():
+    if 'kys' in message.content.lower() or 'fuck you' in message.content.lower() or 'kill yourself' in message.content.lower() or 'kill your self' in message.content.lower() or 'nigga' in message.content.lower() or 'nigger' in message.content.lower():
         await channel.purge(limit=1)
         #async with channel.typing():
             #await asyncio.sleep(3)
@@ -152,7 +152,7 @@ async def on_message(message):
                         await message.channel.send(f"`{user} has lost the ability to count!`")
                         role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                         await user.remove_roles(role)        
-            except:
+            except ValueError:
                 await message.channel.purge(limit=1)
                 pass
 
