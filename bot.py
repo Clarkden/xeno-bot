@@ -68,39 +68,39 @@ async def on_message(message):
             #await asyncio.sleep(3)
         #color = 0xeb4034
         hello = discord.Embed(description='Hey don\'t say that :)', color=0xeb4034)
-        #hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+        #hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
         await channel.send(embed=hello)
         time.sleep(3)
         await channel.purge(limit=1)
     if 'license' in message.content.lower():
             hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
-            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             await channel.send(embed=hello)
     if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
         if 'auth failed' in message.content.lower():
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
-            auth_failed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            auth_failed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             await channel.send(embed=auth_failed)
         if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
             good_settings = discord.Embed(title='Needed Game Settings', description='1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1\n\n To find good settings use the commands\n.show_all_configs | .show_config (config name) | .new_config', color=discord.Color.purple())
-            good_settings.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            good_settings.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             await channel.send(embed=good_settings)
     if message.channel.id  == 694008360239890495:
         if 'how do i buy' in message.content.lower() or 'how do i purchase' in message.content.lower() or 'what is the price' in message.content.lower() or 'is this free' in message.content.lower() or 'is this undetected' in message.content.lower()  or 'help' in message.content.lower() or 'i want to buy' in message.content.lower() or 'how much' in message.content.lower() or 'are there any slots' in message.content.lower() or 'how many slots' in message.content.lower() or 'how much does this cost' in message.content.lower():
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
-                information_embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+                information_embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
                 await channel.send(embed=information_embed)
         if 'hello' in message.content.lower.startswith() or 'hi' in message.content.lower.startswith():
             async with channel.typing():
                 await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
-            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             await channel.send(embed=hello)
         if 'bye' in message.content.lower.startswith() or 'cya' in message.content.lower.startswith():
             async with channel.typing():
                 await asyncio.sleep(4)
             hello = discord.Embed(title='Bye', description='Have a good day', color=discord.Color.purple())
-            hello.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             await channel.send(embed=hello)
             await asyncio.sleep(5)
             await message.channel.purge(limit=4)
@@ -180,7 +180,7 @@ async def on_command_error(ctx, error):
 @client.command()
 async def help(ctx):
     embed = discord.Embed(title="All Commands", description="**.download** (Download Xeno)\n**.embed** (Embed a message)\n**.expiration** (Check the expiration of your key)\n**.redeem_key** (Redeem a key from the shoppy to access the user discord)\n**.reset** (Reset your hwid)\n**.new_config** (creates a config that can be uploaded to a database)\n**.show_all_configs** (Shows all configs in the database)\n**.show_config** (Show a specific config)\n**.suggest** (Suggest a feature or bug fix)\n", color=discord.Color.purple())
-    embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")  
+    embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")  
     await ctx.send(embed=embed)
 
 
@@ -208,7 +208,7 @@ async def bot_commands(ctx):
         await ctx.send(embed=embed)  
     else:
         embed = discord.Embed(title = 'Commands', description="1. Reset Hwid for Normal Key | .reset\n2. Reset Hwid for Premium Key | .premium_reset\n3. Get Download for script | .download\n4. Embed a message | .embed\n5. Suggest a feature or fix bug | .suggest\n6. Check Expiration on key | .expiration", color = discord.Color.green())
-        embed.set_author(name='Xeno', icon_url="https://cdn.discordapp.com/attachments/717535356903227416/739658839678517278/Xeno2.jpg")
+        embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
         embed.set_footer(text = '.bot_commands')
         await ctx.send(embed=embed)
 
