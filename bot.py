@@ -50,7 +50,7 @@ async def before():
 async def on_ready():
     channel = client.get_channel(694061907291930664)
     await channel.send('Bot is ready.')
-    await client.change_presence(activity=discord.Activity(game=discord.Game(name='Xeno on top')))
+    await client.change_presence(activity=discord.Game(name='Xeno on top'))
     
 @client.event
 async def on_message(message):
@@ -967,7 +967,7 @@ async def give_all_role(ctx, channelid, role: discord.Role):
 async def mute(ctx, member: discord.Member):
     role = discord.utils.get(ctx.guild.roles, name = "User")
     await member.remove_roles(role)
-    embed = discord.Embed(description=f"<@{member.id}> ` has been muted`")
+    embed = discord.Embed(description=f"<@{member.id}> `has been muted`")
     await ctx.channel.send(embed=embed)
 
 @client.command()
@@ -975,7 +975,7 @@ async def mute(ctx, member: discord.Member):
 async def unmute(ctx, member: discord.Member):
     role = discord.utils.get(ctx.guild.roles, name = "User")
     await member.add_roles(role)
-    embed = discord.Embed(description=f"<@{member.id}> ` has been unmuted`")
+    embed = discord.Embed(description=f"<@{member.id}> `has been unmuted`")
     await ctx.channel.send(embed=embed)
 
       
