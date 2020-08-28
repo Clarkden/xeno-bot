@@ -15,6 +15,7 @@ import mysql.connector
 counting = 0
 last_user = ''
 banned_counters = []
+bad_words = ['nigga', 'nigger', 'kys', 'kill your self', 'kill yourself', 'niggas', 'niggers', 'n i g g a', 'n i g g e r s', 'kkk', 'jew']
 
 on_cooldown = {}
 on_cooldown2 = {}
@@ -62,7 +63,7 @@ async def on_message(message):
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
-    if 'kys' in message.content.lower() or 'fuck you' in message.content.lower() or 'kill yourself' in message.content.lower() or 'kill your self' in message.content.lower() or 'nigga' in message.content.lower() or 'nigger' in message.content.lower():
+    if  message.content.lower() in bad_words:
         await channel.purge(limit=1)
         #async with channel.typing():
             #await asyncio.sleep(3)
