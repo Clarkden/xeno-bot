@@ -57,7 +57,7 @@ async def on_ready():
 async def on_member_join(member):
     pass
 
-@client.command
+@client.command()
 async def test_time(ctx):
     time = ctx.author.id.timestamp
     await ctx.channel.id(time)
