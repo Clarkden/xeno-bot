@@ -54,6 +54,17 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name='Xeno on top'))
     
 @client.event
+async def on_member_join(member):
+    pass
+
+@client.command
+async def test_time(ctx):
+    time = ctx.author.id.timestamp
+    await ctx.channel.id(time)
+    if time.time() - time > 2592000:
+        await ctx.channel.send('older than 30 days')
+
+@client.event
 async def on_message(message):
     global counting
     global last_user
