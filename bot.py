@@ -60,7 +60,7 @@ async def on_member_join(member):
 @client.command()
 async def test_time(ctx):
     time = ctx.author.id.timestamp
-    await ctx.channel.id(time)
+    await ctx.channel.send(time)
     if time.time() - time > 2592000:
         await ctx.channel.send('older than 30 days')
 
