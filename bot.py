@@ -55,14 +55,19 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
-    pass
+    if time.time() - member.created_at.timestamp() < 2592000:
+        await mebmer.send('`You have been automatically banned because your account was created less than 30 days ago`')
+        await member.ban(reason="Automatic ban by Xeno Bot")
+    else:
+        pass
 
 @client.command()
+@commands.is_owner()
 async def test_time(ctx):
-    time = ctx.author.id.timestamp
-    await ctx.channel.send(time)
-    if time.time() - time > 2592000:
-        await ctx.channel.send('older than 30 days')
+    if time.time() - member.created_at.timestamp() < 2592000:
+        await mebmer.send('`You have been automatically banned because your account was created less than 30 days ago`')
+    else:
+        await member.send('test')
 
 @client.event
 async def on_message(message):
