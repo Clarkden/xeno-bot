@@ -55,17 +55,18 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
+    user = client.get_user(member.id)
     if member.server.id == 694008360239890492:
         if time.time() - member.created_at.timestamp() < 2592000:
             reason = "Automatic ban by Xeno Bot"
-            await member.send('`You have been automatically banned from Xeno because your account was created less than 30 days ago`')
-            await member.ban(reason=reason)
+            await user.send('`You have been automatically banned from Xeno because your account was created less than 30 days ago`')
+            await user.ban(reason=reason)
             logs = client.get_channel(694061907291930664)
-            await logs.send(f'{member} automatically banned. New account.')
+            await logs.send(f'{user} automatically banned. New account.')
         else:
             hello = discord.Embed(title='Welcome', description='Hi! Welcome to Xeno! If you have any questions please feel free to message Clarkden or Riley. Clarkden is the developer and owner and Riley is a Helper/Moderator.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await member.send(embed=hello)
+            await user.send(embed=hello)
     else:
         pass
 
