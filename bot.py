@@ -56,7 +56,7 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     user = client.get_user(member.id)
-    guild = await client.get_guild(694008360239890492)
+    guild = client.get_guild(694008360239890492)
     #guild = discord.utils.get(bot.guilds, name=f"{member}")
     if guild.get_member(member.id) is not None:
     #if member.guild.id == 694008360239890492:
