@@ -165,7 +165,13 @@ async def on_message(message):
                         await channel.send(f"`YAY 500 {message.author} wins`")
                         await message.author.send("`Your premium license: GQKHX-F939-K1MDN`")
                 else:
-                    if (currentCount - newcount) > 2:
+                    if (counting - currentCount) > 2:
+                        await message.add_reaction(":nologo:742796559896412161")
+                        await message.channel.send(f"`{message.author} messed up the count on purpose and has lost the ability to count!`")
+                        await message.channel.send(f"`The count has been set back to the previous number! Starting at {counting}`")      
+                        role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
+                        await user.remove_roles(role)
+                    else:
                         banned_counters.append(user)
                         last_user = ''
                         counting = 0
@@ -176,13 +182,6 @@ async def on_message(message):
                             await message.channel.send(f"`{user} has lost the ability to count!`")
                             role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                             await user.remove_roles(role)
-                    else:
-                        await message.add_reaction(":nologo:742796559896412161")
-                        await message.channel.send(f"`{message.author} messed up the count on purpose!`")
-                        await message.channel.send(f"`{user} has lost the ability to count!`")
-                        await message.channel.send(f"`The count has been set back to the previous number! Starting at {currentCount}`")
-                        role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
-                        await user.remove_roles(role)
 
             except ValueError:
                 await message.channel.purge(limit=1)
