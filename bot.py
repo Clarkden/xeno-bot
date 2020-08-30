@@ -123,13 +123,13 @@ async def on_message(message):
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
                 information_embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
                 await channel.send(embed=information_embed)
-        if 'hello' in message.content.lower.startswith() or 'hi' in message.content.lower.startswith():
+        if message.content.lower.startswith('hello') or message.content.lower.startswith('hi'):
             async with channel.typing():
                 await asyncio.sleep(3)
             hello = discord.Embed(title='Hello', description='What can I help you with today?', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             await channel.send(embed=hello)
-        if 'bye' in message.content.lower.startswith() or 'cya' in message.content.lower.startswith():
+        if message.content.lower.startswith('bye') or message.content.lower.startswith('cya'):
             async with channel.typing():
                 await asyncio.sleep(4)
             hello = discord.Embed(title='Bye', description='Have a good day', color=discord.Color.purple())
