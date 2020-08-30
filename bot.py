@@ -55,15 +55,17 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
-    user = client.get_user(member.id)
     guild = client.get_guild(694008360239890492)
     #guild = discord.utils.get(bot.guilds, name=f"{member}")
     if guild.get_member(member.id) is not None:
     #if member.guild.id == 694008360239890492:
         if time.time() - member.created_at.timestamp() > 2592000:
-            reason = "Automatic ban by Xeno Bot"
-            await user.send('`You have been automatically banned from Xeno because your account was created less than 30 days ago`')
-            await user.ban(reason=reason)
+            reason = "Automatic ban by Xeno Bot. Account too young."
+            hello = discord.Embed(title='Banned', description='You You have been automatically banned from Xeno because your account was created less than 30 days ago.', color=discord.Color.purple())
+            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+            user = client.get_user(member.id)
+            await user.send(embed=embed)
+            await member.ban(reason=reason)
             logs = client.get_channel(694061907291930664)
             await logs.send(f'{user} automatically banned. New account.')
         else:
