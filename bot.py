@@ -64,7 +64,7 @@ async def on_member_join(member):
             hello = discord.Embed(title='Banned', description='You You have been automatically banned from Xeno because your account was created less than 30 days ago.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             user = client.get_user(member.id)
-            await user.send(embed=embed)
+            await user.send(embed=hello)
             await member.ban(reason=reason)
             logs = client.get_channel(694061907291930664)
             await logs.send(f'{user} automatically banned. New account.')
