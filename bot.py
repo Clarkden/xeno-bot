@@ -165,7 +165,8 @@ async def on_message(message):
                         await channel.send(f"`YAY 500 {message.author} wins`")
                         await message.author.send("`Your premium license: GQKHX-F939-K1MDN`")
                 else:
-                    if (counting - currentCount) > 2:
+                    purposely_messed_up = currentCount- newcount
+                    if purposely_messed_up > 2:
                         await message.add_reaction(":nologo:742796559896412161")
                         await message.channel.send(f"`{message.author} messed up the count on purpose and has lost the ability to count!`")
                         await message.channel.send(f"`The count has been set back to the previous number! Starting at {counting}`")      
