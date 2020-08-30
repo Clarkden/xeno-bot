@@ -71,6 +71,12 @@ async def on_member_join(member):
         pass
 
 @client.command()
+async def ghost_ping(ctx, id):
+    await ctx.channel.purge(limit=1)
+    await ctx.channel.send(f'<@{id}>')
+    await ctx.channel.purge(limit=1)
+
+@client.command()
 @commands.is_owner()
 async def test_time(ctx):
     member = ctx.author
