@@ -172,7 +172,7 @@ async def on_message(message):
                     if purposely_messed_up > 2:
                         await message.add_reaction(":nologo:742796559896412161")
                         await message.channel.send(f"`{message.author} messed up the count on purpose and has lost the ability to count!`")
-                        await message.channel.send(f"`The count has been set back to the previous number! Starting at {counting}`")      
+                        await message.channel.send(f"`The count has been set back to the previous number! Next number is {newcount}`")      
                         role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
                         await user.remove_roles(role)
                     else:
@@ -181,7 +181,7 @@ async def on_message(message):
                         counting = 0
                         await message.add_reaction(":nologo:742796559896412161")
                         await message.channel.send(f"`{message.author} messed up the count!`")
-                        await message.channel.send("`Start at 1!`")
+                        await message.channel.send("`The next number is 1!`")
                         if banned_counters.count(user) > 1:
                             await message.channel.send(f"`{user} has lost the ability to count!`")
                             role = discord.utils.get(message.channel.guild.roles, name = f"Counter")
