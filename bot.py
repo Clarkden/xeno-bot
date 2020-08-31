@@ -657,6 +657,7 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
 
 @client.command()
 async def poll(ctx, *, message):
+    await ctx.channel.purge(limit=1)
     embed = discord.Embed(title='Poll', description=f'{message}\n\n-{ctx.author.mention}',  color=discord.Color.green())
     embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
     embeded = await ctx.channel.send(embed=embed)
@@ -666,8 +667,8 @@ async def poll(ctx, *, message):
 
 @client.command()
 @commands.is_owner()
-async def blacklist(ctx, member : discord.Member):
-    if member.id == 208036172247728128:
+async def blacklist(ctx, idd):
+    if idd == 208036172247728128:
             await ctx.channel.send("`You cannot warn Clarkden`")
     else:
         mydb = mysql.connector.connect(
@@ -677,12 +678,12 @@ async def blacklist(ctx, member : discord.Member):
             database=os.environ['DATABASE'])
 
         mycursor = mydb.cursor()
-        mycursor.execute(f"INSERT INTO blacklist VALUES ('NULL', '{member.id}')")
+        mycursor.execute(f"INSERT INTO blacklist VALUES ('NULL', '{idd}')")
         mydb.commit()
         mycursor.close()
         mydb.close()
 
-        embed = discord.Embed(description=f'{member.mention} has been added to the blacklist',  color=discord.Color.purple())
+        embed = discord.Embed(description=f'<@{idd}> has been added to the blacklist',  color=discord.Color.purple())
         await ctx.channel.send(embed=embed)
 
     
