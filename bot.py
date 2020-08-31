@@ -656,6 +656,14 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
     
 
 @client.command()
+async def poll(ctx, *, message):
+    embed = discord.Embed(title='Poll', description=f'{message}',  color=discord.Color.green())
+    embeded = await ctx.channel.send(embed=embed)
+    await embeded.add_reaction(":online:742849952568442960")
+    await poembededo.add_reaction(":offline:742850032688037973")
+
+
+@client.command()
 @commands.is_owner()
 async def blacklist(ctx, member : discord.Member):
     if member.id == 208036172247728128:
@@ -673,7 +681,7 @@ async def blacklist(ctx, member : discord.Member):
         mycursor.close()
         mydb.close()
 
-        embed = discord.Embed(description=f'{member.mention} has been added to the blacklist', color=discord.Color.purple)
+        embed = discord.Embed(description=f'{member.mention} has been added to the blacklist',  color=discord.Color.purple())
         await ctx.channel.send(embed=embed)
 
     
