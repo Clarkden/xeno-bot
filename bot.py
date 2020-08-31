@@ -79,7 +79,7 @@ async def on_member_join(member):
             mycursor.execute(f"SELECT * FROM blacklist WHERE blacklisted='{member.id}'")
             mycursor.fetchall()
 
-            if mycursor.rowcount > 1:
+            if mycursor.rowcount > 0:
                 reason = "Automatic ban by Xeno Bot. Blacklisted."
                 hello = discord.Embed(title='Banned', description='You You have been automatically banned from Xeno because your account was blacklisted by Clarkden.', color=discord.Color.purple())
                 hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
@@ -657,9 +657,8 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
 
 @client.command()
 async def poll(ctx, *, message):
-    embed = discord.Embed(title='Poll', description=f'{message}',  color=discord.Color.green())
+    embed = discord.Embed(title='Poll', description=f'{message}\n\n-{ctx.author.mention}',  color=discord.Color.green())
     embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-    embed.set_footer(f"{ctx.author}")
     embeded = await ctx.channel.send(embed=embed)
     await embeded.add_reaction(":online:742849952568442960")
     await embeded.add_reaction(":offline:742850032688037973")
