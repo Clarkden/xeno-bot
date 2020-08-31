@@ -69,9 +69,33 @@ async def on_member_join(member):
             logs = client.get_channel(694061907291930664)
             await logs.send(f'{user} automatically banned. New account.')
         else:
-            hello = discord.Embed(title='Welcome', description='Hi! Welcome to Xeno! If you have any questions please feel free to message Clarkden or Riley. Clarkden is the developer and owner and Riley is a Helper/Moderator.', color=discord.Color.purple())
-            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await user.send(embed=hello)
+            mydb = mysql.connector.connect(
+            host=os.environ['HOST'],
+            user=os.environ['USER'],
+            passwd=os.environ['PASSWORD'],
+            database=os.environ['DATABASE'])
+
+            mycursor = mydb.cursor()
+            mycursor.execute(f"SELECT * FROM blacklist WHERE blacklisted='{member.id}'")
+            mycursor.fetchall()
+
+            if mycursor.rowcount > 1:
+                reason = "Automatic ban by Xeno Bot. Blacklisted."
+                hello = discord.Embed(title='Banned', description='You You have been automatically banned from Xeno because your account was blacklisted by Clarkden.', color=discord.Color.purple())
+                hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+                user = client.get_user(member.id)
+                await user.send(embed=hello)
+                await member.ban(reason=reason)
+                logs = client.get_channel(694061907291930664)
+                await logs.send(f'{user} automatically banned. Blacklisted account.')
+            else:
+                hello = discord.Embed(title='Welcome', description='Hi! Welcome to Xeno! If you have any questions please feel free to message Clarkden or Riley. Clarkden is the developer and owner and Riley is a Helper/Moderator.', color=discord.Color.purple())
+                hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+                await user.send(embed=hello)
+
+            mydb.commit()
+            mycursor.close()
+            mydb.close()
     else:
         pass
 
@@ -629,6 +653,29 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
 
     else:
         ctx.channel.send("You lack the perms to use this command")
+    
+
+@client.command()
+@commands.is_owner()
+async def blacklist(ctx, member : discord.Member):
+    if member.id == 208036172247728128:
+            await ctx.channel.send("`You cannot warn Clarkden`")
+    else:
+        mydb = mysql.connector.connect(
+            host=os.environ['HOST'],
+            user=os.environ['USER'],
+            passwd=os.environ['PASSWORD'],
+            database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"INSERT INTO blacklist VALUES ('NULL', '{member.id}')")
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+
+        embed = discord.Embed(description=f'{member.mention} has been added to the blacklist', color=discord.Color.purple)
+        await ctx.channel.send(embed=embed)
+
     
 
 
