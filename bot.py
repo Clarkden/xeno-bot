@@ -129,12 +129,12 @@ async def on_message(message):
         #async with channel.typing():
             #await asyncio.sleep(3)
         #color = 0xeb4034
-        hello1 = discord.Embed(description='Hey don\'t say that :)', color=0xeb4034)
+        hello = discord.Embed(description='Hey don\'t say that :)', color=0xeb4034)
         #hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-        await channel.send(embed=hello1)
+        message = await channel.send(embed=hello)
         time.sleep(3)
         #await channel.purge(limit=1)
-        await client.delete_messages(hello1)
+        await client.delete_messages(message)
     if 'license' in message.content.lower():
             hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
