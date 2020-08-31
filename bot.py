@@ -658,9 +658,11 @@ async def remove_warn(ctx, member : discord.Member, *, reason=None):
 @client.command()
 async def poll(ctx, *, message):
     embed = discord.Embed(title='Poll', description=f'{message}',  color=discord.Color.green())
+    embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+    embed.set_footer(f"{ctx.author}")
     embeded = await ctx.channel.send(embed=embed)
     await embeded.add_reaction(":online:742849952568442960")
-    await poembededo.add_reaction(":offline:742850032688037973")
+    await embeded.add_reaction(":offline:742850032688037973")
 
 
 @client.command()
