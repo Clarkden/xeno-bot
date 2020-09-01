@@ -859,7 +859,7 @@ async def show_config(ctx, *, name):
         mycursor.close()
         mydb.close()
     else:
-        embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+        embed = discord.Embed(title = 'Error', description = "Wrong Channel. Use <#731781244580397066> instead.", color = discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
         await ctx.send(embed=embed)
 
@@ -912,7 +912,7 @@ async def show_all_configs(ctx):
         mycursor.close()
         mydb.close()
     else:
-        embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+        embed = discord.Embed(title = 'Error', description = "Wrong Channel. Use <#731781244580397066> instead.", color = discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
         await ctx.send(embed=embed)
 
@@ -965,7 +965,7 @@ async def new_config(ctx,member: discord.Member = None):
         mycursor.close()
         mydb.close()
     else:
-        embed = discord.Embed(title = 'Error', description = "Wrong Channel", color = discord.Color.red())
+        embed = discord.Embed(title = 'Error', description = "Wrong Channel. Use <#731781244580397066> instead.", color = discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
         await ctx.send(embed=embed)
 
