@@ -851,7 +851,7 @@ async def show_config(ctx, *, name):
             embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
             await ctx.channel.send(embed=embed)
         else:
-            embed = discord.Embed(title="Config Error",description=f"The config named {name} could not be found", color=discord.Color.red())
+            embed = discord.Embed(title="Config Error",description=f"The config named `{name}` could not be found", color=discord.Color.red())
             embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
             await ctx.channel.send(embed=embed)
         #time.sleep(5)
@@ -874,7 +874,7 @@ async def delete_config(ctx, *, name):
 
     mycursor = mydb.cursor()
     mycursor.execute(f"DELETE FROM Configs WHERE Name='{name}'")
-    embed = discord.Embed(title="Config Deleted",description=f"The config named {name} was deleted", color=discord.Color.red())
+    embed = discord.Embed(title="Config Deleted",description=f"The config named `{name}` was deleted", color=discord.Color.red())
     embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
     await ctx.channel.send(embed=embed)
     #time.sleep(5)
@@ -904,7 +904,7 @@ async def show_all_configs(ctx):
             configs+=str(row[1])
             configs+="\n"
         #print(config_get, end=" ")
-        embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total Configs: {mycursor.rowcount}**", color=discord.Color.purple())
+        embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total Configs:** `{mycursor.rowcount}`", color=discord.Color.purple())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
         await ctx.channel.send(embed=embed)
         #time.sleep(5)
@@ -952,7 +952,7 @@ async def new_config(ctx,member: discord.Member = None):
         name_check = mycursor.fetchone()
         await ctx.channel.purge(limit=12)
         if name_check:#[0]: #== 1:
-            embed = discord.Embed(title="Config Error",description=f"The name {name} has been used already", color=discord.Color.red())
+            embed = discord.Embed(title="Config Error",description=f"The name `{name}` has been used already", color=discord.Color.red())
             embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
             await ctx.channel.send(embed=embed)
         else:
@@ -1044,6 +1044,16 @@ async def application(ctx, member: discord.Member = None):
             if str(reaction.emoji) == '❌':
                 embed = discord.Embed(description=f"{member} | Your application won't be submitted", color=discord.Color.red())
                 await member.send(embed=embed)
+
+@client.command()
+@commands.has_role('Waiting For Role')
+async def request_key(ctx, member: discord.Member = None):
+    def checkmsg(m):
+        return m.author == member
+
+    def checkreact(reaction, user):
+        return user.id == member.id and str(reaction.emoji) in ['✅', '❌']
+
 
 @client.command()
 @commands.is_owner()
