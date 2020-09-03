@@ -904,7 +904,7 @@ async def show_all_configs(ctx):
             configs+=str(row[1])
             configs+="\n"
         #print(config_get, end=" ")
-        embed = discord.Embed(title="All Configs",description=f"{configs}\n **Total Configs:** `{mycursor.rowcount}`", color=discord.Color.purple())
+        embed = discord.Embed(title="All Configs",description=f"{configs}\n Total Configs: `{mycursor.rowcount}`", color=discord.Color.purple())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
         await ctx.channel.send(embed=embed)
         #time.sleep(5)
