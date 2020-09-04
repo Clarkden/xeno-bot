@@ -1106,19 +1106,19 @@ async def give_sub(ctx, length, member: discord.Member):
     print('1')
     await ctx.channel.purge(limit=1)
     length = str(length)
-    sub_length = 0
+    sub_length = ''
     if 'week' in length:
-        sub_length = 168
+        sub_length = '168'
     if 'month' in length:
-        sub_length = 768
+        sub_length = '768'
     if 'lifetime' in length:
-        sub_length = 0
+        sub_length = '0'
     print('1.5')
 
-    r = requests.post('https://api.c0gnito.cc/generate-keys', data={'privateKey':os.environ['PRIVATE_KEY'], 'numberOfLicenses': f'1', 'expiryTime':f'{sub_length}', 'customMask':'XXX-XXXXXX-XX-XXXX'})
+    r = requests.post('https://api.c0gnito.cc/generate-keys', data={'privateKey':os.environ['PRIVATE_KEY'], 'numberOfLicenses': '1', 'expiryTime':f'{sub_length}'})
     keyword = '\"licenses\": [ \"'
     before_keyword, keyword, after_keyword = r.text.partition(keyword)
-    expiration = after_keyword.replace('","]')
+    expiration.split('\",\"]')
     real_expiration = expiration.replace('}', '')
     print('2')
     print(r.text)
