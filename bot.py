@@ -1112,7 +1112,7 @@ async def give_sub(ctx, length, member: discord.Member):
         sub_length = 0
     else:
         pass
-    r = requests.post('https://api.c0gnito.cc/reset-hwid', data={'privateKey':os.environ['PRIVATE_KEY'], 'numberOfLicenses': f'1', 'expiryTime':f'{sub_length}', 'customMask':'XXX-XXXXXX-XX-XXXX'})
+    r = requests.post('https://api.c0gnito.cc/generate-keys', data={'privateKey':os.environ['PRIVATE_KEY'], 'numberOfLicenses': f'1', 'expiryTime':f'{sub_length}', 'customMask':'XXX-XXXXXX-XX-XXXX'})
     keyword = '\"licenses\": [ \"'
     before_keyword, keyword, after_keyword = r.text.partition(keyword)
     expiration = after_keyword.replace('","]')
