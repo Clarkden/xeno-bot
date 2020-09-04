@@ -1102,7 +1102,8 @@ async def unmute(ctx, member: discord.Member):
 
 @client.command()
 @commands.is_owner()
-async def give_sub(ctx, length, member: discord.Member):
+async def give_sub(ctx, length, id):
+    member = client.get_user(int(id))
     length = str(length)
     sub_length = 0
     if length == 'week':
