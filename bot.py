@@ -456,7 +456,8 @@ async def download(ctx, member: discord.Member = None):
                     channel = client.get_channel(694061907291930664)
                     await channel.send(f'`{member} downloaded the test update`')
                 elif '3' in string2:
-                    await member.send("https://mega.nz/file/mJthVQwA#KPxdDotNtYH3TMCgyadfXVmE6ABrChRMn3es44gzeRE")
+                    await member.send("https://mega.nz/file/KIkXDKbZ#D1v28_4P5KjoFP7W2znVSMU5OoEKPZctqCIcQnLz8jg")
+                    await member.send("Use the max user interface value aswell as a minimum graphics level of 1")
                     channel = client.get_channel(694061907291930664)
                     await channel.send(f'`{member} downloaded the test update with fixed auto detect`')
                 else:
@@ -1162,7 +1163,7 @@ async def give_sub(ctx, length, member: discord.Member):
         await member.remove_roles(role4)
         await member.add_roles(role, role2, role3)
 
-        embed2 = discord.Embed(title="License",description=f"A license has been generated.\n`{key2}`\n{member.mention} have been given a lifetime subscription.", color=discord.Color.red())
+        embed2 = discord.Embed(title="License",description=f"A license has been generated.\n`{key2}`\n{member.mention} has been given a lifetime subscription.", color=discord.Color.red())
         embed2.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
         await logs.send(embed=embed2)
       
