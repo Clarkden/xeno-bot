@@ -121,50 +121,62 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if channel == 724550485742452820 or channel == 750447222360899685 or channel == 694008360239890495:
+    if message.channel.id == 724550485742452820 or message.channel.id == 750447222360899685 or message.channel.id == 694008360239890495 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413 or message.chhanel.id == 717535357540892675:
+        if 'auth failed' in message.content.lower():
+            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
+            auth_failed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+            await channel.send(embed=auth_failed)
+        if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
+            good_settings = discord.Embed(title='Needed Game Settings', description='1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1\n\n To find good settings use the commands\n.show_all_configs | .show_config (config name) | .new_config', color=discord.Color.purple())
+            good_settings.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+            await channel.send(embed=good_settings)
+
         if 'https://' in message.content.lower() or 'http://' in message.content.lower():
-            await channel.purge(limit=1)
-            mydb = mysql.connector.connect(
+            if message.author.id == 208036172247728128:
+                pass
+            else:
+                await channel.purge(limit=1)
+                mydb = mysql.connector.connect(
+                    host=os.environ['HOST'],
+                    user=os.environ['USER'],
+                    passwd=os.environ['PASSWORD'],
+                    database=os.environ['DATABASE'],
+                )
+                mycursor = mydb.cursor()
+                mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{message.author}', 'Sending links in a prohibited channel', 'Xeno Bot', '{message.author.id}')")
+                mydb.commit()
+                mycursor.close()
+                mydb.close()
+
+                time.sleep(5)
+                mydb = mysql.connector.connect(
                 host=os.environ['HOST'],
                 user=os.environ['USER'],
                 passwd=os.environ['PASSWORD'],
                 database=os.environ['DATABASE'],
             )
-            mycursor = mydb.cursor()
-            mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{message.author}', 'Sending links in a prohibited channel', 'Xeno Bot', '{message.author.id}')")
-            mydb.commit()
-            mycursor.close()
-            mydb.close()
+                mycursor = mydb.cursor()
+                mycursor.execute(f"SELECT * FROM Warns WHERE discord='{message.author}'")
+                mycursor.fetchall()
+                #member = client.get_user(author)
 
-            time.sleep(5)
-            mydb = mysql.connector.connect(
-            host=os.environ['HOST'],
-            user=os.environ['USER'],
-            passwd=os.environ['PASSWORD'],
-            database=os.environ['DATABASE'],
-        )
-            mycursor = mydb.cursor()
-            mycursor.execute(f"SELECT * FROM Warns WHERE discord='{message.author}'")
-            mycursor.fetchall()
-            #member = client.get_user(author)
-
-            embed = discord.Embed(title="Warning",description=f"\nName: <@{message.author}>\nReason:`Sending links in a prohibited channel`\nWarns: `{mycursor.rowcount}`\nWarner: <@731231437478690856>", color=discord.Color.purple())
-            embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
-            await message.author.send(embed=embed)
-            embeded = await message.channel.send(embed=embed)
-            await embeded.add_reaction(":nicecheckmark:742861250341502997")
-
-            if mycursor.rowcount == 3:
-                embed = discord.Embed(title="Ban",description=f"\nName: <@{message.author}>\nReason: `Sending links in a prohibited channel`\nReason for ban: `Warned 3 times` ", color=discord.Color.purple())
+                embed = discord.Embed(title="Warning",description=f"\nName: <@{message.author}>\nReason:`Sending links in a prohibited channel`\nWarns: `{mycursor.rowcount}`\nWarner: <@731231437478690856>", color=discord.Color.purple())
                 embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+                await message.author.send(embed=embed)
                 embeded = await message.channel.send(embed=embed)
                 await embeded.add_reaction(":nicecheckmark:742861250341502997")
-                await message.author.send(embed=embed)
-                await message.author.ban(reason='Sending links in a prohibited channel')
-            
-            mydb.commit()
-            mycursor.close()
-            mydb.close()
+
+                if mycursor.rowcount == 3:
+                    embed = discord.Embed(title="Ban",description=f"\nName: <@{message.author}>\nReason: `Sending links in a prohibited channel`\nReason for ban: `Warned 3 times` ", color=discord.Color.purple())
+                    embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+                    embeded = await message.channel.send(embed=embed)
+                    await embeded.add_reaction(":nicecheckmark:742861250341502997")
+                    await message.author.send(embed=embed)
+                    await message.author.ban(reason='Sending links in a prohibited channel')
+                
+                mydb.commit()
+                mycursor.close()
+                mydb.close()
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
