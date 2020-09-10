@@ -132,7 +132,7 @@ async def on_message(message):
             await channel.send(embed=good_settings)
 
         if 'https://' in message.content.lower() or 'http://' in message.content.lower():
-            if message.author.id == 208036172247728128:
+            if message.author.id == 208036172247728128 or message.author.id == 731231437478690856:
                 pass
             else:
                 await channel.purge(limit=1)
@@ -160,7 +160,7 @@ async def on_message(message):
                 mycursor.fetchall()
                 #member = client.get_user(author)
 
-                embed = discord.Embed(title="Warning",description=f"\nName: <@{message.author}>\nReason:`Sending links in a prohibited channel`\nWarns: `{mycursor.rowcount}`\nWarner: <@731231437478690856>", color=discord.Color.purple())
+                embed = discord.Embed(title="Warning",description=f"\nName: <@{message.author.id}>\nReason: `Sending links in a prohibited channel`\nWarns: `{mycursor.rowcount}`\nWarner: <@731231437478690856>", color=discord.Color.purple())
                 embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
                 await message.author.send(embed=embed)
                 embeded = await message.channel.send(embed=embed)
