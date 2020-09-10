@@ -121,7 +121,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     channel = message.channel
-    if message.channel.id == 724550485742452820 or message.channel.id == 750447222360899685 or message.channel.id == 694008360239890495 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413 or message.chhanel.id == 717535357540892675:
+    if message.channel.id == 724550485742452820 or message.channel.id == 750447222360899685 or message.channel.id == 694008360239890495 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413 or message.channel.id == 717535357540892675:
         if 'auth failed' in message.content.lower():
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
             auth_failed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
