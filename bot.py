@@ -167,7 +167,7 @@ async def on_message(message):
                 await embeded.add_reaction(":nicecheckmark:742861250341502997")
 
                 if mycursor.rowcount == 3:
-                    embed = discord.Embed(title="Ban",description=f"\nName: <@{message.author}>\nReason: `Sending links in a prohibited channel`\nReason for ban: `Warned 3 times` ", color=discord.Color.purple())
+                    embed = discord.Embed(title="Ban",description=f"\nName: <@{message.author.id}>\nReason: `Sending links in a prohibited channel`\nReason for ban: `Warned 3 times` ", color=discord.Color.purple())
                     embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
                     embeded = await message.channel.send(embed=embed)
                     await embeded.add_reaction(":nicecheckmark:742861250341502997")
