@@ -256,13 +256,12 @@ async def on_message(message):
                         mycursor.execute(f"SELECT * from license_giveaway where ID='1'")
                         redeemed = mycursor.fetchone()
                         if redeemed:#[0]: #== 1:
-                            giveaway_license = ''
+                            giveaway_license = 0
                             for row in redeemed:
                                 giveaway_license = row[1]
-                            mycursor.execute(f"DELETE from license_giveaway where ID='1'")
                             channel = client.get_channel(694061907291930664)
-                            if giveaway_license == '1':
-
+                            if giveaway_license == 1:
+                                mycursor.execute(f"DELETE from license_giveaway where ID='1'")
                                 r = requests.post('https://api.c0gnito.cc/generate-keys', data={'privateKey':os.environ['PRIVATE_KEY_PREMIUM'], 'numberOfLicenses': '1', 'expiryTime':'0'})
                                 before_keyword, keyword, after_keyword = r.text.partition('{\"success\":true,\"message\":\"Generated licenses.\",\"licenses\":[\"')
                                 key = r.text.replace('{\"success\":true,\"message\":\"Generated licenses.\",\"licenses\":[\"', '')
