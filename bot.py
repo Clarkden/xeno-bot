@@ -258,9 +258,9 @@ async def on_message(message):
                         if redeemed:#[0]: #== 1:
                             giveaway_license = ''
                             for row in redeemed:
-                                giveaway_license = row[0]
+                                giveaway_license = row[1]
                             mycursor.execute(f"DELETE from license_giveaway where ID='1'")
-                            channel = client.get_channel(724550485742452820)
+                            channel = client.get_channel(694061907291930664)
                             if giveaway_license == '1':
 
                                 r = requests.post('https://api.c0gnito.cc/generate-keys', data={'privateKey':os.environ['PRIVATE_KEY_PREMIUM'], 'numberOfLicenses': '1', 'expiryTime':'0'})
@@ -268,10 +268,11 @@ async def on_message(message):
                                 key = r.text.replace('{\"success\":true,\"message\":\"Generated licenses.\",\"licenses\":[\"', '')
                                 key2 = key.split('\"]', 1)[0]
 
-                                embed = discord.Embed(title="License",description=f"You have won the counting challenge.\n`{key2}`\nYou have been given a premium subscription. You can access the download to the script in the user discord. If you have any issues contact Clarkden.", color=discord.Color.red())
+                                embed = discord.Embed(title="License",description=f"<@{message.author.id}>You have won the counting challenge.\n`{key2}`\nYou have been given a premium subscription. You can access the download to the script in the user discord. If you have any issues contact Clarkden.", color=discord.Color.red())
                                 embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
 
                                 await message.author.send(embed=embed)
+                                await channel.send(embed=embed)
                             else:
                                 await message.channel.send("`There is no premium license to giveaway`")
                         else:
