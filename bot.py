@@ -180,7 +180,8 @@ async def on_message(message):
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
-    if  message.content.lower() in bad_words:
+    if any(word in message.contents.lower() for word in bad_words):
+    #if  message.content.lower() in bad_words:
         await channel.purge(limit=1)
         #async with channel.typing():
             #await asyncio.sleep(3)
@@ -208,7 +209,7 @@ async def on_message(message):
                 information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
                 information_embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
                 await channel.send(embed=information_embed)
-    if message.channel.id == 748596711747879062:
+    if message.channel.id == 748596711747879062 or message.channel.id == 717535356903227413:
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
             user = message.author
             '''if user == last_user:
@@ -240,11 +241,45 @@ async def on_message(message):
 
                     if counting == 100:
                         await message.channel.send("`YAY 100`")
-                    if counting == 500:
-                        await message.channel.send(f"`YAY 500 {message.author} wins`")
+                    if counting == 250:
+                        await message.channel.send(f"`YAY 250 {message.author} wins`")
                         channel = client.get_channel(694061907291930664)
-                        await channel.send(f"`YAY 500 {message.author} wins`")
-                        await message.author.send("`Your premium license: GQKHX-F939-K1MDN`")
+                        await channel.send(f"`YAY 250 {message.author} wins`")
+                        mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'],
+)
+                        #key = str(key)
+                        mycursor = mydb.cursor()
+                        mycursor.execute(f"SELECT * from license_giveaway where ID='1'")
+                        redeemed = mycursor.fetchone()
+                        if redeemed:#[0]: #== 1:
+                            giveaway_license = ''
+                            for row in redeemed:
+                                giveaway_license = row[0]
+                            mycursor.execute(f"DELETE from license_giveaway where ID='1'")
+                            channel = client.get_channel(724550485742452820)
+                            if giveaway_license == '1':
+
+                                r = requests.post('https://api.c0gnito.cc/generate-keys', data={'privateKey':os.environ['PRIVATE_KEY_PREMIUM'], 'numberOfLicenses': '1', 'expiryTime':'0'})
+                                before_keyword, keyword, after_keyword = r.text.partition('{\"success\":true,\"message\":\"Generated licenses.\",\"licenses\":[\"')
+                                key = r.text.replace('{\"success\":true,\"message\":\"Generated licenses.\",\"licenses\":[\"', '')
+                                key2 = key.split('\"]', 1)[0]
+
+                                embed = discord.Embed(title="License",description=f"You have won the counting challenge.\n`{key2}`\nYou have been given a premium subscription. You can access the download to the script in the user discord. If you have any issues contact Clarkden.", color=discord.Color.red())
+                                embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+
+                                await message.author.send(embed=embed)
+                            else:
+                                await message.channel.send("`There is no premium license to giveaway`")
+                        else:
+                            await message.channel.send("`There is no premium license to giveaway`")
+                        mydb.commit()
+                        mycursor.close()
+                        mydb.close()
+                        
                 else:
                     purposely_messed_up = currentCount- newcount
                     if purposely_messed_up > 2:
