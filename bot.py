@@ -180,7 +180,7 @@ async def on_message(message):
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
-    if any(word in message.contents.lower() for word in bad_words):
+    if any(word in message.content.lower() for word in bad_words):
     #if  message.content.lower() in bad_words:
         await channel.purge(limit=1)
         #async with channel.typing():
