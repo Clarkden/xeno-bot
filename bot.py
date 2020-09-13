@@ -237,7 +237,7 @@ async def on_message(message):
                         elif counting == 500:
                             pass
                         else:
-                            await message.channel.send("`REMINDER! Whoever is the person to say 500 by counting from 1 wins a premium key.`")
+                            await message.channel.send("`REMINDER! Whoever is the person to say 250 by counting from 1 wins a premium key.`")
 
                     if counting == 100:
                         await message.channel.send("`YAY 100`")
