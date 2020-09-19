@@ -341,12 +341,6 @@ async def clear(ctx, number):
     embed = discord.Embed(description=f":soap: | {realnumber} messages were deleted", color=discord.Color.green())
     await ctx.send(embed=embed)
 
-@client.command(pass_context=True)
-@commands.has_role('Dev/Owner')
-async def clear_chat(ctx):
-    embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
-    await ctx.channel.purge(limit=100000)
-    await ctx.send(embed=embed)
 
 @client.command()
 async def bot_commands(ctx):
@@ -520,26 +514,13 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
-                await member.send("Type `1` for `Xeno 2.7.5` or `2` for `Xeno 2.7.5.5 (beta update)` or `3` for `Xeno 2.7.5.5 (fixed auto-detect)`")
-                msg2 = await client.wait_for('message', check=checkmsg, timeout=250.0)
-                string2 = msg2.content
-                if '1' in string2:
                     await member.send("https://mega.nz/file/zENlXCxL#Ek7ifZvE-eLG7b6-UCNhLFA9W7xus46ZURFEgfxY4SI")
                     channel = client.get_channel(694061907291930664)
-                    await channel.send(f'`{member} downloaded the Xeno v2.7.5`')
-                elif '2' in string2:
-                    await member.send("https://mega.nz/file/accl1QpS#yFAq2kmTF6yi7lqqPw45gX3qESpG8tkbZDdW8ICaj3Q")
-                    channel = client.get_channel(694061907291930664)
-                    await channel.send(f'`{member} downloaded the test update`')
-                elif '3' in string2:
-                    await member.send("https://mega.nz/file/KIkXDKbZ#D1v28_4P5KjoFP7W2znVSMU5OoEKPZctqCIcQnLz8jg")
-                    await member.send("Use the max user interface value aswell as a minimum graphics level of 1")
-                    channel = client.get_channel(694061907291930664)
-                    await channel.send(f'`{member} downloaded the test update with fixed auto detect`')
-                else:
-                    await member.send("Invalid Option")
+                    await channel.send(f'`{member} downloaded Xeno v2.8`')
             else:   
                 await member.send("Key not active or is expired")
+                channel = client.get_channel(694061907291930664)
+                await channel.send(f'`{member} tried to download Xeno but their key is not active or expired`')
         else:
             cooldown_count = move_cooldown2 - last_move.seconds
             real_coold_count = convert(cooldown_count)
