@@ -514,7 +514,7 @@ async def download(ctx, member: discord.Member = None):
             r = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY'], 'license': f'{string}'})
             p = requests.post('https://api.c0gnito.cc/simple-authenticate', data={'publicKey':os.environ['PUBLIC_KEY_PREMIUM'], 'license': f'{string}'})
             if 'true' in r.text or 'true' in p.text:
-                    await member.send("https://mega.nz/file/zENlXCxL#Ek7ifZvE-eLG7b6-UCNhLFA9W7xus46ZURFEgfxY4SI")
+                    await member.send("https://mega.nz/file/KItS0aLA#zKVfDlc6brG0fZUKkTNE0ZCYUK4dabBknsVoVQZuTw0")
                     channel = client.get_channel(694061907291930664)
                     await channel.send(f'`{member} downloaded Xeno v2.8`')
             else:   
