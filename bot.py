@@ -1118,7 +1118,7 @@ async def message_all(ctx, channelid, role: discord.Role):
     for member in channel.guild.members:
         if role in member.roles:
             try:
-                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member}, administration has noticed that you haven't purchased. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information. Feel free to check out our latest showcase as well: https://youtu.be/5Tjtqs7dXes", color=discord.Color.purple())
+                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member}, create an account on Xeno's new website to see our products: https://www.xenoservices.xyz/. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.purple())
                 await member.send(embed=embed)    
             except:
                 pass            
