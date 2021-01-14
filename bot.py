@@ -33,9 +33,9 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(hours=1)
+@tasks.loop(hours=24)
 async def called_once_a_day():
-        mydb = mysql.connector.connect(
+    mydb = mysql.connector.connect(
         host=os.environ['HOST'],
         user=os.environ['USER'],
         passwd=os.environ['PASSWORD'],
@@ -65,8 +65,8 @@ async def called_once_a_day():
 @called_once_a_day.before_loop
 async def before():
     await client.wait_until_ready()
-    channel = client.get_channel(731781244580397066)
-    embed = discord.Embed(description="**Cleaning Chat**", color=discord.Color.green())
+    channel = client.get_channel(703355033374162944)
+    embed = discord.Embed(description="**Fetching all applications**", color=discord.Color.green())
     await channel.send(embed=embed)
 
 @client.event
