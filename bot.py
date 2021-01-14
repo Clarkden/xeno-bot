@@ -74,32 +74,32 @@ async def on_ready():
     channel = client.get_channel(694061907291930664)
     await client.change_presence(activity=discord.Game(name='Xeno on top'))
 
-        mydb = mysql.connector.connect(
-        host=os.environ['HOST'],
-        user=os.environ['USER'],
-        passwd=os.environ['PASSWORD'],
-        database=os.environ['DATABASE'])
+    mydb = mysql.connector.connect(
+    host=os.environ['HOST'],
+    user=os.environ['USER'],
+    passwd=os.environ['PASSWORD'],
+    database=os.environ['DATABASE'])
 
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT discord, user_id FROM applications")
-        config_get = mycursor.fetchall()
-        configs = ""
-        for row in config_get:
-            configs+="|Application Author: "
-            configs+=str(row[0])
-            configs+=" |"
-            configs+=" User ID: "
-            configs+=str(row[1])
-            configs+=" |\n"
+    mycursor = mydb.cursor()
+    mycursor.execute(f"SELECT discord, user_id FROM applications")
+    config_get = mycursor.fetchall()
+    configs = ""
+    for row in config_get:
+        configs+="|Application Author: "
+        configs+=str(row[0])
+        configs+=" |"
+        configs+=" User ID: "
+        configs+=str(row[1])
+        configs+=" |\n"
         #print(config_get, end=" ")
-        embed = discord.Embed(title="All Applications",description=f"{configs}\n Total Applications: `{mycursor.rowcount}`", color=discord.Color.purple())
-        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
-        log_channel = client.get_channel(703355033374162944)
-        await log_channel.send(embed=embed)
-        #time.sleep(5)
-        mydb.commit()
-        mycursor.close()
-        mydb.close()
+    embed = discord.Embed(title="All Applications",description=f"{configs}\n Total Applications: `{mycursor.rowcount}`", color=discord.Color.purple())
+    embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+    log_channel = client.get_channel(703355033374162944)
+    await log_channel.send(embed=embed)
+    #time.sleep(5)
+    mydb.commit()
+    mycursor.close()
+    mydb.close()
     
 @client.event
 async def on_member_join(member):
