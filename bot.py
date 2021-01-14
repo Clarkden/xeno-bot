@@ -56,7 +56,7 @@ async def called_once_a_day():
         embed = discord.Embed(title="All Applications",description=f"{configs}\n Total Applications: `{mycursor.rowcount}`", color=discord.Color.purple())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
         log_channel = client.get_channel(703355033374162944)
-        await log_channel.channel.send(embed=embed)
+        await log_channel.send(embed=embed)
         #time.sleep(5)
         mydb.commit()
         mycursor.close()
@@ -1266,5 +1266,5 @@ async def give_sub(ctx, length, member: discord.Member):
         await logs.send(embed=embed2)
       
 
-#called_once_a_day.start()
+called_once_a_day.start()
 client.run(os.environ['DISCORD_TOKEN'])
