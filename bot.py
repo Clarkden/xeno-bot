@@ -33,7 +33,7 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(hours=24)
+@tasks.loop(hours=1)
 async def called_once_a_day():
         mydb = mysql.connector.connect(
         host=os.environ['HOST'],
@@ -72,7 +72,6 @@ async def before():
 @client.event
 async def on_ready():
     channel = client.get_channel(694061907291930664)
-    await channel.send('Bot is ready.')
     await client.change_presence(activity=discord.Game(name='Xeno on top'))
     
 @client.event
