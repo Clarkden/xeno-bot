@@ -35,7 +35,7 @@ def convert(seconds):
       
 @tasks.loop(hours=24)
 async def called_once_a_day():
-    mydb = mysql.connector.connect(
+        mydb = mysql.connector.connect(
         host=os.environ['HOST'],
         user=os.environ['USER'],
         passwd=os.environ['PASSWORD'],
@@ -1266,5 +1266,5 @@ async def give_sub(ctx, length, member: discord.Member):
         await logs.send(embed=embed2)
       
 
-called_once_a_day.start()
+#called_once_a_day.start()
 client.run(os.environ['DISCORD_TOKEN'])
