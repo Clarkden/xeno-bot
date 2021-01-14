@@ -33,12 +33,34 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(hours=24)
+@tasks.loop(hours=1)
 async def called_once_a_day():
-    message_channel = client.get_channel(731781244580397066)
-    embed = discord.Embed(description="**Chat cleaned** :soap:", color=discord.Color.green())
-    await message_channel.purge(limit=100000)
-    await message_channel.send(embed=embed)
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT discord, user_id FROM applications")
+        config_get = mycursor.fetchall()
+        configs = ""
+        for row in config_get:
+            configs+="|Application Author: "
+            configs+=str(row[0])
+            configs+=" |"
+            configs+=" User ID: "
+            configs+=str(row[1])
+            configs+=" |\n"
+        #print(config_get, end=" ")
+        embed = discord.Embed(title="All Applications",description=f"{configs}\n Total Applications: `{mycursor.rowcount}`", color=discord.Color.purple())
+        embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/717535356903227416/742981932031148052/Xeno2-nobackground.gif")
+        log_channel = client.get_channel(703355033374162944)
+        await log_channel.channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
 
 @called_once_a_day.before_loop
 async def before():
@@ -64,10 +86,10 @@ async def on_member_join(member):
             hello = discord.Embed(title='Banned', description='You You have been automatically banned from Xeno because your account was created less than 30 days ago.', color=discord.Color.purple())
             hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
             user = client.get_user(member.id)
-            #await user.send(embed=hello)
-            #await member.ban(reason=reason)
-            #logs = client.get_channel(694061907291930664)
-            #await logs.send(f'{user} automatically banned. New account.')
+            await user.send(embed=hello)
+            await member.ban(reason=reason)
+            logs = client.get_channel(694061907291930664)
+            await logs.send(f'{user} automatically banned. New account.')
         else:
             mydb = mysql.connector.connect(
             host=os.environ['HOST'],
@@ -191,6 +213,10 @@ async def on_message(message):
         await(await channel.send(embed=hello)).delete(delay=3)
         time.sleep(3)
         #await channel.purge(limit=1)
+    if 'license' in message.content.lower():
+            hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
+            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+            await channel.send(embed=hello)
     if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
         if 'auth failed' in message.content.lower():
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
@@ -1118,7 +1144,7 @@ async def message_all(ctx, channelid, role: discord.Role):
     for member in channel.guild.members:
         if role in member.roles:
             try:
-                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member}, create an account on Xeno's new website to see our products: https://www.xenoservices.xyz/. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information.", color=discord.Color.purple())
+                embed = discord.Embed(title='Xeno Rust Script',description=f"Hi {member}, administration has noticed that you haven't purchased. Xeno is premium rust software and will provide a great experience for anyone using it. If you are interested, message Clarkden for more information. Feel free to check out our latest showcase as well: https://youtu.be/5Tjtqs7dXes", color=discord.Color.purple())
                 await member.send(embed=embed)    
             except:
                 pass            
@@ -1240,5 +1266,5 @@ async def give_sub(ctx, length, member: discord.Member):
         await logs.send(embed=embed2)
       
 
-#called_once_a_day.start()
+called_once_a_day.start()
 client.run(os.environ['DISCORD_TOKEN'])
