@@ -995,6 +995,48 @@ async def application_show(ctx, *, user_id):
 
 
 @client.command()
+async def website_users(ctx):
+    if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * from users")
+        config_get = mycursor.fetchall()
+        configs = ""
+        for row in config_get:
+            configs+="|**Username: **"
+            configs+=str(row[1])
+            configs+=" |\n"
+            configs+=" | **Status: **"
+            configs+=str(row[4])
+            configs+=" |\n"
+            configs+=" | **Script Subscription: **"
+            configs+=str(row[7])
+            configs+=" |\n"
+            configs+=" | **Cheat Subscription: **"
+            configs+=str(row[8])
+            configs+=" |\n"
+            configs+=" | **Spoofer Subscription: **"
+            configs+=str(row[9])
+            configs+=" |\n"
+        #print(config_get, end=" ")
+        embed = discord.Embed(title="Website Users",description=f"{configs}\n All Website Users: `{mycursor.rowcount}`", color=discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+        log_channel = client.get_channel(700994155945394246)
+        await log_channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+    else:
+        await ctx.channel.send("No perms")
+
+
+@client.command()
 async def application_accept(ctx, *, user_id):
     if ctx.author.id == 208036172247728128:
         mydb = mysql.connector.connect(
