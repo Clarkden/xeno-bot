@@ -55,7 +55,7 @@ async def called_once_a_day():
         #print(config_get, end=" ")
         embed = discord.Embed(title="All Applications",description=f"{configs}\n Total Applications: `{mycursor.rowcount}`", color=discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
-        log_channel = client.get_channel(703355033374162944)
+        log_channel = client.get_channel(700994155945394246)
         await log_channel.send(embed=embed)
         #time.sleep(5)
         mydb.commit()
@@ -65,8 +65,8 @@ async def called_once_a_day():
 @called_once_a_day.before_loop
 async def before():
     await client.wait_until_ready()
-    channel = client.get_channel(703355033374162944)
-    embed = discord.Embed(description="**Fetching all applications**", color=discord.Color.green())
+    channel = client.get_channel(700994155945394246)
+    embed = discord.Embed(description="**Fetching all applications hourly**", color=discord.Color.green())
     await channel.send(embed=embed)
 
 @client.event
@@ -941,6 +941,146 @@ async def show_config(ctx, *, name):
         embed = discord.Embed(title = 'Error', description = "Wrong Channel. Use <#731781244580397066> instead.", color = discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://cdn.discordapp.com/attachments/703355033374162944/742836954248249445/5765_Offline.png")
         await ctx.send(embed=embed)
+
+
+@client.command()
+async def application_show(ctx, *, user_id):
+    if ctx.author.id == 208036172247728128 or ctx.author.id == 519167807108415499:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * from applications where user_id = '{user_id}'")
+        config_get = mycursor.fetchall()
+        configs = ""
+        for row in config_get:
+            configs+="|Application Author: "
+            configs+=str(row[2])
+            configs+=" |\n"
+            configs+=" User ID: "
+            configs+=str(row[1])
+            configs+=" |\n"
+            configs+=" First name: "
+            configs+=str(row[3])
+            configs+=" |\n"
+            configs+=" Country: "
+            configs+=str(row[5])
+            configs+=" |\n"
+            configs+=" Occupation: "
+            configs+=str(row[7])
+            configs+=" |\n"
+            configs+=" Applying for: "
+            configs+=str(row[6])
+            configs+=" |\n"
+            configs+=" Extra Info: "
+            configs+=str(row[8])
+            configs+=" |\n"
+            configs+=" Cheats used: "
+            configs+=str(row[9])
+            configs+=" |"
+        #print(config_get, end=" ")
+        embed = discord.Embed(title="Application",description=f"{configs}\n Applications User ID: `{row[1]}`", color=discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+        log_channel = client.get_channel(700994155945394246)
+        await log_channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+    else:
+        await ctx.channel.send("No perms")
+
+
+@client.command()
+async def application_accept(ctx, *, user_id):
+    if ctx.author.id == 208036172247728128:
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"update users set status = '2' where user_id = '{user_id}'")
+        config_get = mycursor.fetchall()
+        #print(config_get, end=" ")
+        embed = discord.Embed(title="Application Accepted",description=f"Applications User ID: `{user_id}`", color=discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+        log_channel = client.get_channel(700994155945394246)
+        await log_channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+
+
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"delete from applications where user_id = {user_id}'")
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
+
+    else:
+        await ctx.channel.send("No perms")
+
+
+
+@client.command()
+@commands.has_role('User')
+async def application_show(ctx, *, user_id):
+        mydb = mysql.connector.connect(
+        host=os.environ['HOST'],
+        user=os.environ['USER'],
+        passwd=os.environ['PASSWORD'],
+        database=os.environ['DATABASE'])
+
+        mycursor = mydb.cursor()
+        mycursor.execute(f"SELECT * from applications where user_id = '{user_id}'")
+        config_get = mycursor.fetchall()
+        configs = ""
+        for row in config_get:
+            configs+="|Application Author: "
+            configs+=str(row[2])
+            configs+=" |\n"
+            configs+=" User ID: "
+            configs+=str(row[1])
+            configs+=" |\n"
+            configs+=" First name: "
+            configs+=str(row[3])
+            configs+=" |\n"
+            configs+=" Country: "
+            configs+=str(row[5])
+            configs+=" |\n"
+            configs+=" Occupation: "
+            configs+=str(row[7])
+            configs+=" |\n"
+            configs+=" Applying for: "
+            configs+=str(row[6])
+            configs+=" |\n"
+            configs+=" Extra Info: "
+            configs+=str(row[8])
+            configs+=" |\n"
+            configs+=" Cheats used: "
+            configs+=str(row[9])
+            configs+=" |"
+        #print(config_get, end=" ")
+        embed = discord.Embed(title="Application",description=f"{configs}\n Applications User ID: `{row[1]}`", color=discord.Color.red())
+        embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+        log_channel = client.get_channel(700994155945394246)
+        await log_channel.send(embed=embed)
+        #time.sleep(5)
+        mydb.commit()
+        mycursor.close()
+        mydb.close()
 
 @client.command()
 @commands.is_owner()
