@@ -960,25 +960,25 @@ async def application_show(ctx, *, user_id):
             configs+="|Application Author: "
             configs+=str(row[2])
             configs+=" |\n"
-            configs+=" User ID: "
+            configs+=" | User ID: "
             configs+=str(row[1])
             configs+=" |\n"
-            configs+=" First name: "
+            configs+=" | First name: "
             configs+=str(row[3])
             configs+=" |\n"
-            configs+=" Country: "
+            configs+=" | Country: "
             configs+=str(row[5])
             configs+=" |\n"
-            configs+=" Occupation: "
+            configs+=" | Occupation: "
             configs+=str(row[7])
             configs+=" |\n"
-            configs+=" Applying for: "
+            configs+=" | Applying for: "
             configs+=str(row[6])
             configs+=" |\n"
-            configs+=" Extra Info: "
+            configs+=" | Extra Info: "
             configs+=str(row[8])
             configs+=" |\n"
-            configs+=" Cheats used: "
+            configs+=" | Cheats used: "
             configs+=str(row[9])
             configs+=" |"
         #print(config_get, end=" ")
@@ -1028,6 +1028,8 @@ async def application_accept(ctx, *, user_id):
         mydb.commit()
         mycursor.close()
         mydb.close()
+   
+
 
     else:
         await ctx.channel.send("No perms")
