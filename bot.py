@@ -957,7 +957,7 @@ async def application_show(ctx, *, user_id):
         config_get = mycursor.fetchall()
         configs = ""
         for row in config_get:
-            configs+="|**Application Author: **"
+            configs+="| **Application Author: **"
             configs+=str(row[2])
             configs+=" |\n"
             configs+=" | **User ID: **"
@@ -1008,7 +1008,7 @@ async def website_users(ctx):
         config_get = mycursor.fetchall()
         configs = ""
         for row in config_get:
-            configs+="|**Username: **"
+            configs+="| **Username: **"
             configs+=str(row[0])
             configs+=" |\n"
             configs+=" | **Status: **"
@@ -1026,7 +1026,7 @@ async def website_users(ctx):
         #print(config_get, end=" ")
         embed = discord.Embed(title="Website Users",description=f"{configs}\n All Website Users: `{mycursor.rowcount}`", color=discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
-        log_channel = client.get_channel(700994155945394246)
+        log_channel = client.get_channel(703355033374162944)
         await log_channel.send(embed=embed)
         #time.sleep(5)
         mydb.commit()
