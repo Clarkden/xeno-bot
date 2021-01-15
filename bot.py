@@ -1004,7 +1004,7 @@ async def website_users(ctx):
         database=os.environ['DATABASE'])
 
         mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT username,status,script_sub,cheat_sub,spoofer_sub from users")
+        mycursor.execute(f"SELECT username, status, script_sub, cheat_sub, spoofer_sub FROM users")
         config_get = mycursor.fetchall()
         configs = ""
         for row in config_get:
