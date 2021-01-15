@@ -1010,23 +1010,23 @@ async def website_users(ctx):
         for row in config_get:
             configs+="| **Username: **"
             configs+=str(row[0])
-            configs+=" |\n"
-            configs+=" | **Status: **"
+            configs+=" |"
+            configs+="  **Status: **"
             configs+=str(row[1])
-            configs+=" |\n"
-            configs+=" | **Script Subscription: **"
+            configs+=" |"
+            configs+="  **Script Subscription: **"
             configs+=str(row[2])
-            configs+=" |\n"
-            configs+=" | **Cheat Subscription: **"
+            configs+=" |"
+            configs+="  **Cheat Subscription: **"
             configs+=str(row[3])
-            configs+=" |\n"
-            configs+=" | **Spoofer Subscription: **"
+            configs+=" |"
+            configs+="  **Spoofer Subscription: **"
             configs+=str(row[4])
             configs+=" |\n"
         #print(config_get, end=" ")
         embed = discord.Embed(title="Website Users",description=f"{configs}\n All Website Users: `{mycursor.rowcount}`", color=discord.Color.red())
         embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
-        log_channel = client.get_channel(703355033374162944)
+        log_channel = client.get_channel(700994155945394246)
         await log_channel.send(embed=embed)
         #time.sleep(5)
         mydb.commit()
