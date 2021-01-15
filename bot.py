@@ -4,6 +4,7 @@ import os
 import asyncio
 import typing
 import time
+import array as arr
 from datetime import datetime, timedelta    
 from discord.ext import commands, tasks
 from discord.ext.commands import cooldown, BucketType
@@ -1003,11 +1004,13 @@ async def website_users(ctx):
         passwd=os.environ['PASSWORD'],
         database=os.environ['DATABASE'])
 
+        users = []
+
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT username, status, script_sub, cheat_sub, spoofer_sub FROM users")
-        config_get = mycursor.fetchall()
-        configs = ""
+        #config_get = mycursor.fetchall()
         for row in config_get:
+            configs = ""
             configs+="| **Username: **"
             configs+=str(row[0])
             configs+=" |"
@@ -1023,11 +1026,16 @@ async def website_users(ctx):
             configs+="  **Spoofer Subscription: **"
             configs+=str(row[4])
             configs+=" |\n"
+            #users.append[configs]
+            embed = discord.Embed(description=f"{configs}", color=discord.Color.red())
+        #embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+            log_channel = client.get_channel(700994155945394246)
+            await log_channel.send(embed=embed)
         #print(config_get, end=" ")
-        embed = discord.Embed(title="Website Users",description=f"{configs}\n All Website Users: `{mycursor.rowcount}`", color=discord.Color.red())
-        embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
-        log_channel = client.get_channel(700994155945394246)
-        await log_channel.send(embed=embed)
+       # embed = discord.Embed(description=f"{configs}", color=discord.Color.red())
+        #embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+        #log_channel = client.get_channel(700994155945394246)
+        #await log_channel.send(embed=embed)
         #time.sleep(5)
         mydb.commit()
         mycursor.close()
