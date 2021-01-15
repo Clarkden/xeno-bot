@@ -1004,24 +1004,24 @@ async def website_users(ctx):
         database=os.environ['DATABASE'])
 
         mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT * from users")
+        mycursor.execute(f"SELECT username,status,script_sub,cheat_sub,spoofer_sub from users")
         config_get = mycursor.fetchall()
         configs = ""
         for row in config_get:
             configs+="|**Username: **"
-            configs+=str(row[1])
+            configs+=str(row[0])
             configs+=" |\n"
             configs+=" | **Status: **"
-            configs+=str(row[4])
+            configs+=str(row[1])
             configs+=" |\n"
             configs+=" | **Script Subscription: **"
-            configs+=str(row[7])
+            configs+=str(row[2])
             configs+=" |\n"
             configs+=" | **Cheat Subscription: **"
-            configs+=str(row[8])
+            configs+=str(row[3])
             configs+=" |\n"
             configs+=" | **Spoofer Subscription: **"
-            configs+=str(row[9])
+            configs+=str(row[4])
             configs+=" |\n"
         #print(config_get, end=" ")
         embed = discord.Embed(title="Website Users",description=f"{configs}\n All Website Users: `{mycursor.rowcount}`", color=discord.Color.red())
