@@ -854,6 +854,14 @@ async def embed(ctx, *, string):
     await ctx.send(embed=embed)
     
 @client.command()
+@commands.has_role('team')
+async def bot_embed(ctx, *, string):
+    await ctx.channel.purge(limit=1)
+    embed = discord.Embed(description=f"{string}", color=discord.Color.white())
+    embed.set_author(name=f"**Xeno**", icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
+    await ctx.send(embed=embed)
+    
+@client.command()
 @commands.has_role('Dev/Owner')
 async def announcement(ctx, *, string):
     channel = ctx.message.channel
