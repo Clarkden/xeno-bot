@@ -131,8 +131,8 @@ async def ghost_ping(ctx, id):
 @commands.is_owner()
 async def test_time(ctx):
     member = ctx.author
-    if time.time() - member.created_at.timestamp() < 2592000:
-        await member.send('`You have been automatically banned because your account was created less than 30 days ago`')
+    if time.time() - member.created_at.timestamp() < 1619240429:
+        await member.send('`You have been automatically banned because your account does not meet then minimum age.`')
     else:
         await member.send('test')
 
@@ -213,10 +213,10 @@ async def on_message(message):
         await(await channel.send(embed=hello)).delete(delay=3)
         time.sleep(3)
         #await channel.purge(limit=1)
-    if 'license' in message.content.lower():
-            hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
-            hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await channel.send(embed=hello)
+    #if 'license' in message.content.lower():
+           # hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
+            #hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
+           # await channel.send(embed=hello)
     if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
         if 'auth failed' in message.content.lower():
             auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
@@ -862,7 +862,7 @@ async def bot_embed(ctx, *, string):
     await ctx.send(embed=embed)
     
 @client.command()
-@commands.has_role('Dev/Owner')
+@commands.has_role('Admin')
 async def announcement(ctx, *, string):
     channel = ctx.message.channel
     embed = discord.Embed(title="Announcement",description=f"\n{string}\n\n-{ctx.author.mention}", color=discord.Color.red())
@@ -872,7 +872,7 @@ async def announcement(ctx, *, string):
     await ctx.send(embed=embed)
 
 @client.command()
-@commands.has_role('Dev/Owner')
+@commands.has_role('Admin')
 async def info(ctx, wanted_channel, *, string):
     #channel = ctx.message.channel
     wanted_channel = int(wanted_channel)
@@ -1317,8 +1317,12 @@ async def give_all_role(ctx, channelid, role: discord.Role):
 @client.command()
 @commands.is_owner()
 async def mute(ctx, member: discord.Member):
-    role = discord.utils.get(ctx.guild.roles, name = "User")
+    role = discord.utils.get(ctx.guild.roles, name = "Intern")
     await member.remove_roles(role)
+
+ role2 = discord.utils.get(ctx.guild.roles, name = "Muted")
+    await member.add_roles(role2)
+
     embed = discord.Embed(description=f"<@{member.id}> `has been muted`")
     await ctx.channel.send(embed=embed)
 
