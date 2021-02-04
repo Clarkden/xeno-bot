@@ -1320,7 +1320,7 @@ async def mute(ctx, member: discord.Member):
     role = discord.utils.get(ctx.guild.roles, name = "Intern")
     await member.remove_roles(role)
 
- role2 = discord.utils.get(ctx.guild.roles, name = "Muted")
+    role2 = discord.utils.get(ctx.guild.roles, name = "Muted")
     await member.add_roles(role2)
 
     embed = discord.Embed(description=f"<@{member.id}> `has been muted`")
