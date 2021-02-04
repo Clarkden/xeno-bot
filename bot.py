@@ -34,41 +34,6 @@ def convert(seconds):
       
     return "%d hours %02d minutes %02d seconds" % (hour, minutes, seconds) 
       
-@tasks.loop(hours=1)
-async def called_once_a_day():
-        mydb = mysql.connector.connect(
-        host=os.environ['HOST'],
-        user=os.environ['USER'],
-        passwd=os.environ['PASSWORD'],
-        database=os.environ['DATABASE'])
-
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT discord, user_id FROM applications")
-        config_get = mycursor.fetchall()
-        configs = ""
-        for row in config_get:
-            configs+="|Application Author: "
-            configs+=str(row[0])
-            configs+=" |"
-            configs+=" User ID: "
-            configs+=str(row[1])
-            configs+=" |\n"
-        #print(config_get, end=" ")
-        embed = discord.Embed(title="All Applications",description=f"{configs}\n Total Applications: `{mycursor.rowcount}`", color=discord.Color.red())
-        embed.set_author(name=f'Xeno', icon_url=f"https://media.discordapp.net/attachments/695028034704769034/799354209211646002/unknown.jpeg")
-        log_channel = client.get_channel(700994155945394246)
-        await log_channel.send(embed=embed)
-        #time.sleep(5)
-        mydb.commit()
-        mycursor.close()
-        mydb.close()
-
-@called_once_a_day.before_loop
-async def before():
-    await client.wait_until_ready()
-    channel = client.get_channel(700994155945394246)
-    embed = discord.Embed(description="**Fetching all applications hourly**", color=discord.Color.green())
-    await channel.send(embed=embed)
 
 @client.event
 async def on_ready():
@@ -1420,5 +1385,4 @@ async def give_sub(ctx, length, member: discord.Member):
         await logs.send(embed=embed2)
       
 
-called_once_a_day.start()
 client.run(os.environ['DISCORD_TOKEN'])
