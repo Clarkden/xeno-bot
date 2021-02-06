@@ -319,7 +319,7 @@ async def help(ctx):
 
 
 @client.command(pass_context=True)
-@commands.has_role(lAdmin')
+@commands.has_role('Admin')
 async def clear(ctx, number):
     number = int(number)
     realnumber = number
