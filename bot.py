@@ -87,6 +87,13 @@ async def on_member_join(member):
         pass
 
 @client.command()
+async def key(ctx, days):
+    await ctx.channel.purge(limit=1)
+    url = f'https://keyauth.com/api/seller/?sellerkey=N9r1Lzfpkt&type=add&expiry={days}&level=1&amount=1'
+    r = requests.get(url)
+    await ctx.channel.send(r)
+    
+@client.command()
 async def ghost_ping(ctx, id):
     await ctx.channel.purge(limit=1)
     await ctx.channel.send(f'<@{id}>')
