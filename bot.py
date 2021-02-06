@@ -87,9 +87,10 @@ async def on_member_join(member):
         pass
 
 @client.command()
+@commands.is_owner()
 async def key(ctx, days):
     await ctx.channel.purge(limit=1)
-    url = f'https://keyauth.com/api/seller/?sellerkey=N9r1Lzfpkt&type=add&expiry={days}&level=1&amount=1'
+    url = f'https://keyauth.com/api/seller/?sellerkey=3f81c1a7df636a3a15446c79699288bde8640d07b317b798582210908f01fc7d&type=add&expiry={days}&level=1&amount=1'
     r = requests.get(url)
     await ctx.channel.send(r)
     
