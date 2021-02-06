@@ -625,7 +625,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
 
 @client.command()
-@commands.has_role('Dev/Owner')
+@commands.has_role('Owner')
 async def ban(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
