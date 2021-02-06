@@ -613,7 +613,7 @@ async def expiration(ctx, member: discord.Member = None):
         await ctx.send(embed=embed)
 
 @client.command()
-@commands.has_role('Dev/Owner')
+@commands.has_role('Owner')
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
