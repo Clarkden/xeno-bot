@@ -95,7 +95,7 @@ async def key(ctx, days):
     await ctx.channel.send(r)
     
 @client.command()
-@command.is_owner()
+@commands.is_owner()
 async def gen_license(ctx, days):
     await ctx.channel.purge(limte=1)
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=add&expiry={days}")
@@ -104,7 +104,7 @@ async def gen_license(ctx, days):
     await ctx.send(embed=embed)
     
 @client.command()
-@command.is_owner()
+@commands.is_owner()
 async def del_license(ctx, license, reason):
     await ctx.channel.purge(limte=1)
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=ban&key={license}&reason={reason}")
