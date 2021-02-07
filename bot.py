@@ -105,7 +105,7 @@ async def gen_license(ctx, days):
     
 @client.command()
 @command.is_owner()
-async def del_license(ctx, license, reason)
+async def del_license(ctx, license, reason):
     await ctx.channel.purge(limte=1)
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=ban&key={license}&reason={reason}")
     embed = discord.Embed(title="License Deleted", description=f"{r.contents}", color=discord.Color.red())
