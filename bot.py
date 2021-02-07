@@ -97,7 +97,7 @@ async def key(ctx, days):
 @client.command()
 @commands.is_owner()
 async def gen_license(ctx, days):
-    await ctx.channel.purge(limte=1)
+    await ctx.channel.purge(limit=1)
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=add&expiry={days}")
     embed = discord.Embed(title="License Generated", description=f"{r.contents}", color=discord.Color.red())
     embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
@@ -106,7 +106,7 @@ async def gen_license(ctx, days):
 @client.command()
 @commands.is_owner()
 async def del_license(ctx, license, reason):
-    await ctx.channel.purge(limte=1)
+    await ctx.channel.purge(limit=1)
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=ban&key={license}&reason={reason}")
     embed = discord.Embed(title="License Deleted", description=f"{r.contents}", color=discord.Color.red())
     embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
