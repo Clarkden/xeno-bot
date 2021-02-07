@@ -99,10 +99,7 @@ async def key(ctx, days):
 async def gen_license(ctx, days):
     await ctx.channel.purge(limit=1)
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=add&expiry={days}")
-    keyword = "b\'"
-    before_keyword, keyword, after_keyword = r.content.partition(keyword)
-    license = after_keyword.replace("\n\'", '')
-    embed = discord.Embed(title="License Generated", description=f"{license}", color=discord.Color.red())
+    embed = discord.Embed(title="License Generated", description=f"{r.content[2:-2]}", color=discord.Color.red())
     embed.set_author(name="Xeno")
     await ctx.channel.send(embed=embed)
     
