@@ -651,8 +651,8 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     embed.add_field(name="User ID:", value=f"```{author}```", inline=true)
     embed.add_field(name="Reason:", value=f"```{reason}```", inline=false)
     #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
-    embeded = await ctx.channel.send(embed=embed)
-    await embeded.add_reaction(":nicecheckmark:742861250341502997")
+    await ctx.channel.send(embed=embed)
+    #await embeded.add_reaction(":nicecheckmark:742861250341502997")
     await member.send(embed=embed)
     await member.kick(reason=reason)
 
@@ -665,8 +665,8 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     embed.add_field(name="Name:", value=f"```<@{author}>```", inline=true)
     embed.add_field(name="User ID:", value=f"```{author}```", inline=true)
     embed.add_field(name="Reason:", value=f"```{reason}```", inline=false)
-    embeded = await ctx.channel.send(embed=embed)
-    await embeded.add_reaction(":nicecheckmark:742861250341502997")
+    await ctx.channel.send(embed=embed)
+    #await embeded.add_reaction(":nicecheckmark:742861250341502997")
     await member.send(embed=embed)
     await member.ban(reason=reason)
 
