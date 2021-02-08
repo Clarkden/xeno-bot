@@ -101,7 +101,7 @@ async def gen_license(ctx, days):
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=add&expiry={days}")
     embed = discord.Embed(description=f"License Generated", color=discord.Color.red())
     embed.add_field(name="License:", value=f"```{r.text}```", inline=False)
-    embed.set_author(name="Xeno")
+    #embed.set_author(name="Xeno")
     await ctx.channel.send(embed=embed)
     
 @client.command()
@@ -111,7 +111,7 @@ async def ban_license(ctx, license, reason):
     r = requests.get(f"https://keyauth.com/api/seller/?sellerkey=Rjmco4TJI9&type=ban&key={license}&reason={reason}")
     embed = discord.Embed(description=f"License Banned", color=discord.Color.red())
     embed.add_field(name="License:", value=f"```{r.text}```", inline=False)
-    embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
+    #embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
     await ctx.channel.send(embed=embed)
 
     
