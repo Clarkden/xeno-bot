@@ -612,12 +612,15 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
     embeded = await ctx.channel.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
-    await member.send(embed=embed)
-    await member.kick(reason=reason)
+    try:
+        await member.send(embed=embed)
+        await member.kick(reason=reason)
+    except:
+        await member.kick(reason=reason)
 
 @client.command()
 @commands.has_role('Owner')
-async def ban(ctx, member : discord.Member, *, reason=None):
+async def ban(ctx, member:discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=1)
     embed = discord.Embed(description="Discord Member Banned", color=discord.Color.red())
@@ -626,8 +629,11 @@ async def ban(ctx, member : discord.Member, *, reason=None):
     embed.add_field(name="Reason:", value=f"```{reason}```", inline=False)
     embeded = await ctx.channel.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
-    await member.send(embed=embed)
-    await member.ban(reason=reason)
+    try:
+        await member.send(embed=embed)
+        await member.ban(reason=reason)
+    except:
+        await member.ban(reason=reason)
 
 @client.command()
 async def all_warns(ctx):
