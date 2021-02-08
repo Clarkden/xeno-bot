@@ -645,10 +645,10 @@ async def expiration(ctx, member: discord.Member = None):
 @commands.has_role('Owner')
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = member.id
-    await ctx.channel.purge(limit=0)
-    embed = discord.Embed(description=f"Discord Member Kicked", color=discord.Color.red())
-    embed.add_field(name="Name:", value=f"```{author}```", inline=true)
-    embed.add_field(name="User ID:", value=f"```{author.id}```", inline=true)
+    await ctx.channel.purge(limit=1)
+    embed = discord.Embed(description="Discord Member Kicked", color=discord.Color.red())
+    embed.add_field(name="Name:", value=f"```<@{author}>```", inline=true)
+    embed.add_field(name="User ID:", value=f"```{author}```", inline=true)
     embed.add_field(name="Reason:", value=f"```{reason}```", inline=false)
     #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
     embeded = await ctx.send(embed=embed)
@@ -660,10 +660,10 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 @commands.has_role('Owner')
 async def ban(ctx, member : discord.Member, *, reason=None):
     author = member.id
-    await ctx.channel.purge(limit=0)
-    embed = discord.Embed(description=f"Discord Member Banned", color=discord.Color.red())
-    embed.add_field(name="Name:", value=f"```{author}```", inline=true)
-    embed.add_field(name="User ID:", value=f"```{author.id}```", inline=true)
+    await ctx.channel.purge(limit=1)
+    embed = discord.Embed(description="Discord Member Banned", color=discord.Color.red())
+    embed.add_field(name="Name:", value=f"```<@{author}>```", inline=true)
+    embed.add_field(name="User ID:", value=f"```{author}```", inline=true)
     embed.add_field(name="Reason:", value=f"```{reason}```", inline=false)
     embeded = await ctx.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
