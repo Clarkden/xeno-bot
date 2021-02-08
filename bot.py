@@ -646,7 +646,10 @@ async def expiration(ctx, member: discord.Member = None):
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
-    embed = discord.Embed(title="Kick",description=f"\nName: <@{author}>\nReason: `{reason}` ", color=discord.Color.purple())
+    embed = discord.Embed(description=f"Discord Member Kicked", color=discord.Color.red())
+    embed.add_field(name="Name:", value=f"```{author}```", inline=true)
+    embed.add_field(name="User ID:", value=f"```{author.id}```", inline=true)
+    embed.add_field(name="Reason:", value=f"```{reason}```", inline=false)
     #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been kicked for {reason}", color=discord.Color.blue())
     embeded = await ctx.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
@@ -658,8 +661,10 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 async def ban(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=0)
-    embed = discord.Embed(title="Ban",description=f"\nName: <@{author}>\nReason: `{reason}` ", color=discord.Color.purple())
-    #embed = discord.Embed(description=f"<:nicecheckmark:742861250341502997> | <@{author}> has been banned for {reason}", color=discord.Color.blue())
+    embed = discord.Embed(description=f"Discord Member Banned", color=discord.Color.red())
+    embed.add_field(name="Name:", value=f"```{author}```", inline=true)
+    embed.add_field(name="User ID:", value=f"```{author.id}```", inline=true)
+    embed.add_field(name="Reason:", value=f"```{reason}```", inline=false)
     embeded = await ctx.send(embed=embed)
     await embeded.add_reaction(":nicecheckmark:742861250341502997")
     await member.send(embed=embed)
