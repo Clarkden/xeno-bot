@@ -151,48 +151,7 @@ async def on_message(message):
             if message.author.id == 208036172247728128 or message.author.id == 731231437478690856:
                 pass
             else:
-                await channel.purge(limit=1)
-                mydb = mysql.connector.connect(
-                    host=os.environ['HOST'],
-                    user=os.environ['USER'],
-                    passwd=os.environ['PASSWORD'],
-                    database=os.environ['DATABASE'],
-                )
-                mycursor = mydb.cursor()
-                mycursor.execute(f"INSERT INTO Warns VALUES ('NULL', '{message.author}', 'Sending links in a prohibited channel', 'Xeno Bot', '{message.author.id}')")
-                mydb.commit()
-                mycursor.close()
-                mydb.close()
-
-                time.sleep(5)
-                mydb = mysql.connector.connect(
-                host=os.environ['HOST'],
-                user=os.environ['USER'],
-                passwd=os.environ['PASSWORD'],
-                database=os.environ['DATABASE'],
-            )
-                mycursor = mydb.cursor()
-                mycursor.execute(f"SELECT * FROM Warns WHERE discord='{message.author}'")
-                mycursor.fetchall()
-                #member = client.get_user(author)
-
-                embed = discord.Embed(title="Warning",description=f"\nName: <@{message.author.id}>\nReason: `Sending links in a prohibited channel`\nWarns: `{mycursor.rowcount}`\nWarner: <@731231437478690856>", color=discord.Color.purple())
-                embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
-                await message.author.send(embed=embed)
-                embeded = await message.channel.send(embed=embed)
-                await embeded.add_reaction(":nicecheckmark:742861250341502997")
-
-                if mycursor.rowcount == 3:
-                    embed = discord.Embed(title="Ban",description=f"\nName: <@{message.author.id}>\nReason: `Sending links in a prohibited channel`\nReason for ban: `Warned 3 times` ", color=discord.Color.purple())
-                    embed.set_author(name="Xeno", icon_url="https://cdn.discordapp.com/attachments/700994155945394246/742867155451772938/Xeno2-nobackground.gif")
-                    embeded = await message.channel.send(embed=embed)
-                    await embeded.add_reaction(":nicecheckmark:742861250341502997")
-                    await message.author.send(embed=embed)
-                    await message.author.ban(reason='Sending links in a prohibited channel')
-                
-                mydb.commit()
-                mycursor.close()
-                mydb.close()
+                await channel.purge(limit=1)  
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
