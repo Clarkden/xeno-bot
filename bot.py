@@ -141,14 +141,6 @@ async def on_message(message):
         return
     channel = message.channel
     if message.channel.id == 724550485742452820 or message.channel.id == 750447222360899685 or message.channel.id == 694008360239890495 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413 or message.channel.id == 717535357540892675:
-        if 'auth failed' in message.content.lower():
-            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
-            auth_failed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await channel.send(embed=auth_failed)
-        if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
-            good_settings = discord.Embed(title='Needed Game Settings', description='1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1\n\n To find good settings use the commands\n.show_all_configs | .show_config (config name) | .new_config', color=discord.Color.purple())
-            good_settings.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await channel.send(embed=good_settings)
 
         if 'https://' in message.content.lower() or 'http://' in message.content.lower():
             if message.author.id == 208036172247728128 or message.author.id == 731231437478690856:
@@ -180,20 +172,6 @@ async def on_message(message):
            # hello = discord.Embed(title='License', description='After purchasing your license will be delivered to you by @Clarkden when he is available.\nIf you haven\'t already, redeem your key to the redeem key channel to gain access to the User Discord.', color=discord.Color.purple())
             #hello.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
            # await channel.send(embed=hello)
-    if message.channel.id == 724550485742452820 or message.channel.id  == 731781244580397066 or message.channel.id == 717535356903227413:
-        if 'auth failed' in message.content.lower():
-            auth_failed = discord.Embed(title='Auth Failed', description='**Some causes of auth failed:**\n1. Entering wrong key or opening premium instead of regular.\n2. Not running as administrator.\n3. Computer or Internet is blocking the connection. Try opening script with vpn.\n4. Hwid needs to be reset. Depending on your subcription use the command .reset or .premium_reset in #hwid_reset\nWhen running the script if it says auth failed with no return message it is most likely error 3', color=discord.Color.purple())
-            auth_failed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await channel.send(embed=auth_failed)
-        if 'good settings' in message.content.lower() or 'what settings' in message.content.lower() or 'what is timing' in message.content.lower() or 'what is gun timing' in message.content.lower() or 'how to use' in message.content.lower():
-            good_settings = discord.Embed(title='Needed Game Settings', description='1. 85 field fo view\n2. Bordlerless Windowed (Otherwise script will freeze)\n3. If you\'re using auto detect User Interface Scale = 1\n\n To find good settings use the commands\n.show_all_configs | .show_config (config name) | .new_config', color=discord.Color.purple())
-            good_settings.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-            await channel.send(embed=good_settings)
-    if message.channel.id  == 694008360239890495:
-        if 'how do i buy' in message.content.lower() or 'how do i purchase' in message.content.lower() or 'what is the price' in message.content.lower() or 'is this free' in message.content.lower() or 'is this undetected' in message.content.lower()  or 'help' in message.content.lower() or 'i want to buy' in message.content.lower() or 'how much' in message.content.lower() or 'are there any slots' in message.content.lower() or 'how many slots' in message.content.lower() or 'how much does this cost' in message.content.lower():
-                information_embed = discord.Embed(title='Information', description='**Xeno Information:**\n1. You can purchase on my website: https://xenoservices.xyz.\n2. Slots are limited and are not filled often and maybe not be filled again depending on the user base.\n3. Delivery is instant when purchasing on the website.\n4. This software has never been detected.\n5. For any extra need information please message the owner or moderator.', color=discord.Color.purple())
-                information_embed.set_author(name='Xeno', icon_url="https://media.discordapp.net/attachments/694061907291930664/748968125424205955/Xeno-discord-pfp.png?width=279&height=279")
-                await channel.send(embed=information_embed)
     if message.channel.id == 748596711747879062 or message.channel.id == 717535356903227413:
         if message.content.startswith('1') or message.content.startswith('2') or message.content.startswith('3') or message.content.startswith('4') or message.content.startswith('5') or message.content.startswith('6') or message.content.startswith('7') or message.content.startswith('8') or message.content.startswith('9'):
             user = message.author
