@@ -157,7 +157,7 @@ async def on_message(message):
                 embed.add_field(name="Channel:", value=f"```{message.channel}```", inline=False)
                 embed.add_field(name="Link:", value=f"```{message}```", inline=False)
                 #embed.set_author(name="Xeno")
-                logs = get_channel(703355033374162944)
+                logs = client.get_channel(703355033374162944)
                 await logs.send(embed=embed)  
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
