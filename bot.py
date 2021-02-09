@@ -37,7 +37,10 @@ def convert(seconds):
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Game(name='Xeno on top'))
+    logs = client.get_channel(703355033374162944)
+    await client.change_presence(activity=discord.Game(name='Please keep your arms and legs inside the ride at all times'))
+    embed = discord.Embed(description='Running', color=discord.Color.green())
+    await logs.send(embed=embed)
 
     
 @client.event
@@ -53,7 +56,7 @@ async def on_member_join(member):
             user = client.get_user(member.id)
             await user.send(embed=hello)
             await member.ban(reason=reason)
-            logs = client.get_channel(694061907291930664)
+            logs = client.get_channel(703355033374162944)
             await logs.send(f'{user} automatically banned. New account.')
         else:
             mydb = mysql.connector.connect(
@@ -73,7 +76,7 @@ async def on_member_join(member):
                 user = client.get_user(member.id)
                 await user.send(embed=hello)
                 await member.ban(reason=reason)
-                logs = client.get_channel(694061907291930664)
+                logs = client.get_channel(703355033374162944)
                 await logs.send(f'{user} automatically banned. Blacklisted account.')
             else:
                 hello = discord.Embed(title='Welcome', description='Hi! Welcome to Xeno! If you have any questions please feel free to message Clarkden or Riley. Clarkden is the developer and owner and Riley is a Helper/Moderator.', color=discord.Color.purple())
