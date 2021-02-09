@@ -157,7 +157,8 @@ async def on_message(message):
                 embed.add_field(name="Channel:", value=f"```{message.channel}```", inline=False)
                 embed.add_field(name="Link:", value=f"```{message}```", inline=False)
                 #embed.set_author(name="Xeno")
-                await ctx.channel.send(embed=embed)  
+                logs = get_channel(703355033374162944)
+                await logs.send(embed=embed)  
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
@@ -1293,15 +1294,19 @@ async def mute(ctx, member: discord.Member):
     role2 = discord.utils.get(ctx.guild.roles, name = "Muted")
     await member.add_roles(role2)
 
-    embed = discord.Embed(description=f"<@{member.id}> `has been muted`")
+    embed = discord.Embed(description=f"<@{member.id}> has been muted")
     await ctx.channel.send(embed=embed)
 
 @client.command()
 @commands.is_owner()
 async def unmute(ctx, member: discord.Member):
-    role = discord.utils.get(ctx.guild.roles, name = "User")
-    await member.add_roles(role)
-    embed = discord.Embed(description=f"<@{member.id}> `has been unmuted`")
+    role = discord.utils.get(ctx.guild.roles, name = "Muted")
+    await member.remove_roles(role)
+
+    role2 = discord.utils.get(ctx.guild.roles, name = "Intern")
+    await member.add_roles(role2)
+
+    embed = discord.Embed(description=f"<@{member.id}> has been unmuted")
     await ctx.channel.send(embed=embed)
 
 @client.command()
