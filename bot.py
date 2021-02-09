@@ -153,9 +153,9 @@ async def on_message(message):
             else:
                 await channel.purge(limit=1)
                 embed = discord.Embed(description=f"Link Sent", color=discord.Color.red())
-                embed.add_field(name="User:", value=f"```{message.author.id}```", inline=True)
-                embed.add_field(name="Channel:", value=f"```{message.channel}```", inline=False)
-                embed.add_field(name="Link:", value=f"```{message}```", inline=False)
+                embed.add_field(name="User:", value=f"```{message.author}```", inline=True)
+                embed.add_field(name="Channel:", value=f"```{message.channel}```", inline=True)
+                embed.add_field(name="Link:", value=f"```{message.content}```", inline=False)
                 #embed.set_author(name="Xeno")
                 logs = client.get_channel(703355033374162944)
                 await logs.send(embed=embed)  
