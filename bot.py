@@ -151,7 +151,13 @@ async def on_message(message):
             if message.author.id == 208036172247728128 or message.author.id == 731231437478690856:
                 pass
             else:
-                await channel.purge(limit=1)  
+                await channel.purge(limit=1)
+                embed = discord.Embed(description=f"Link Sent", color=discord.Color.red())
+                embed.add_field(name="User:", value=f"```{message.author.id}```", inline=True)
+                embed.add_field(name="Channel:", value=f"```{message.channel}```", inline=False)
+                embed.add_field(name="Link:", value=f"```{message}```", inline=False)
+                #embed.set_author(name="Xeno")
+                await ctx.channel.send(embed=embed)  
     if 'hey don\'t say that' in message.content.lower() or 'be nice' in message.content.lower() or 'clarkden is daddy' in message.content.lower():
         await message.add_reaction(":nicecheckmark:742861250341502997")
 
@@ -601,7 +607,7 @@ async def expiration(ctx, member: discord.Member = None):
         await ctx.send(embed=embed)
 
 @client.command()
-@commands.has_role('Owner')
+@commands.is_owner()
 async def kick(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=1)
@@ -619,8 +625,8 @@ async def kick(ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
 
 @client.command()
-@commands.has_role('Owner')
-async def ban(ctx, member:discord.Member, *, reason=None):
+@commands.is_owner()
+async def ban(ctx, member : discord.Member, *, reason=None):
     author = member.id
     await ctx.channel.purge(limit=1)
     embed = discord.Embed(description="Discord Member Banned", color=discord.Color.red())
